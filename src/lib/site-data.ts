@@ -52,7 +52,7 @@ export const heroImage = big[0]!;
 export const site = {
   name: "Норд Хаус",
   latinName: "NORDHAUS",
-  url: "https://s-h.ru",
+  url: "https://nordhaus-swart.vercel.app",
   phone: "+7 (950) 246-54-77",
   phoneHref: "tel:+79502465477",
   email: "info@s-h.ru",

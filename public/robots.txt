@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://s-h.ru/sitemap.xml
+Sitemap: https://nordhaus-swart.vercel.app/sitemap.xml
