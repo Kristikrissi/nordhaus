@@ -1,0 +1,8 @@
+<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M4 22 L20 6 L36 22 L30 22 L20 12 L10 22 Z" fill="#E57E44"/>
+  <path d="M8 24 H14 V34 H8 Z" fill="#E57E44"/>
+  <path d="M26 24 H32 V34 H26 Z" fill="#E57E44"/>
+  <path d="M8 36 H32 V40 H8 Z" fill="#E57E44"/>
+  <text x="44" y="34" font-family="Montserrat, Arial, sans-serif" font-weight="700" font-size="22" letter-spacing="2" fill="#3a3f3a">NORDHAUS</text>
+  <text x="45" y="50" font-family="Montserrat, Arial, sans-serif" font-weight="500" font-size="9" letter-spacing="3" fill="#3a3f3a">ДОМА ИЗ ДЕРЕВА</text>
+</svg>
