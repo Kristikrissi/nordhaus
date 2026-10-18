@@ -99,6 +99,78 @@
   .section-title {
     @apply text-2xl font-bold uppercase leading-tight tracking-tight text-foreground sm:text-3xl lg:text-4xl;
   }
+
+  .site-shell {
+    width: min(1060px, calc(100% - 40px));
+    margin-inline: auto;
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+  }
+
+  .section-label::before {
+    content: "";
+    height: 5px;
+    width: 5px;
+    background: var(--primary);
+    border-radius: 50%;
+  }
+
+  .project-link {
+    display: block;
+  }
+
+  .project-photo {
+    aspect-ratio: 1.48;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.6s;
+  }
+
+  .project-link:hover .project-photo {
+    transform: scale(1.035);
+  }
+
+  .project-meta {
+    font-size: 12px;
+    color: var(--muted-foreground);
+  }
+
+  .detail-cover {
+    height: 520px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .content-copy {
+    line-height: 1.85;
+    color: var(--muted-foreground);
+    font-size: 14px;
+  }
+
+  .content-copy p + p {
+    margin-top: 18px;
+  }
+
+  @media (max-width: 760px) {
+    .site-shell {
+      width: calc(100% - 40px);
+    }
+
+    .detail-cover {
+      height: 290px;
+    }
+  }
 }
 
 @keyframes marquee {

@@ -14,12 +14,14 @@ function Hero() {
       <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent" />
       <div className="container-wide relative z-10 flex h-full flex-col justify-end pb-14">
         <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
+          <div className="hero-eyebrow">NORDHAUS · Производство в Костромской области
           <h1 className="max-w-4xl text-2xl font-bold uppercase leading-tight tracking-wide text-background sm:text-4xl lg:text-[44px]">
-            Строим дома
+            Строим дома и бани
             <br />
-            из дерева
+            из бруса и бревна
           </h1>
           <Link to="/projects" className="btn-primary">Каталог проектов</Link>
+          </div>
         </div>
       </div>
     </section>
@@ -70,12 +72,19 @@ function Engineering() {
   return (
     <section className="container-wide pt-24 text-center">
       <h2 className={`text-xl sm:text-[26px] leading-snug ${thinTitle}`}>
-        Индивидуальное проектирование:
-        <br />
-        инженерия вашего комфорта
+        Проектирование деревянных домов
       </h2>
+      <p className="mx-auto mt-4 max-w-[640px] text-[15px] font-semibold leading-relaxed">
+        Продумано для жизни. Создано на поколения.
+      </p>
       <p className="mx-auto mt-8 max-w-[640px] text-[15px] leading-relaxed text-muted-foreground">
-        Архитектурный проект загородной резиденции для нас — это целостная техническая модель дома, где архитектура, инженерные системы и образ жизни семьи связаны в одну систему. Мы учитываем участок и концепцию, заранее фиксируем этапы, сроки и бюджет, а все работы — от идеи до готового объекта — ведёт одна команда.
+        Каждый деревянный дом NORDHAUS начинается с идеи — создать пространство, в котором будет тепло, уютно и комфортно всей семье. Мы объединяем красоту натурального дерева, продуманную архитектуру и современные инженерные решения, чтобы дом отвечал вашим потребностям и сохранял свою ценность на долгие годы.
+      </p>
+      <p className="mx-auto mt-5 max-w-[640px] text-[15px] leading-relaxed text-muted-foreground">
+        Мы внимательно относимся к каждой детали: учитываем особенности участка, ваши пожелания и образ жизни семьи. Продумываем планировку, конструктивные решения и инженерные системы, чтобы всё было гармонично и работало как единое целое.
+      </p>
+      <p className="mx-auto mt-8 max-w-[640px] text-[15px] font-semibold leading-relaxed">
+        NORDHAUS — создаём деревянные дома, в которых хочется жить, расти и собираться всей семьёй.
       </p>
     </section>
   );
@@ -89,12 +98,15 @@ function About() {
       <div className="grid gap-10 rounded-[24px] bg-card p-8 shadow-sm sm:p-10 lg:grid-cols-2">
         <div>
           <p className="text-[12px] font-semibold uppercase tracking-wider text-foreground/70">О компании</p>
-          <h2 className={`mt-6 text-3xl leading-tight sm:text-[36px] ${thinTitle}`}>Создаём красивое и комфортное пространство</h2>
+          <h2 className={`mt-6 text-3xl leading-tight sm:text-[36px] ${thinTitle}`}>Создаём дома, в которых хочется жить</h2>
           <p className="mt-10 text-[15px] leading-relaxed text-muted-foreground">
-            Создаём премиальные деревянные дома по индивидуальным проектам из СЛТ (CLT) панелей, клееного бруса и фахверковых конструкций.
+            Мы строим красивые и надёжные деревянные дома из бруса и бревна, объединяя природную красоту дерева, продуманную архитектуру и современный комфорт.
           </p>
           <p className="mt-5 text-[15px] leading-relaxed text-muted-foreground">
-            С 2003 года строим усадьбы, частные резиденции, дома, бани и SPA-комплексы, гаражи и хозпостройки, а также отели, рестораны и другие коммерческие объекты любого масштаба.
+            С 2014 года мы воплощаем в жизнь проекты, в которых отражаются характер, мечты и образ жизни их владельцев. Создаём загородные дома, бани, SPA-комплексы и другие постройки, уделяя внимание каждой детали — от архитектурного замысла до его воплощения.
+          </p>
+          <p className="mt-5 text-[15px] font-semibold leading-relaxed">
+            NORDHAUS — дома из дерева, созданные с душой, вниманием к деталям и уважением к традициям деревянного зодчества.
           </p>
         </div>
         <div>
@@ -139,7 +151,7 @@ function Calculator() {
       <div className="mx-auto max-w-[1090px] rounded-[16px] bg-foreground/85 p-8 text-background sm:p-10">
         <div className="flex flex-col justify-between gap-6 sm:flex-row">
           <div>
-            <h2 className="text-2xl font-light uppercase tracking-[0.04em] sm:text-[34px] leading-tight">Рассчитайте стоимость вашей мечты</h2>
+            <h2 className="text-2xl font-light uppercase tracking-[0.04em] sm:text-[34px] leading-tight">Рассчитайте стоимость дома вашей мечты</h2>
             <p className="mt-3 text-sm">Мы перезвоним для уточнения деталей и ваших указаний к предстоящему обсуждению.</p>
           </div>
           <div className="flex gap-5">
@@ -161,9 +173,9 @@ function Approach() {
     <section className="container-wide pt-20">
       <div className="grid gap-10 rounded-[24px] bg-card p-8 shadow-sm sm:p-10 lg:grid-cols-2">
         <div className="flex flex-col">
-          <h2 className={`text-3xl leading-tight sm:text-[36px] ${thinTitle}`}>Профессиональный подход</h2>
+          <h2 className={`text-3xl leading-tight sm:text-[36px] ${thinTitle}`}>Ваш дом — наша ответственность</h2>
           <ul className="mt-10 list-disc space-y-2 pl-6 font-serif text-lg italic text-foreground/70">
-            {["Полный цикл строительства", "Гарантия на все виды работ", "Двойной технадзор", "Поэтапная система оплаты"].map((t) => <li key={t}>{t}</li>)}
+            {["Индивидуальный подход к каждому проекту", "Контроль качества на каждом этапе", "Проверенные материалы и технологии", "Соблюдение сроков и бюджета", "Гарантия на все виды работ"].map((t) => <li key={t}>{t}</li>)}
           </ul>
           <Link to="/projects" className="btn-primary mt-auto self-start">Проекты</Link>
         </div>
@@ -180,11 +192,13 @@ function Quote() {
     <section className="container-wide pt-20">
       <div className="mx-auto grid max-w-[1090px] gap-8 rounded-[8px] bg-foreground/85 p-8 text-background sm:p-10 md:grid-cols-[1fr_276px]">
         <div className="font-serif text-[15px] italic leading-relaxed">
-          <p>Деревянная архитектура как наследие. Строим для поколений.</p>
-          <p className="mt-1">В этих словах — вся философия нашей работы. Мы создаём пространства, которые становятся семейной историей.</p>
-          <p className="mt-1">Поэтому каждый дом Норд Хаус (NORDHAUS) — это больше чем дом. Это обещание, воплощённое в дереве. Обещание надёжности, уюта и непроходящей ценности, которая будет только возрастать с годами.</p>
+          <p>Деревянная архитектура, которая становится наследием. Дома, созданные для поколений.</p>
+          <p className="mt-1">Мы верим, что настоящий дом — это не просто стены и крыша. Это место, где рождаются семейные традиции, хранятся самые тёплые воспоминания и создаётся история, которую однажды продолжат наши дети.</p>
+          <p className="mt-1">Именно эту философию мы вкладываем в каждый дом NORDHAUS. С любовью к дереву, уважением к природе и вниманием к каждой детали мы создаём пространства, в которых хочется жить, расти, возвращаться и оставаться.</p>
+          <p className="mt-1">NORDHAUS — это больше, чем дом. Это тепло, которое передаётся из поколения в поколение. Ценность, которая не теряет своего смысла с годами, а становится только глубже.</p>
         </div>
-        <img src="/images/home/a1.jpg" alt="Наш дом" className="h-full w-full rounded-lg object-cover" loading="lazy" />
+        <img src="/images/12.png" alt="NORDHAUS" className="mt-6 w-full rounded-lg object-cover" loading="lazy" />
+        <img src="/images/sergey.jpg" alt="Сергей" className="h-full w-full rounded-lg object-cover" loading="lazy" />
       </div>
     </section>
   );
@@ -246,10 +260,10 @@ export const Route = createFileRoute("/")({
   staticData: { sitemap: true },
   head: () => ({
     meta: [
-      { title: "Строительство домов из клееного бруса и СЛТ (CLT) панелей по индивидуальным проектам в Москве и области | Компания Норд Хаус" },
-      { name: "description", content: "Строим дома премиум-класса из клееного бруса и СЛТ (CLT) панелей по индивидуальным проектам в Москве и области. Влюбляем в эстетику загородной жизни с 2003 года." },
-      { property: "og:title", content: "Строительство домов из клееного бруса и СЛТ (CLT) панелей | Норд Хаус" },
-      { property: "og:description", content: "Дома премиум-класса из клееного бруса, СЛТ (CLT) панелей и фахверк. Индивидуальное проектирование, полный цикл строительства." },
+      { title: "Строительство домов и бань из бруса и бревна по индивидуальным проектам в Москве и области | Компания Норд Хаус" },
+      { name: "description", content: "Строим дома и бани из бруса и бревна по индивидуальным проектам в Москве и области. Влюбляем в эстетику загородной жизни с 2014 года." },
+      { property: "og:title", content: "Строительство домов и бань из бруса и бревна | Норд Хаус" },
+      { property: "og:description", content: "Дома и бани из бруса и бревна. Индивидуальное проектирование, полный цикл строительства." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

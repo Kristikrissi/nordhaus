@@ -9,6 +9,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
+        pill: "rounded-full bg-primary text-primary-foreground hover:bg-primary/90 uppercase text-[10px] font-semibold shadow-none px-7 h-11",
+        circle: "rounded-full border border-border bg-background text-foreground hover:bg-secondary shadow-none",
         default: "bg-primary text-primary-foreground shadow hover:bg-primary/90",
         destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         outline:

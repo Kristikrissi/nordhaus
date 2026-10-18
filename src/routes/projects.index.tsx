@@ -1,6 +1,12 @@
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
-import { categories, projects, site } from "@/lib/site-data";
+import { ArrowUpRight } from "lucide-react";
+import { categories, projects, site, type Project } from "@/lib/site-data";
+import { Button } from "@/components/ui/button";
 import { CallbackForm } from "@/components/callback-form";
+
+function categoryTitleOf(p: Project) {
+  return categories.find((c) => p.categories.includes(c.slug))?.title;
+}
 
 function ProjectsPage() {
   const active = Route.useSearch().category ?? null;
@@ -8,81 +14,58 @@ function ProjectsPage() {
   const setActive = (slug: string | null) =>
     navigate({ search: slug ? { category: slug } : {}, replace: true, resetScroll: false });
   const visible = active ? projects.filter((p) => p.categories.includes(active)) : projects;
-  const category = categories.find((c) => c.slug === active);
 
   return (
     <main className="pt-28">
-      <section className="container-wide">
-        <p className="eyebrow">Каталог</p>
-        <h1 className="section-title mt-3">Проекты</h1>
-        <div className="mt-8 flex flex-wrap gap-2">
-          <button
-            type="button"
-            onClick={() => setActive(null)}
-            className={`rounded-full px-5 py-2.5 text-[13px] font-semibold transition-colors ${
-              active === null ? "bg-primary text-primary-foreground" : "bg-secondary text-foreground hover:bg-border"
-            }`}
-          >
-            Дома для жизни
-          </button>
+      <div className="site-shell pt-6 pb-12">
+        <p className="section-label">Дома и бани из бруса и бревна</p>
+        <h1 className="section-title mt-4">Каталог проектов</h1>
+      </div>
+
+      <div className="site-shell pb-20">
+        <div className="mb-10 flex flex-wrap gap-3">
+          <Button variant={!active ? "pill" : "outline"} onClick={() => setActive(null)}>
+            Все проекты
+          </Button>
           {categories.map((c) => (
-            <button
-              key={c.slug}
-              type="button"
-              onClick={() => setActive(c.slug)}
-              className={`rounded-full px-5 py-2.5 text-[13px] font-semibold transition-colors ${
-                active === c.slug ? "bg-primary text-primary-foreground" : "bg-secondary text-foreground hover:bg-border"
-              }`}
-            >
+            <Button key={c.slug} variant={active === c.slug ? "pill" : "outline"} onClick={() => setActive(c.slug)}>
               {c.title}
-            </button>
+            </Button>
           ))}
         </div>
-        {category && (
-          <div className="mt-10 overflow-hidden rounded-2xl">
-            <img src={`/images/banner-projects.jpg`} alt={category.title} className="h-56 w-full object-cover sm:h-72" />
-          </div>
-        )}
-        {!category && (
-          <div className="mt-10 overflow-hidden rounded-2xl">
-            <img src="/images/banner-projects.jpg" alt="Проекты домов" className="h-56 w-full object-cover sm:h-72" />
-          </div>
-        )}
-      </section>
 
-      <section className="container-wide pt-12">
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {visible.map((p) => (
-            <Link key={p.slug} to="/projects/$slug" params={{ slug: p.slug }} className="group overflow-hidden rounded-xl border border-border bg-card">
-              <div className="relative aspect-[4/3] overflow-hidden">
-                <img src={p.images[0]} alt={p.name} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
-                {p.status && (
-                  <span className="absolute left-3 top-3 rounded-full bg-background/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide">
-                    {p.status}
-                  </span>
-                )}
-                {p.tags?.map((t) => (
-                  <span key={t} className="absolute right-3 top-3 rounded-full bg-accent px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-accent-foreground">
-                    {t}
-                  </span>
-                ))}
+            <Link key={p.slug} to="/projects/$slug" params={{ slug: p.slug }} className="project-link">
+              <div className="overflow-hidden rounded-lg">
+                <img src={p.images[0]} alt={p.name} loading="lazy" className="project-photo" />
               </div>
-              <div className="p-5">
-                <p className="text-lg font-bold">{p.name}</p>
-                <p className="mt-2 text-sm text-muted-foreground">Площадь, м²: {p.area}{p.floors ? ` · Этажей: ${p.floors}` : ""}</p>
+              <div className="mt-5 flex items-start justify-between gap-3">
+                <div>
+                  <h2 className="text-base font-semibold">{p.name}</h2>
+                  <p className="project-meta mt-2">
+                    {categoryTitleOf(p)}
+                    {p.area ? ` · Площадь ${p.area} м²` : ""}
+                  </p>
+                </div>
+                <ArrowUpRight className="size-5 shrink-0 text-primary" />
               </div>
             </Link>
           ))}
         </div>
         {visible.length === 0 && (
-          <p className="py-16 text-center text-muted-foreground">В этой подборке пока нет опубликованных проектов — посмотрите общий каталог.</p>
+          <p className="py-16 text-center text-muted-foreground">
+            В этой категории нет доступных проектов — посмотрите общий каталог.
+          </p>
         )}
-      </section>
+      </div>
 
-      <section className="container-wide pt-20">
+      <section className="site-shell pb-20">
         <div className="rounded-2xl bg-secondary p-8 sm:p-12">
           <h2 className="section-title">Рассчитайте стоимость вашей мечты</h2>
-          <p className="mt-4 text-sm text-muted-foreground">Мы перезвоним для уточнения деталей и ваших указаний к предстоящему обсуждению.</p>
+          <p className="mt-4 text-sm text-muted-foreground">
+            Мы перезвоним для уточнения деталей и ваших указаний к предстоящему обсуждению.
+          </p>
           <div className="mt-8">
             <CallbackForm />
           </div>
@@ -98,10 +81,10 @@ export const Route = createFileRoute("/projects/")({
     typeof s['category'] === "string" ? { category: s['category'] } : {},
   head: () => ({
     meta: [
-      { title: "Проекты домов из клееного бруса и CLT панелей | Компания Норд Хаус" },
-      { name: "description", content: "Каталог проектов: дома из клееного бруса, СЛТ (CLT) панелей, фахверк, усадьбы и комплексы, бани и СПА." },
+      { title: "Проекты домов и бань из бруса и бревна | Компания Норд Хаус" },
+      { name: "description", content: "Каталог проектов: дома из бруса, дома из бревна, бани из бруса и бани из бревна." },
       { property: "og:title", content: "Проекты | Компания Норд Хаус" },
-      { property: "og:description", content: "Каталог проектов домов из клееного бруса и СЛТ (CLT) панелей в Москве и области." },
+      { property: "og:description", content: "Каталог проектов домов и бань из бруса и бревна в Москве и области." },
       { property: "og:type", content: "website" },
     ],
     links: [{ rel: "canonical", href: `${site.url}/projects` }],

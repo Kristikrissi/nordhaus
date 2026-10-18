@@ -24,7 +24,7 @@ export function SiteHeader() {
         <div className="container-wide pt-3">
           <div className="flex items-center gap-4 rounded-2xl bg-background/95 px-4 py-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur sm:px-6">
             <Link to="/" className="shrink-0">
-              <img src={site.logoDark} alt="NORDHAUS — дома из дерева" className="h-10 w-auto sm:h-11" />
+              <img src={site.logoDark} alt="NORDHAUS — дома и бани из дерева" className="h-10 w-auto sm:h-11" />
             </Link>
 
             <nav className="ml-6 hidden items-center gap-6 lg:flex">

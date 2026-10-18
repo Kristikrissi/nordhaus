@@ -1,55 +1,76 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
-import { projects, site } from "@/lib/site-data";
+import { ArrowLeft, Phone } from "lucide-react";
+import { categories, projects, site, type Project } from "@/lib/site-data";
+import { Button } from "@/components/ui/button";
 import { CallbackForm } from "@/components/callback-form";
+import { ProjectsGallery } from "@/components/projects-gallery";
+
+function categoryTitleOf(p: Project) {
+  return categories.find((c) => p.categories.includes(c.slug))?.title;
+}
+
+function pluralFloors(n: number | undefined) {
+  if (!n) return "";
+  if (n % 10 === 1 && n % 100 !== 11) return `${n} этаж`;
+  if (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) return `${n} этажа`;
+  return `${n} этажей`;
+}
 
 function ProjectDetail() {
   const project = Route.useLoaderData();
+  const category = categoryTitleOf(project);
+
+  const paragraphs = [
+    `Проект «${project.name}»${category ? ` — ${category.toLowerCase()}` : ""} общей площадью ${project.area} м²${project.floors ? `, ${pluralFloors(project.floors)}` : ""}.`,
+    project.status
+      ? `Статус: ${project.status}. Строительством занимается компания «Норд Хаус» — дома и бани из бруса и бревна по индивидуальным проектам в Москве и области.`
+      : `Строительством занимается компания «Норд Хаус» — дома и бани из бруса и бревна по индивидуальным проектам в Москве и области.`,
+  ];
 
   return (
     <main className="pt-28">
-      <section className="container-wide">
-        <Link to="/projects" className="text-sm text-muted-foreground transition-colors hover:text-primary">
-          ← Все проекты
-        </Link>
-        <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
+      <div className="site-shell pb-20">
+        <Button variant="link" className="mb-7 p-0" asChild>
+          <Link to="/projects">
+            <ArrowLeft />
+            Каталог проектов
+          </Link>
+        </Button>
+
+        {category && <div className="section-label mb-5">{category}</div>}
+        <h1 className="section-title mb-8">{project.name}</h1>
+
+        <img src={project.images[0]} alt={project.name} className="detail-cover" />
+
+        <div className="mb-10 flex flex-col justify-between gap-6 border-b border-border py-8 sm:flex-row">
           <div>
-            <h1 className="section-title">{project.name}</h1>
-            <div className="mt-4 flex flex-wrap gap-6 text-sm text-muted-foreground">
-              <span>
-                Площадь, м²: <strong className="text-foreground">{project.area}</strong>
-              </span>
-              {project.floors && (
-                <span>
-                  Этажей: <strong className="text-foreground">{project.floors}</strong>
-                </span>
-              )}
-              {project.status && (
-                <span>
-                  Статус: <strong className="text-foreground">{project.status}</strong>
-                </span>
-              )}
-            </div>
+            <p className="text-sm text-muted-foreground">Размеры дома</p>
+            <p className="mt-2 text-2xl">
+              {project.area} м²{project.floors ? ` · ${pluralFloors(project.floors)}` : ""}
+            </p>
+            {project.status && <p className="project-meta mt-2">Статус: {project.status}</p>}
           </div>
-          <a href={site.phoneHref} className="btn-primary">
-            Обсудить проект
-          </a>
+          <Button variant="pill" asChild>
+            <a href={site.phoneHref}>
+              <Phone />
+              Обсудить строительство
+            </a>
+          </Button>
         </div>
-      </section>
 
-      <section className="container-wide pt-10">
-        <div className="overflow-hidden rounded-2xl">
-          <img src={project.images[0]} alt={project.name} className="max-h-[640px] w-full object-cover" />
+        <div className="mb-10 max-w-3xl">
+          <div className="content-copy">
+            {paragraphs.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
+          </div>
         </div>
-        <div className="mt-3 grid grid-cols-2 gap-3 lg:grid-cols-4">
-          {project.images.slice(1, 5).map((img) => (
-            <div key={img} className="overflow-hidden rounded-xl">
-              <img src={img} alt={project.name} className="aspect-[4/3] w-full object-cover" loading="lazy" />
-            </div>
-          ))}
-        </div>
-      </section>
 
-      <section className="container-wide pt-16">
+        <h2 className="mb-6 text-2xl font-semibold">Фотографии и планировки</h2>
+        <ProjectsGallery images={project.images.slice(1)} title={project.name} />
+      </div>
+
+      <section className="site-shell pb-20">
         <div className="rounded-2xl bg-secondary p-8 sm:p-12">
           <h2 className="section-title">Хотите такой же дом?</h2>
           <p className="mt-4 text-sm text-muted-foreground">
@@ -78,7 +99,7 @@ export const Route = createFileRoute("/projects/$slug")({
     return {
       meta: [
         { title: `${loaderData.name} — проект дома | Компания Норд Хаус` },
-        { name: "description", content: `Проект «${loaderData.name}»: площадь ${loaderData.area} м²${loaderData.floors ? `, ${loaderData.floors} этажа` : ""}. Дома из клееного бруса и СЛТ (CLT) панелей от Норд Хаус.` },
+        { name: "description", content: `Проект «${loaderData.name}»: площадь ${loaderData.area} м²${loaderData.floors ? `, ${loaderData.floors} этажа` : ""}. Дома и бани из бруса и бревна от Норд Хаус.` },
         { property: "og:title", content: `${loaderData.name} | Компания Норд Хаус` },
         { property: "og:description", content: `Площадь ${loaderData.area} м²${loaderData.floors ? `, этажей: ${loaderData.floors}` : ""}.` },
         { property: "og:type", content: "article" },

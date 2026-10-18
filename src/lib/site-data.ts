@@ -55,7 +55,7 @@ export const site = {
   url: "https://nordhaus-swart.vercel.app",
   phone: "+7 (950) 246-54-77",
   phoneHref: "tel:+79502465477",
-  email: "info@s-h.ru",
+  email: "n99511285@gmail.com",
   logoDark: "/images/__images/logo_nordhaus.svg",
 };
 
@@ -74,13 +74,10 @@ export type Category = {
 };
 
 export const categories: Category[] = [
-  { slug: "doma-iz-kleenogo-brusa", title: "Дома из клееного бруса", images: big.slice(0, 5) },
-  { slug: "doma-iz-clt-paneley", title: "Дома из СЛТ (CLT) панелей", images: big.slice(5, 10) },
-  { slug: "doma-fakhverk", title: "Дома в стиле фахверк", images: big.slice(10, 15) },
-  { slug: "usadby-i-kompleksy", title: "Усадьбы и комплексы из клееного бруса", images: [big[0]!, big[11]!, big[1]!, big[19]!, big[2]!] },
-  { slug: "bani-spa-kompleksy", title: "Бани, СПА комплексы из клееного бруса", images: [big[13]!, big[5]!, big[20]!, big[7]!, big[14]!] },
-  { slug: "odnoetazhnyye", title: "Одноэтажные дома из клееного бруса", images: [big[18]!, big[8]!, big[21]!, big[3]!, big[12]!] },
-  { slug: "dvukhetazhnyye", title: "Двухэтажные дома из клееного бруса", images: [big[22]!, big[9]!, big[23]!, big[4]!, big[15]!] },
+  { slug: "doma-iz-brusa", title: "Дома из бруса", images: big.slice(0, 5) },
+  { slug: "doma-iz-brevna", title: "Дома из бревна", images: big.slice(5, 10) },
+  { slug: "bani-iz-brusa", title: "Бани из бруса", images: big.slice(10, 15) },
+  { slug: "bani-iz-brevna", title: "Бани из бревна", images: big.slice(15, 20) },
 ];
 
 export type Project = {
@@ -95,21 +92,21 @@ export type Project = {
 };
 
 export const projects: Project[] = [
-  { slug: "u-les", name: "У-ЛЕС", area: 1749, floors: 2, status: "Построен", categories: ["doma-iz-kleenogo-brusa", "usadby-i-kompleksy", "dvukhetazhnyye"], images: big.slice(0, 5) },
-  { slug: "razliv", name: "Разлив", area: 471, floors: 1, status: "Строится", tags: ["Фахверк"], categories: ["doma-iz-kleenogo-brusa", "doma-fakhverk", "odnoetazhnyye"], images: big.slice(5, 10) },
-  { slug: "lyeshina-nora", name: "Лёшина нора", area: 1230, floors: 2, categories: ["doma-iz-kleenogo-brusa", "dvukhetazhnyye"], images: big.slice(10, 15) },
-  { slug: "nazarevskoe", name: "Назарьевское", area: 2175, floors: 3, categories: ["doma-iz-kleenogo-brusa", "usadby-i-kompleksy"], images: big.slice(15, 20) },
-  { slug: "villa-ad-aquas", name: "Вилла Аква", area: 1447, floors: 2, categories: ["doma-iz-kleenogo-brusa", "doma-iz-clt-paneley", "dvukhetazhnyye"], images: [big[20]!, big[21]!, big[22]!, big[23]!, big[24]!] },
-  { slug: "proekt-djey", name: "Проект Джей", area: 1063, floors: 2, categories: ["doma-iz-kleenogo-brusa", "dvukhetazhnyye"], images: [big[11]!, big[12]!, big[13]!, big[14]!, big[15]!] },
-  { slug: "villa-olga", name: "Вилла Ольга", area: 583, categories: ["doma-iz-kleenogo-brusa", "doma-fakhverk"], images: [big[16]!, big[17]!, big[18]!, big[19]!, big[20]!] },
-  { slug: "yauza", name: "Яуза", area: 341, floors: 1, categories: ["doma-iz-kleenogo-brusa", "bani-spa-kompleksy", "odnoetazhnyye"], images: [big[21]!, big[22]!, big[23]!, big[24]!, big[0]!] },
-  { slug: "bolshoe-sareevo", name: "Большое Сареево", area: 400, categories: ["doma-iz-kleenogo-brusa", "doma-fakhverk", "odnoetazhnyye"], images: [big[2]!, big[3]!, big[4]!, big[5]!, big[6]!] },
-  { slug: "volga-p", name: "Волга П", area: 520, floors: 2, categories: ["doma-iz-kleenogo-brusa", "doma-iz-clt-paneley", "dvukhetazhnyye"], images: [big[7]!, big[8]!, big[9]!, big[10]!, big[11]!] },
-  { slug: "uspenskoe", name: "Успенское", area: 868, floors: 2, status: "Построен", categories: ["doma-iz-kleenogo-brusa", "usadby-i-kompleksy", "dvukhetazhnyye"], images: [big[12]!, big[13]!, big[14]!, big[15]!, big[16]!] },
-  { slug: "dom-puhovyh", name: "Дом Пуховых", area: 950, floors: 2, status: "Строится", categories: ["doma-iz-kleenogo-brusa", "dvukhetazhnyye"], images: [big[17]!, big[18]!, big[19]!, big[20]!, big[21]!] },
-  { slug: "nepovtorimyy", name: "Неповторимый", area: 625, floors: 2, categories: ["doma-iz-kleenogo-brusa", "doma-iz-clt-paneley", "dvukhetazhnyye"], images: [big[22]!, big[23]!, big[24]!, big[0]!, big[1]!] },
-  { slug: "belaya-kolp", name: "Белая Колпь", area: 130, floors: 1, categories: ["doma-iz-kleenogo-brusa", "bani-spa-kompleksy", "odnoetazhnyye"], images: [big[3]!, big[4]!, big[5]!, big[6]!, big[7]!] },
-  { slug: "usadba-anastasiya", name: "Усадьба Анастасия", area: 428, floors: 2, status: "Построен", categories: ["doma-iz-kleenogo-brusa", "usadby-i-kompleksy", "dvukhetazhnyye"], images: [big[8]!, big[9]!, big[10]!, big[11]!, big[12]!] },
+  { slug: "u-les", name: "У-ЛЕС", area: 1749, floors: 2, status: "Построен", categories: ["doma-iz-brusa"], images: big.slice(0, 5) },
+  { slug: "razliv", name: "Разлив", area: 471, floors: 1, status: "Строится", tags: ["Фахверк"], categories: ["doma-iz-brusa"], images: big.slice(5, 10) },
+  { slug: "lyeshina-nora", name: "Лёшина нора", area: 1230, floors: 2, categories: ["doma-iz-brusa"], images: big.slice(10, 15) },
+  { slug: "nazarevskoe", name: "Назарьевское", area: 2175, floors: 3, categories: ["doma-iz-brusa"], images: big.slice(15, 20) },
+  { slug: "villa-ad-aquas", name: "Вилла Аква", area: 1447, floors: 2, categories: ["doma-iz-brusa"], images: [big[20]!, big[21]!, big[22]!, big[23]!, big[24]!] },
+  { slug: "proekt-djey", name: "Проект Джей", area: 1063, floors: 2, categories: ["doma-iz-brusa"], images: [big[11]!, big[12]!, big[13]!, big[14]!, big[15]!] },
+  { slug: "villa-olga", name: "Вилла Ольга", area: 583, categories: ["doma-iz-brusa"], images: [big[16]!, big[17]!, big[18]!, big[19]!, big[20]!] },
+  { slug: "yauza", name: "Яуза", area: 341, floors: 1, categories: ["bani-iz-brusa"], images: [big[21]!, big[22]!, big[23]!, big[24]!, big[0]!] },
+  { slug: "bolshoe-sareevo", name: "Большое Сареево", area: 400, categories: ["doma-iz-brevna"], images: [big[2]!, big[3]!, big[4]!, big[5]!, big[6]!] },
+  { slug: "volga-p", name: "Волга П", area: 520, floors: 2, categories: ["doma-iz-brevna"], images: [big[7]!, big[8]!, big[9]!, big[10]!, big[11]!] },
+  { slug: "uspenskoe", name: "Успенское", area: 868, floors: 2, status: "Построен", categories: ["doma-iz-brevna"], images: [big[12]!, big[13]!, big[14]!, big[15]!, big[16]!] },
+  { slug: "dom-puhovyh", name: "Дом Пуховых", area: 950, floors: 2, status: "Строится", categories: ["doma-iz-brevna"], images: [big[17]!, big[18]!, big[19]!, big[20]!, big[21]!] },
+  { slug: "nepovtorimyy", name: "Неповторимый", area: 625, floors: 2, categories: ["doma-iz-brevna"], images: [big[22]!, big[23]!, big[24]!, big[0]!, big[1]!] },
+  { slug: "belaya-kolp", name: "Белая Колпь", area: 130, floors: 1, categories: ["bani-iz-brevna"], images: [big[3]!, big[4]!, big[5]!, big[6]!, big[7]!] },
+  { slug: "usadba-anastasiya", name: "Усадьба Анастасия", area: 428, floors: 2, status: "Построен", categories: ["doma-iz-brevna"], images: [big[8]!, big[9]!, big[10]!, big[11]!, big[12]!] },
 ];
 
 export const logos = [

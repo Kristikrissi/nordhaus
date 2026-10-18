@@ -58,10 +58,10 @@ export const Route = createFileRoute("/news/")({
   staticData: { sitemap: true },
   head: () => ({
     meta: [
-      { title: "Новости и статьи о домах из клееного бруса | Компания Норд Хаус" },
-      { name: "description", content: "Новости, статьи и видео о строительстве домов из клееного бруса и СЛТ (CLT) панелей." },
+      { title: "Новости и статьи о домах и банях из бруса и бревна | Компания Норд Хаус" },
+      { name: "description", content: "Новости, статьи и видео о строительстве домов и бань из бруса и бревна." },
       { property: "og:title", content: "Новости | Компания Норд Хаус" },
-      { property: "og:description", content: "Новости, статьи и видео о строительстве домов из клееного бруса." },
+      { property: "og:description", content: "Новости, статьи и видео о строительстве домов и бань из бруса и бревна." },
       { property: "og:type", content: "website" },
     ],
     links: [{ rel: "canonical", href: `${site.url}/news` }],
