@@ -190,15 +190,22 @@ function Approach() {
 function Quote() {
   return (
     <section className="container-wide pt-20">
-      <div className="mx-auto grid max-w-[1090px] gap-8 rounded-[8px] bg-foreground/85 p-8 text-background sm:p-10 md:grid-cols-[1fr_276px]">
-        <div className="font-serif text-[15px] italic leading-relaxed">
-          <p>Деревянная архитектура, которая становится наследием. Дома, созданные для поколений.</p>
-          <p className="mt-1">Мы верим, что настоящий дом — это не просто стены и крыша. Это место, где рождаются семейные традиции, хранятся самые тёплые воспоминания и создаётся история, которую однажды продолжат наши дети.</p>
-          <p className="mt-1">Именно эту философию мы вкладываем в каждый дом NORDHAUS. С любовью к дереву, уважением к природе и вниманием к каждой детали мы создаём пространства, в которых хочется жить, расти, возвращаться и оставаться.</p>
-          <p className="mt-1">NORDHAUS — это больше, чем дом. Это тепло, которое передаётся из поколения в поколение. Ценность, которая не теряет своего смысла с годами, а становится только глубже.</p>
+      <div className="mx-auto max-w-[1090px] rounded-[8px] bg-foreground/85 p-8 text-background sm:p-10">
+        <div className="grid gap-8 md:grid-cols-[1fr_276px]">
+          <div className="font-serif text-[15px] italic leading-relaxed">
+            <p>Деревянная архитектура, которая становится наследием. Дома, созданные для поколений.</p>
+            <p className="mt-1">Мы верим, что настоящий дом — это не просто стены и крыша. Это место, где рождаются семейные традиции, хранятся самые тёплые воспоминания и создаётся история, которую однажды продолжат наши дети.</p>
+            <p className="mt-1">Именно эту философию мы вкладываем в каждый дом NORDHAUS. С любовью к дереву, уважением к природе и вниманием к каждой детали мы создаём пространства, в которых хочется жить, расти, возвращаться и оставаться.</p>
+            <p className="mt-1">NORDHAUS — это больше, чем дом. Это тепло, которое передаётся из поколения в поколение. Ценность, которая не теряет своего смысла с годами, а становится только глубже.</p>
+          </div>
+          <img src="/images/sergey.jpg" alt="Сергей" className="h-full w-full rounded-lg object-cover" loading="lazy" />
         </div>
-        <img src="/images/12.png" alt="NORDHAUS" className="mt-6 w-full rounded-lg object-cover" loading="lazy" />
-        <img src="/images/sergey.jpg" alt="Сергей" className="h-full w-full rounded-lg object-cover" loading="lazy" />
+        <img
+          src="/images/12.png"
+          alt="NORDHAUS"
+          className="mx-auto mt-8 block max-w-[420px] rounded-lg object-cover"
+          loading="lazy"
+        />
       </div>
     </section>
   );
