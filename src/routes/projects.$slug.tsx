@@ -29,7 +29,7 @@ function ProjectDetail() {
 
   return (
     <main className="pt-28">
-      <div className="site-shell pb-20">
+      <div className="site-shell pt-6 pb-12">
         <Button variant="link" className="mb-7 p-0" asChild>
           <Link to="/projects">
             <ArrowLeft />
@@ -37,9 +37,11 @@ function ProjectDetail() {
           </Link>
         </Button>
 
-        {category && <div className="section-label mb-5">{category}</div>}
-        <h1 className="section-title mb-8">{project.name}</h1>
+        {category && <p className="section-label">{category}</p>}
+        <h1 className="section-title mt-4">{project.name}</h1>
+      </div>
 
+      <div className="site-shell pb-20">
         <img src={project.images[0]} alt={project.name} className="detail-cover" />
 
         <div className="mb-10 flex flex-col justify-between gap-6 border-b border-border py-8 sm:flex-row">
@@ -74,7 +76,7 @@ function ProjectDetail() {
         <div className="rounded-2xl bg-secondary p-8 sm:p-12">
           <h2 className="section-title">Хотите такой же дом?</h2>
           <p className="mt-4 text-sm text-muted-foreground">
-            Мы перезвоним для уточнения деталей и ваших указаний к предстоящему обсуждению.
+            Мы перезвоним для уточнения деталей и ваших указаний к предстоящему обсуждению
           </p>
           <div className="mt-8">
             <CallbackForm />

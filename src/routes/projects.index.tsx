@@ -62,9 +62,9 @@ function ProjectsPage() {
 
       <section className="site-shell pb-20">
         <div className="rounded-2xl bg-secondary p-8 sm:p-12">
-          <h2 className="section-title">Рассчитайте стоимость вашей мечты</h2>
+          <h2 className="section-title">Рассчитайте стоимость дома вашей мечты</h2>
           <p className="mt-4 text-sm text-muted-foreground">
-            Мы перезвоним для уточнения деталей и ваших указаний к предстоящему обсуждению.
+            Мы перезвоним для уточнения деталей и ваших указаний к предстоящему обсуждению
           </p>
           <div className="mt-8">
             <CallbackForm />

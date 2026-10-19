@@ -14,14 +14,15 @@ function Hero() {
       <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent" />
       <div className="container-wide relative z-10 flex h-full flex-col justify-end pb-14">
         <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
-          <div className="hero-eyebrow text-white">NORDHAUS · Производство в Костромской области
-          <h1 className="max-w-4xl text-2xl font-bold uppercase leading-tight tracking-wide text-background sm:text-4xl lg:text-[44px]">
-            Строим дома и бани
-            <br />
-            из бруса и бревна
-          </h1>
-          <Link to="/projects" className="btn-primary">Каталог проектов</Link>
+          <div>
+            <div className="hero-eyebrow text-white">NORDHAUS · Производство в Костромской области</div>
+            <h1 className="max-w-4xl text-2xl font-bold uppercase leading-tight tracking-wide text-background sm:text-4xl lg:text-[44px]">
+              Строим дома и бани
+              <br />
+              из бруса и бревна
+            </h1>
           </div>
+          <Link to="/projects" className="btn-primary">Каталог проектов</Link>
         </div>
       </div>
     </section>
@@ -129,7 +130,7 @@ function Calculator() {
     <section className="container-wide pt-20">
       <div className="mx-auto max-w-[1090px] rounded-[16px] bg-foreground/85 p-8 text-background sm:p-10">
         <h2 className="text-2xl font-light uppercase tracking-[0.04em] sm:text-[34px] leading-tight">Рассчитайте стоимость дома вашей мечты</h2>
-        <p className="mt-3 text-sm">Мы перезвоним для уточнения деталей и ваших указаний к предстоящему обсуждению.</p>
+        <p className="mt-3 text-sm">Мы перезвоним для уточнения деталей и ваших указаний к предстоящему обсуждению</p>
         <div className="mt-10 rounded-xl bg-background p-5 text-foreground">
           <CallbackForm />
         </div>
