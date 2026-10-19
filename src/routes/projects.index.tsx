@@ -17,13 +17,10 @@ function ProjectsPage() {
 
   return (
     <main className="pt-28">
-      <div className="site-shell pt-6 pb-12">
-        <p className="section-label">Дома и бани из бруса и бревна</p>
-        <h1 className="section-title mt-4">Каталог проектов</h1>
-      </div>
-
-      <div className="site-shell pb-20">
-        <div className="mb-10 flex flex-wrap gap-3">
+      <section className="container-wide">
+        <p className="eyebrow">Дома и бани из бруса и бревна</p>
+        <h1 className="section-title mt-3">Каталог проектов</h1>
+        <div className="mt-8 flex flex-wrap gap-3">
           <Button variant={!active ? "pill" : "outline"} onClick={() => setActive(null)}>
             Все проекты
           </Button>
@@ -33,7 +30,9 @@ function ProjectsPage() {
             </Button>
           ))}
         </div>
+      </section>
 
+      <section className="container-wide pt-12">
         <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {visible.map((p) => (
             <Link key={p.slug} to="/projects/$slug" params={{ slug: p.slug }} className="project-link">
@@ -58,9 +57,9 @@ function ProjectsPage() {
             В этой категории нет доступных проектов — посмотрите общий каталог.
           </p>
         )}
-      </div>
+      </section>
 
-      <section className="site-shell pb-20">
+      <section className="container-wide pt-20">
         <div className="rounded-2xl bg-secondary p-8 sm:p-12">
           <h2 className="section-title">Рассчитайте стоимость дома вашей мечты</h2>
           <p className="mt-4 text-sm text-muted-foreground">
