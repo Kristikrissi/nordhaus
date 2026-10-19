@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-router";
-import { site, socials, categories, offices } from "@/lib/site-data";
+import { site, categories, offices } from "@/lib/site-data";
 
 export function SiteFooter() {
   return (
     <footer className="mt-20 border-t border-border bg-secondary">
-      <div className="container-wide grid gap-10 py-14 md:grid-cols-[1.2fr_1fr_1fr_1.2fr]">
+      <div className="container-wide grid gap-10 py-14 md:grid-cols-[1.2fr_1fr_1fr]">
         <div>
           <img src={site.logoDark} alt="NORDHAUS" className="h-12 w-auto" />
           <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted-foreground">
@@ -52,18 +52,6 @@ export function SiteFooter() {
               </li>
             ))}
           </ul>
-        </div>
-        <div>
-          <p className="text-sm font-bold uppercase tracking-wide">Мы в соцсетях</p>
-          <ul className="mt-4 space-y-2.5">
-            {socials.map((s) => (
-              <li key={s.label}>
-                <a href={s.href} target="_blank" rel="noreferrer" className="text-sm text-muted-foreground transition-colors hover:text-primary">
-                  {s.label}
-                </a>
-              </li>
-            ))}
-          </ul>
           <button type="button" className="btn-primary mt-6" onClick={() => window.dispatchEvent(new CustomEvent("open-callback-modal"))}>
             Заказать звонок
           </button>
@@ -71,7 +59,7 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-border">
         <div className="container-wide flex flex-col gap-2 py-5 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
-          <span>© 2003–2026 ООО «Норд Хаус» · ИНН 7729780129 · ОГРН 1147746946126</span>
+          <span>© 2014–2026 ООО «Норд Хаус» · ИНН 000000000 · ОГРН 0000000000000</span>
           <span>{offices[0]?.address}</span>
         </div>
       </div>

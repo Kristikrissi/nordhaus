@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { categories, socials, offices, site } from "@/lib/site-data";
+import { categories, offices, site } from "@/lib/site-data";
 import { CallbackForm } from "@/components/callback-form";
 
 const showcase = ["/images/home/c1.jpg", "/images/home/c2.jpg", "/images/home/c3.jpg", "/images/home/c4.webp", "/images/home/c5.jpg"];
@@ -14,7 +14,7 @@ function Hero() {
       <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent" />
       <div className="container-wide relative z-10 flex h-full flex-col justify-end pb-14">
         <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
-          <div className="hero-eyebrow">NORDHAUS · Производство в Костромской области
+          <div className="hero-eyebrow text-white">NORDHAUS · Производство в Костромской области
           <h1 className="max-w-4xl text-2xl font-bold uppercase leading-tight tracking-wide text-background sm:text-4xl lg:text-[44px]">
             Строим дома и бани
             <br />
@@ -124,42 +124,12 @@ function About() {
   );
 }
 
-function Video() {
-  const [play, setPlay] = useState(false);
-  return (
-    <section className="pt-20">
-      <div className="relative overflow-hidden rounded-[24px]">
-        {play ? (
-          <video src="https://www.s-h.ru/upload/video/main_video.mp4" controls autoPlay className="aspect-[1280/684] w-full bg-foreground object-cover" />
-        ) : (
-          <button type="button" onClick={() => setPlay(true)} className="group relative block w-full">
-            <img src="/images/home/video.webp" alt="Видео о компании" className="aspect-[1280/684] w-full object-cover" loading="lazy" />
-            <span className="absolute inset-0 flex flex-col items-center justify-center gap-4">
-              <span className="grid h-20 w-20 place-items-center rounded-full bg-background text-3xl text-foreground/80 transition-transform group-hover:scale-110">▶</span>
-              <span className="text-[12px] font-semibold uppercase tracking-wider text-background">Смотреть видео</span>
-            </span>
-          </button>
-        )}
-      </div>
-    </section>
-  );
-}
-
 function Calculator() {
   return (
     <section className="container-wide pt-20">
       <div className="mx-auto max-w-[1090px] rounded-[16px] bg-foreground/85 p-8 text-background sm:p-10">
-        <div className="flex flex-col justify-between gap-6 sm:flex-row">
-          <div>
-            <h2 className="text-2xl font-light uppercase tracking-[0.04em] sm:text-[34px] leading-tight">Рассчитайте стоимость дома вашей мечты</h2>
-            <p className="mt-3 text-sm">Мы перезвоним для уточнения деталей и ваших указаний к предстоящему обсуждению.</p>
-          </div>
-          <div className="flex gap-5">
-            {socials.slice(0, 5).map((s) => (
-              <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="text-sm font-semibold opacity-90 hover:opacity-100">{s.label.slice(0, 2)}</a>
-            ))}
-          </div>
-        </div>
+        <h2 className="text-2xl font-light uppercase tracking-[0.04em] sm:text-[34px] leading-tight">Рассчитайте стоимость дома вашей мечты</h2>
+        <p className="mt-3 text-sm">Мы перезвоним для уточнения деталей и ваших указаний к предстоящему обсуждению.</p>
         <div className="mt-10 rounded-xl bg-background p-5 text-foreground">
           <CallbackForm />
         </div>
@@ -197,15 +167,15 @@ function Quote() {
             <p className="mt-1">Мы верим, что настоящий дом — это не просто стены и крыша. Это место, где рождаются семейные традиции, хранятся самые тёплые воспоминания и создаётся история, которую однажды продолжат наши дети.</p>
             <p className="mt-1">Именно эту философию мы вкладываем в каждый дом NORDHAUS. С любовью к дереву, уважением к природе и вниманием к каждой детали мы создаём пространства, в которых хочется жить, расти, возвращаться и оставаться.</p>
             <p className="mt-1">NORDHAUS — это больше, чем дом. Это тепло, которое передаётся из поколения в поколение. Ценность, которая не теряет своего смысла с годами, а становится только глубже.</p>
+            <img
+              src="/images/12.png"
+              alt="NORDHAUS"
+              className="mx-auto mt-6 block max-w-[420px] rounded-lg object-cover"
+              loading="lazy"
+            />
           </div>
           <img src="/images/sergey.jpg" alt="Сергей" className="h-full w-full rounded-lg object-cover" loading="lazy" />
         </div>
-        <img
-          src="/images/12.png"
-          alt="NORDHAUS"
-          className="mx-auto mt-8 block max-w-[420px] rounded-lg object-cover"
-          loading="lazy"
-        />
       </div>
     </section>
   );
@@ -254,7 +224,6 @@ function Index() {
       <ProjectsShowcase />
       <Engineering />
       <About />
-      <Video />
       <Calculator />
       <Approach />
       <Quote />

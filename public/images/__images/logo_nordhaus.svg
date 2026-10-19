@@ -3,6 +3,6 @@
   <path d="M8 24 H14 V34 H8 Z" fill="#E57E44"/>
   <path d="M26 24 H32 V34 H26 Z" fill="#E57E44"/>
   <path d="M8 36 H32 V40 H8 Z" fill="#E57E44"/>
-  <text x="44" y="34" font-family="Montserrat, Arial, sans-serif" font-weight="700" font-size="22" letter-spacing="2" fill="#3a3f3a">NORDHAUS</text>
-  <text x="45" y="50" font-family="Montserrat, Arial, sans-serif" font-weight="500" font-size="9" letter-spacing="3" fill="#3a3f3a">ДОМА И БАНИ ИЗ ДЕРЕВА</text>
+  <text x="132" y="34" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="700" font-size="22" letter-spacing="2" fill="#3a3f3a">NORDHAUS</text>
+  <text x="132" y="50" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="500" font-size="9" letter-spacing="3" fill="#3a3f3a">ДОМА И БАНИ ИЗ ДЕРЕВА</text>
 </svg>
