@@ -193,7 +193,7 @@ function Contacts() {
       </div>
       <div className="mt-8 grid gap-8 rounded-[24px] bg-card p-8 shadow-sm sm:p-10 lg:grid-cols-[1fr_1.6fr]">
         <div>
-          <h3 className={`text-2xl ${thinTitle}`}>Наши офисы</h3>
+          <h3 className={`text-2xl ${thinTitle}`}>Наш офис</h3>
           <div className="mt-8 inline-flex rounded-full bg-secondary p-1">
             {offices.map((of, i) => (
               <button key={i} type="button" onClick={() => setO(i)} className={`rounded-full px-5 py-2 text-[11px] font-semibold uppercase tracking-wider ${i === o ? "bg-foreground/80 text-background" : "text-foreground/70"}`}>
