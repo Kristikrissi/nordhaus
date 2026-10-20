@@ -5,20 +5,20 @@ import { CallbackForm } from "@/components/callback-form";
 function CompanyPage() {
   return (
     <main className="pt-28">
-      <section className="container-wide text-center">
+      <section className="container-wide">
         <p className="eyebrow">О нас</p>
         <h1 className="section-title mt-3">О компании</h1>
-        <h2 className="mx-auto mt-8 max-w-3xl text-xl font-bold sm:text-2xl">NORDHAUS — создаём дома на долгие годы</h2>
-        <p className="mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+        <h2 className="mx-auto mt-8 max-w-3xl text-center text-xl font-bold sm:text-2xl">NORDHAUS — создаём дома на долгие годы</h2>
+        <p className="mx-auto mt-4 max-w-3xl text-center text-sm leading-relaxed text-muted-foreground sm:text-base">
           С 2014 года мы строим деревянные дома и бани, в которых природная красота дерева сочетается с комфортом, надёжностью и вниманием к деталям.
         </p>
-        <p className="mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+        <p className="mx-auto mt-4 max-w-3xl text-center text-sm leading-relaxed text-muted-foreground sm:text-base">
           Для нас каждый проект — это не просто строительство, а создание пространства, где будет приятно жить, отдыхать и проводить время с близкими. Мы тщательно подбираем материалы, продумываем конструктивные решения и следим за качеством на каждом этапе работы.
         </p>
-        <p className="mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+        <p className="mx-auto mt-4 max-w-3xl text-center text-sm leading-relaxed text-muted-foreground sm:text-base">
           Мы верим, что хороший деревянный дом — это больше, чем стены и крыша. Это тепло натурального дерева, особая атмосфера и место, куда всегда хочется возвращаться.
         </p>
-        <p className="mx-auto mt-4 max-w-3xl text-sm font-semibold leading-relaxed text-foreground sm:text-base">
+        <p className="mx-auto mt-4 max-w-3xl text-center text-sm font-semibold leading-relaxed text-foreground sm:text-base">
           NORDHAUS — строим из дерева с заботой о вашем комфорте и будущем.
         </p>
       </section>
