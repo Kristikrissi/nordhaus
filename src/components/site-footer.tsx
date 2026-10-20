@@ -3,7 +3,7 @@ import { site, categories, offices } from "@/lib/site-data";
 
 export function SiteFooter() {
   return (
-    <footer className="mt-20 border-t border-border bg-secondary">
+    <footer className="border-t border-border bg-secondary">
       <div className="container-wide grid gap-10 py-14 md:grid-cols-[1.2fr_1fr_1fr]">
         <div>
           <img src={site.logoDark} alt="NORDHAUS" className="h-12 w-auto" />
@@ -59,7 +59,7 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-border">
         <div className="container-wide flex flex-col gap-2 py-5 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
-          <span>© 2014–2026 ООО «Норд Хаус» · ИНН 000000000 · ОГРН 0000000000000</span>
+          <span>© 2014–2026 ООО «Норд Хаус»</span>
           <span>{offices[0]?.address}</span>
         </div>
       </div>

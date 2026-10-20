@@ -28,7 +28,7 @@ function NewsPage() {
         </div>
       </section>
 
-      <section className="container-wide pt-12">
+      <section className="container-wide pt-12 pb-20">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {visible.map((n) => (
             <Link key={n.title} to="/news/$slug" params={{ slug: articles[n.title]!.slug }} className="group block overflow-hidden rounded-xl border border-border bg-card transition-shadow hover:shadow-lg">

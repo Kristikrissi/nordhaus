@@ -5,15 +5,21 @@ import { CallbackForm } from "@/components/callback-form";
 function CompanyPage() {
   return (
     <main className="pt-28">
-      <section className="container-wide">
+      <section className="container-wide text-center">
         <p className="eyebrow">О нас</p>
         <h1 className="section-title mt-3">О компании</h1>
-        <h2 className="mt-8 max-w-3xl text-xl font-bold sm:text-2xl">Норд Хаус (NORDHAUS) — дома, в которых хочется жить</h2>
-        <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-          Мы занимаемся деревянным домостроением на рынке России с 2003 года и являемся одной из ведущих компаний, которые строят дома из клеёного бруса в премиальном сегменте.
+        <h2 className="mx-auto mt-8 max-w-3xl text-xl font-bold sm:text-2xl">NORDHAUS — создаём дома на долгие годы</h2>
+        <p className="mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+          С 2014 года мы строим деревянные дома и бани, в которых природная красота дерева сочетается с комфортом, надёжностью и вниманием к деталям.
         </p>
-        <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-          Одной из наших главных особенностей является использование лучших материалов на рынке и лучших решений как авторских, так и обще рыночных. Наше качество не просто слово, а проявление на каждом этапе работы.
+        <p className="mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+          Для нас каждый проект — это не просто строительство, а создание пространства, где будет приятно жить, отдыхать и проводить время с близкими. Мы тщательно подбираем материалы, продумываем конструктивные решения и следим за качеством на каждом этапе работы.
+        </p>
+        <p className="mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+          Мы верим, что хороший деревянный дом — это больше, чем стены и крыша. Это тепло натурального дерева, особая атмосфера и место, куда всегда хочется возвращаться.
+        </p>
+        <p className="mx-auto mt-4 max-w-3xl text-sm font-semibold leading-relaxed text-foreground sm:text-base">
+          NORDHAUS — строим из дерева с заботой о вашем комфорте и будущем.
         </p>
       </section>
 
@@ -36,11 +42,11 @@ function CompanyPage() {
         ))}
       </section>
 
-      <section id="vacancy" className="container-wide scroll-mt-32 pt-20">
+      <section id="vacancy" className="container-wide scroll-mt-32 pt-20 pb-20">
         <div className="rounded-2xl bg-secondary p-8 sm:p-12">
           <h2 className="section-title">Вакансии</h2>
           <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-            Мы всегда рады профессионалам, которые разделяют наш подход к качеству и ответственному строительству. Расскажите о себе — и мы обсудим, как вы можете быть полезны команде Норд Хаус (NORDHAUS).
+            Мы всегда рады профессионалам, которые разделяют наш подход к качеству и ответственному строительству. Расскажите о себе — и мы обсудим, как вы можете быть полезны команде NORDHAUS
           </p>
           <div className="mt-8">
             <CallbackForm />

@@ -111,7 +111,7 @@ function About() {
           </p>
         </div>
         <div>
-          <div className="overflow-hidden rounded-[20px]">
+          <div className="min-w-0 overflow-hidden rounded-[20px]">
             <img src={aboutSlides[i]} alt="Наши дома" className="aspect-[4/3] w-full object-cover" loading="lazy" />
           </div>
           <div className="mt-6 flex items-center justify-center gap-6 text-foreground/70">
@@ -148,9 +148,9 @@ function Approach() {
           <ul className="mt-10 list-disc space-y-2 pl-6 font-serif text-lg italic text-foreground/70">
             {["Индивидуальный подход к каждому проекту", "Контроль качества на каждом этапе", "Проверенные материалы и технологии", "Соблюдение сроков и бюджета", "Гарантия на все виды работ"].map((t) => <li key={t}>{t}</li>)}
           </ul>
-          <Link to="/projects" className="btn-primary mt-auto self-start">Проекты</Link>
+          <Link to="/projects" className="btn-primary mt-6 self-start lg:mt-auto">Проекты</Link>
         </div>
-        <div className="overflow-hidden rounded-[20px]">
+        <div className="min-w-0 overflow-hidden rounded-[20px]">
           <img src="/images/portfolio.jpg" alt="Портфолио" className="aspect-[4/3] w-full object-cover" loading="lazy" />
         </div>
       </div>

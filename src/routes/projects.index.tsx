@@ -59,7 +59,7 @@ function ProjectsPage() {
         )}
       </section>
 
-      <section className="container-wide pt-20">
+      <section className="container-wide pt-20 pb-20">
         <div className="rounded-2xl bg-secondary p-8 sm:p-12">
           <h2 className="section-title">Рассчитайте стоимость дома вашей мечты</h2>
           <p className="mt-4 text-sm text-muted-foreground">

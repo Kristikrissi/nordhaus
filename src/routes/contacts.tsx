@@ -60,7 +60,7 @@ function ContactsPage() {
         </div>
       </section>
 
-      <section className="container-wide pt-20">
+      <section className="container-wide pt-20 pb-20">
         <div className="rounded-2xl bg-secondary p-8 sm:p-12">
           <h2 className="section-title">Остались вопросы по строительству?</h2>
           <p className="mt-4 text-sm text-muted-foreground">Мы ответим на все ваши вопросы и поможем найти подходящее решение</p>
