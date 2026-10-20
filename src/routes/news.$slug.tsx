@@ -55,12 +55,11 @@ function ArticlePage() {
         {article.sections.map((s) => (
           <section key={s.h} className="mt-8">
             <h2 className="text-xl font-bold">{s.h}</h2>
-            <p className="mt-3 leading-relaxed text-muted-foreground">{s.p}</p>
+            {s.p.split(/\n+/).map((para, i) => (
+              <p key={i} className="mt-3 leading-relaxed text-muted-foreground">{para}</p>
+            ))}
           </section>
         ))}
-        <a href={article.sourceUrl} target="_blank" rel="noreferrer" className="btn-outline mt-12 inline-flex">
-          Читать полностью на s-h.ru
-        </a>
       </article>
     </main>
   );
