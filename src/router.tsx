@@ -8,7 +8,10 @@ export const getRouter = () => {
   const router = createRouter({
     routeTree,
     context: { queryClient },
-    scrollRestoration: true,
+    // Отключено намеренно: при scrollRestoration: true повторно открытая
+    // статья прокручивается к сохранённой позиции вместо начала.
+    // Каждая страница (в т.ч. статьи) всегда открывается сверху.
+    scrollRestoration: false,
     scrollRestorationBehavior: "instant",
     defaultPreloadStaleTime: 0,
   });
