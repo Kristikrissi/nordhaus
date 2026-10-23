@@ -44,7 +44,8 @@ function ProjectsPage() {
                   <h2 className="text-base font-semibold">{p.name}</h2>
                   <p className="project-meta mt-2">
                     {categoryTitleOf(p)}
-                    {p.area ? ` · Площадь ${p.area} м²` : ""}
+                    {p.size ? ` · ${p.size}` : ""}
+                    {p.area ? ` · застройка ${p.area} м²` : ""}
                   </p>
                 </div>
                 <ArrowUpRight className="size-5 shrink-0 text-primary" />

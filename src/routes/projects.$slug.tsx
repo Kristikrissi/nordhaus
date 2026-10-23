@@ -21,10 +21,10 @@ function ProjectDetail() {
   const category = categoryTitleOf(project);
 
   const paragraphs = [
-    `Проект «${project.name}»${category ? ` — ${category.toLowerCase()}` : ""} общей площадью ${project.area} м²${project.floors ? `, ${pluralFloors(project.floors)}` : ""}.`,
+    `Проект «${project.name}»${category ? ` — ${category.toLowerCase()}` : ""}. Габариты сруба по проекту — ${project.size}, площадь застройки ${project.area} м²${project.floors ? `, ${pluralFloors(project.floors)}` : ""}${project.material ? `, материал стен — ${project.material.toLowerCase()}` : ""}.`,
     project.status
       ? `Статус: ${project.status}. Строительством занимается компания «Норд Хаус» — дома и бани из бруса и бревна по индивидуальным проектам в Москве и области.`
-      : `Строительством занимается компания «Норд Хаус» — дома и бани из бруса и бревна по индивидуальным проектам в Москве и области.`,
+      : `Сборка выполняется по проекту с учётом усадки деревянного сруба. Строительством занимается компания «Норд Хаус» — дома и бани из бруса и бревна по индивидуальным проектам в Москве и области.`,
   ];
 
   return (
@@ -48,7 +48,12 @@ function ProjectDetail() {
           <div>
             <p className="text-sm text-muted-foreground">Размеры дома</p>
             <p className="mt-2 text-2xl">
-              {project.area} м²{project.floors ? ` · ${pluralFloors(project.floors)}` : ""}
+              {project.size}
+              {project.floors ? ` · ${pluralFloors(project.floors)}` : ""}
+            </p>
+            <p className="project-meta mt-2">
+              Площадь застройки {project.area} м²{project.material ? ` · ${project.material}` : ""}
+              {project.code ? ` · ${project.code}` : ""}
             </p>
             {project.status && <p className="project-meta mt-2">Статус: {project.status}</p>}
           </div>
@@ -67,6 +72,17 @@ function ProjectDetail() {
             ))}
           </div>
         </div>
+
+        {project.specs && (
+          <div className="mb-10">
+            <h2 className="mb-4 text-2xl font-semibold">Комплектность проекта</h2>
+            <ul className="max-w-3xl list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted-foreground">
+              {project.specs.map((s) => (
+                <li key={s}>{s}</li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <h2 className="mb-6 text-2xl font-semibold">Фотографии и планировки</h2>
         <ProjectsGallery images={project.images.slice(1)} title={project.name} />
@@ -101,9 +117,9 @@ export const Route = createFileRoute("/projects/$slug")({
     return {
       meta: [
         { title: `${loaderData.name} — проект дома | Компания Норд Хаус` },
-        { name: "description", content: `Проект «${loaderData.name}»: площадь ${loaderData.area} м²${loaderData.floors ? `, ${loaderData.floors} этажа` : ""}. Дома и бани из бруса и бревна от Норд Хаус.` },
+        { name: "description", content: `Проект «${loaderData.name}»: габариты ${loaderData.size}, площадь застройки ${loaderData.area} м². Дома и бани из бруса и бревна от Норд Хаус.` },
         { property: "og:title", content: `${loaderData.name} | Компания Норд Хаус` },
-        { property: "og:description", content: `Площадь ${loaderData.area} м²${loaderData.floors ? `, этажей: ${loaderData.floors}` : ""}.` },
+        { property: "og:description", content: `Габариты ${loaderData.size}, площадь застройки ${loaderData.area} м².${loaderData.floors ? ` Этажей: ${loaderData.floors}.` : ""}` },
         { property: "og:type", content: "article" },
       ],
       links: [{ rel: "canonical", href: `${site.url}/projects/${loaderData.slug}` }],
