@@ -33,7 +33,7 @@ function ProjectsShowcase() {
   const [active, setActive] = useState(categories[0]!.slug);
   const [idx, setIdx] = useState(0);
   const category = categories.find((c) => c.slug === active) ?? categories[0]!;
-  const imgs = active === categories[0]!.slug ? showcase : category.images.slice(0, 5);
+  const imgs = active === categories[0]!.slug || category.images.length === 0 ? showcase : category.images.slice(0, 5);
   const main = imgs[idx] ?? imgs[0]!;
   return (
     <section className="container-wide pt-16">
@@ -236,9 +236,9 @@ export const Route = createFileRoute("/")({
   staticData: { sitemap: true },
   head: () => ({
     meta: [
-      { title: "Строительство домов и бань из бруса и бревна по индивидуальным проектам в Москве и области | Компания Норд Хаус" },
+      { title: "Строительство домов и бань из бруса и бревна по индивидуальным проектам в Москве и области | NORDHAUS" },
       { name: "description", content: "Строим дома и бани из бруса и бревна по индивидуальным проектам в Москве и области. Влюбляем в эстетику загородной жизни с 2014 года." },
-      { property: "og:title", content: "Строительство домов и бань из бруса и бревна | Норд Хаус" },
+      { property: "og:title", content: "Строительство домов и бань из бруса и бревна | NORDHAUS" },
       { property: "og:description", content: "Дома и бани из бруса и бревна. Индивидуальное проектирование, полный цикл строительства." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

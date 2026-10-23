@@ -81,9 +81,9 @@ export const Route = createFileRoute("/projects/")({
     typeof s['category'] === "string" ? { category: s['category'] } : {},
   head: () => ({
     meta: [
-      { title: "Проекты домов и бань из бруса и бревна | Компания Норд Хаус" },
+      { title: "Проекты домов и бань из бруса и бревна | NORDHAUS" },
       { name: "description", content: "Каталог проектов: дома из бруса, дома из бревна, бани из бруса и бани из бревна." },
-      { property: "og:title", content: "Проекты | Компания Норд Хаус" },
+      { property: "og:title", content: "Проекты | NORDHAUS" },
       { property: "og:description", content: "Каталог проектов домов и бань из бруса и бревна в Москве и области." },
       { property: "og:type", content: "website" },
     ],

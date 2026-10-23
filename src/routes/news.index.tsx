@@ -58,9 +58,9 @@ export const Route = createFileRoute("/news/")({
   staticData: { sitemap: true },
   head: () => ({
     meta: [
-      { title: "Новости и статьи о домах и банях из бруса и бревна | Компания Норд Хаус" },
+      { title: "Новости и статьи о домах и банях из бруса и бревна | NORDHAUS" },
       { name: "description", content: "Новости, статьи и видео о строительстве домов и бань из бруса и бревна." },
-      { property: "og:title", content: "Новости | Компания Норд Хаус" },
+      { property: "og:title", content: "Новости | NORDHAUS" },
       { property: "og:description", content: "Новости, статьи и видео о строительстве домов и бань из бруса и бревна." },
       { property: "og:type", content: "website" },
     ],

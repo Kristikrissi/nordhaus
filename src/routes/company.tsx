@@ -61,9 +61,9 @@ export const Route = createFileRoute("/company")({
   staticData: { sitemap: true },
   head: () => ({
     meta: [
-      { title: "О компании | Компания Норд Хаус" },
-      { name: "description", content: "Норд Хаус (NORDHAUS) — деревянное домостроение в России. Дома и бани из бруса и бревна." },
-      { property: "og:title", content: "О компании | Компания Норд Хаус" },
+      { title: "О компании | NORDHAUS" },
+      { name: "description", content: "NORDHAUS — деревянное домостроение в России. Дома и бани из бруса и бревна." },
+      { property: "og:title", content: "О компании | NORDHAUS" },
       { property: "og:description", content: "Мы занимаемся деревянным домостроением на рынке России с 2003 года." },
       { property: "og:type", content: "website" },
     ],

@@ -48,7 +48,7 @@ function ContactsPage() {
                 </div>
                 <div className="min-h-[320px]">
                   <iframe
-                    title="Карта офиса Норд Хаус"
+                    title="Карта офиса NORDHAUS"
                     src="https://yandex.ru/map-widget/v1/?ll=42.682000%2C58.762200&z=13&pt=42.682000,58.762200,pm2gnm"
                     className="h-full w-full"
                     loading="lazy"
@@ -77,9 +77,9 @@ export const Route = createFileRoute("/contacts")({
   staticData: { sitemap: true },
   head: () => ({
     meta: [
-      { title: "Контакты компании и адрес офиса в Чухломе | Компания Норд Хаус" },
-      { name: "description", content: "Контакты Норд Хаус: офис в Чухломе (Костромская область), телефон +7 (950) 246-54-77, email n99511285@gmail.com." },
-      { property: "og:title", content: "Контакты | Компания Норд Хаус" },
+      { title: "Контакты компании и адрес офиса в Чухломе | NORDHAUS" },
+      { name: "description", content: "Контакты NORDHAUS: офис в Чухломе (Костромская область), телефон +7 (950) 246-54-77, email n99511285@gmail.com." },
+      { property: "og:title", content: "Контакты | NORDHAUS" },
       { property: "og:description", content: "Офис в Чухломе, Костромская область. Телефон +7 (950) 246-54-77, email n99511285@gmail.com." },
       { property: "og:type", content: "website" },
     ],

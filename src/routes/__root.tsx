@@ -68,7 +68,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: `${site.name} — строительство домов и бань из бруса и бревна` },
       { name: "description", content: "Строительство домов и бань из бруса и бревна по индивидуальным проектам в Москве и области." },
-      { property: "og:title", content: "Компания Норд Хаус" },
+      { property: "og:title", content: "NORDHAUS" },
       { property: "og:description", content: "Строительство домов и бань из бруса и бревна по индивидуальным проектам в Москве и области." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

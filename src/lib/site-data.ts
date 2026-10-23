@@ -50,8 +50,7 @@ const gallery = [
 export const heroImage = big[0]!;
 
 export const site = {
-  name: "Норд Хаус",
-  latinName: "NORDHAUS",
+  name: "NORDHAUS",
   url: "https://nordhaus-swart.vercel.app",
   phone: "+7 (950) 246-54-77",
   phoneHref: "tel:+79502465477",
@@ -120,7 +119,7 @@ const banyaSpecs = [
 export const projects: Project[] = [
   {
     slug: "proekt-6-na-6",
-    name: "Проект дома из бруса 6 × 6",
+    name: "Ельник",
     code: "б-1",
     size: "6 × 6 м",
     area: 36,
@@ -132,7 +131,7 @@ export const projects: Project[] = [
   },
   {
     slug: "dachnyj-domik-6-na-6",
-    name: "Дачный домик 6 на 6",
+    name: "Дачный берег",
     code: "б-2",
     size: "6 × 6 м",
     area: 36,
@@ -144,7 +143,7 @@ export const projects: Project[] = [
   },
   {
     slug: "proekt-doma-iz-brusa-6h8",
-    name: "Проект дома из бруса 6 × 8",
+    name: "Клён",
     code: "б-3",
     size: "6 × 8 м",
     area: 48,
@@ -154,7 +153,7 @@ export const projects: Project[] = [
   },
   {
     slug: "proekt-dachnogo-doma-iz-brusa-6-h-8",
-    name: "Проект дачного дома из бруса 6 × 8",
+    name: "Лиственница",
     code: "б-4",
     size: "6 × 8 м",
     area: 48,
@@ -164,7 +163,7 @@ export const projects: Project[] = [
   },
   {
     slug: "proekt-doma-iz-brusa-s-otkrytoj-terrasoj-6h6",
-    name: "Дом из бруса 6 × 6 с открытой террасой",
+    name: "Теремок",
     code: "б-5",
     size: "6 × 6 м",
     area: 36,
@@ -174,7 +173,7 @@ export const projects: Project[] = [
   },
   {
     slug: "proekt-doma-iz-brusa-dlya-dachi-6h6",
-    name: "Дом из бруса для дачи 6 × 6",
+    name: "Ясень",
     code: "б-6",
     size: "6 × 6 м",
     area: 36,
@@ -184,7 +183,7 @@ export const projects: Project[] = [
   },
   {
     slug: "proekt-doma-iz-brusa-6-h-6-m",
-    name: "Дома из бруса 6 × 6",
+    name: "Осина",
     code: "б-7",
     size: "6 × 6 м",
     area: 36,
@@ -194,7 +193,7 @@ export const projects: Project[] = [
   },
   {
     slug: "proekt-doma-iz-brusa-8-h-11-5-m",
-    name: "Проект дома из бруса 8 × 11,5",
+    name: "Простор",
     code: "б-8",
     size: "8 × 11,5 м",
     area: 92,
@@ -204,7 +203,7 @@ export const projects: Project[] = [
   },
   {
     slug: "proekt-doma-iz-profilirovannogo-brusa-6-h-6-m",
-    name: "Проект дома из профилированного бруса 6 × 6",
+    name: "Пихтовый",
     code: "б-9",
     size: "6 × 6 м",
     area: 36,
@@ -214,7 +213,7 @@ export const projects: Project[] = [
   },
   {
     slug: "proekt-doma-iz-brusa-8-h-8-m",
-    name: "Проект дома из бруса 8 × 8",
+    name: "Вековой бор",
     code: "б-10",
     size: "8 × 8 м",
     area: 64,
@@ -224,7 +223,7 @@ export const projects: Project[] = [
   },
   {
     slug: "dom-iz-profilirovannogo-brusa-9-h-11",
-    name: "Дом из профилированного бруса 9 × 11",
+    name: "Кедровая усадьба",
     code: "б-12",
     size: "9 × 11 м",
     area: 99,
@@ -234,7 +233,7 @@ export const projects: Project[] = [
   },
   {
     slug: "dom-iz-profilirovannogo-brusa-8-h-8",
-    name: "Дом из профилированного бруса 8 × 8",
+    name: "Тайговый",
     code: "б-13",
     size: "8 × 8 м",
     area: 64,
@@ -244,7 +243,7 @@ export const projects: Project[] = [
   },
   {
     slug: "dom-iz-brevna-8-93",
-    name: "Проект дома из бревна 8 × 9,3",
+    name: "Журавушка",
     code: "ДО-1",
     size: "8 × 9,3 м",
     area: 74,
@@ -254,7 +253,7 @@ export const projects: Project[] = [
   },
   {
     slug: "proyekt-doma-iz-brevna-7-5x9",
-    name: "Проект дома из бревна 7,5 × 9",
+    name: "Светлица",
     code: "ДО-2",
     size: "7,5 × 9 м",
     area: 68,
@@ -264,7 +263,7 @@ export const projects: Project[] = [
   },
   {
     slug: "proyekt-doma-iz-brevna-7x9-5",
-    name: "Проект дома из бревна 7 × 9,5",
+    name: "Заря",
     code: "ДО-3",
     size: "7 × 9,5 м",
     area: 67,
@@ -274,7 +273,7 @@ export const projects: Project[] = [
   },
   {
     slug: "proyekt-doma-iz-brevna-8x11",
-    name: "Проект дома из бревна 8 × 11",
+    name: "Богатырь",
     code: "ДО-4",
     size: "8 × 11 м",
     area: 88,
@@ -284,7 +283,7 @@ export const projects: Project[] = [
   },
   {
     slug: "proyekt-doma-iz-brevna-9x10",
-    name: "Проект дома из бревна 9 × 10",
+    name: "Купеческий",
     code: "ДО-5",
     size: "9 × 10 м",
     area: 90,
@@ -294,7 +293,7 @@ export const projects: Project[] = [
   },
   {
     slug: "proyekt-doma-iz-brevna-8x10-5",
-    name: "Проект дома из бревна 8 × 10,5",
+    name: "Дубравушка",
     code: "ДО-6",
     size: "8 × 10,5 м",
     area: 84,
@@ -304,7 +303,7 @@ export const projects: Project[] = [
   },
   {
     slug: "proyekt-doma-iz-brevna-13x12",
-    name: "Проект дома из бревна 13 × 12",
+    name: "Боярыня",
     code: "ДО-7",
     size: "13 × 12 м",
     area: 156,
@@ -314,7 +313,7 @@ export const projects: Project[] = [
   },
   {
     slug: "proyekt-doma-iz-brevna-12-6x9",
-    name: "Проект дома из бревна 12,6 × 9",
+    name: "Злато",
     code: "ДО-8",
     size: "12,6 × 9 м",
     area: 113,
@@ -324,7 +323,7 @@ export const projects: Project[] = [
   },
   {
     slug: "proyekt-doma-iz-brevna-11x9-7",
-    name: "Проект дома из бревна 11 × 9,7",
+    name: "Витязь",
     code: "ДО-9",
     size: "11 × 9,7 м",
     area: 107,
@@ -334,7 +333,7 @@ export const projects: Project[] = [
   },
   {
     slug: "proyekt-doma-iz-brevna-7-3x7",
-    name: "Проект дома из бревна 7,3 × 7",
+    name: "Уютный",
     code: "ДО-10",
     size: "7,3 × 7 м",
     area: 51,
@@ -344,7 +343,7 @@ export const projects: Project[] = [
   },
   {
     slug: "proyekt-bani-4-6x5-5",
-    name: "Проект бани из бревна 4,6 × 5,5",
+    name: "Легкопарная",
     code: "БР-1",
     size: "4,6 × 5,5 м",
     area: 25,
@@ -355,7 +354,7 @@ export const projects: Project[] = [
   },
   {
     slug: "proyekt-bani-5-5x6-5",
-    name: "Проект бани из бревна 5,5 × 6,5",
+    name: "Сосновая",
     code: "БР-2",
     size: "5,5 × 6,5 м",
     area: 36,
@@ -366,7 +365,7 @@ export const projects: Project[] = [
   },
   {
     slug: "proyekt-bani-5-4x5-4",
-    name: "Проект бани из бревна 5,4 × 5,4",
+    name: "Корабелка",
     code: "БР-3",
     size: "5,4 × 5,4 м",
     area: 29,
@@ -377,7 +376,7 @@ export const projects: Project[] = [
   },
   {
     slug: "proyekt-bani-5-4x6-3",
-    name: "Проект бани из бревна 5,4 × 6,3",
+    name: "Паровка",
     code: "БР-4",
     size: "5,4 × 6,3 м",
     area: 34,
@@ -388,7 +387,7 @@ export const projects: Project[] = [
   },
   {
     slug: "proyekt-bani-5-6x8-1",
-    name: "Проект бани из бревна 5,6 × 8,1",
+    name: "Заветная",
     code: "БР-5",
     size: "5,6 × 8,1 м",
     area: 45,
@@ -399,7 +398,7 @@ export const projects: Project[] = [
   },
   {
     slug: "proyekt-bani-6-2x8",
-    name: "Проект бани из бревна 6,2 × 8",
+    name: "Теплушка",
     code: "БР-6",
     size: "6,2 × 8 м",
     area: 50,
@@ -410,7 +409,7 @@ export const projects: Project[] = [
   },
   {
     slug: "proyekt-bani-5-4x7-7",
-    name: "Проект бани из бревна 5,4 × 7,7",
+    name: "Купавка",
     code: "БР-7",
     size: "5,4 × 7,7 м",
     area: 42,
@@ -421,7 +420,7 @@ export const projects: Project[] = [
   },
   {
     slug: "proyekt-bani-5-4x7-4",
-    name: "Проект бани из бревна 5,4 × 7,4",
+    name: "Медвежий угол",
     code: "БР-8",
     size: "5,4 × 7,4 м",
     area: 40,
@@ -435,6 +434,7 @@ export const projects: Project[] = [
 export const categories: Category[] = [
   { slug: "doma-iz-brusa", title: "Дома из бруса", images: [] },
   { slug: "doma-iz-brevna", title: "Дома из бревна", images: [] },
+  { slug: "bani-iz-brusa", title: "Бани из бруса", images: [] },
   { slug: "bani-iz-brevna", title: "Бани из бревна", images: [] },
 ];
 
@@ -640,7 +640,7 @@ export const offices = [
 ];
 
 export const requisites = [
-  { label: "Сокращенное наименование", value: "ООО «Норд Хаус»" },
+  { label: "Сокращенное наименование", value: "ООО «NORDHAUS»" },
   { label: "ИНН/КПП", value: "7729780129/770201001" },
   { label: "ОГРН", value: "1147746946126 от 20.08.2014г." },
   { label: "Телефон", value: "+7 (950) 246-54-77" },

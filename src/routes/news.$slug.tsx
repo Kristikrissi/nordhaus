@@ -13,7 +13,7 @@ export const Route = createFileRoute("/news/$slug")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: "Статья не найдена" }, { name: "robots", content: "noindex" }] };
-    const t = `${loaderData.title} | Норд Хаус`;
+    const t = `${loaderData.title} | NORDHAUS`;
     return {
       meta: [
         { title: t },

@@ -1,5 +1,5 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
-import { ArrowLeft, Phone } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { categories, projects, site, type Project } from "@/lib/site-data";
 import { Button } from "@/components/ui/button";
 import { CallbackForm } from "@/components/callback-form";
@@ -23,8 +23,8 @@ function ProjectDetail() {
   const paragraphs = [
     `Проект «${project.name}»${category ? ` — ${category.toLowerCase()}` : ""}. Габариты сруба по проекту — ${project.size}, площадь застройки ${project.area} м²${project.floors ? `, ${pluralFloors(project.floors)}` : ""}${project.material ? `, материал стен — ${project.material.toLowerCase()}` : ""}.`,
     project.status
-      ? `Статус: ${project.status}. Строительством занимается компания «Норд Хаус» — дома и бани из бруса и бревна по индивидуальным проектам в Москве и области.`
-      : `Сборка выполняется по проекту с учётом усадки деревянного сруба. Строительством занимается компания «Норд Хаус» — дома и бани из бруса и бревна по индивидуальным проектам в Москве и области.`,
+      ? `Статус: ${project.status}. Строительством занимается NORDHAUS — дома и бани из бруса и бревна по индивидуальным проектам в Москве и области.`
+      : `Сборка выполняется по проекту с учётом усадки деревянного сруба. Строительством занимается NORDHAUS — дома и бани из бруса и бревна по индивидуальным проектам в Москве и области.`,
   ];
 
   return (
@@ -44,25 +44,22 @@ function ProjectDetail() {
       <div className="site-shell pb-20">
         <img src={project.images[0]} alt={project.name} className="detail-cover" />
 
-        <div className="mb-10 flex flex-col justify-between gap-6 border-b border-border py-8 sm:flex-row">
-          <div>
-            <p className="text-sm text-muted-foreground">Размеры дома</p>
-            <p className="mt-2 text-2xl">
-              {project.size}
-              {project.floors ? ` · ${pluralFloors(project.floors)}` : ""}
-            </p>
-            <p className="project-meta mt-2">
-              Площадь застройки {project.area} м²{project.material ? ` · ${project.material}` : ""}
-              {project.code ? ` · ${project.code}` : ""}
-            </p>
-            {project.status && <p className="project-meta mt-2">Статус: {project.status}</p>}
-          </div>
-          <Button variant="pill" asChild>
-            <a href={site.phoneHref}>
-              <Phone />
-              Обсудить строительство
-            </a>
-          </Button>
+        <div className="mt-10">
+          <h2 className="mb-6 text-2xl font-semibold">Фотографии и планировки</h2>
+          <ProjectsGallery images={project.images.slice(1)} title={project.name} />
+        </div>
+
+        <div className="mb-10 mt-12 border-b border-border py-8">
+          <p className="text-sm text-muted-foreground">Размеры дома</p>
+          <p className="mt-2 text-2xl">
+            {project.size}
+            {project.floors ? ` · ${pluralFloors(project.floors)}` : ""}
+          </p>
+          <p className="project-meta mt-2">
+            Площадь застройки {project.area} м²{project.material ? ` · ${project.material}` : ""}
+            {project.code ? ` · ${project.code}` : ""}
+          </p>
+          {project.status && <p className="project-meta mt-2">Статус: {project.status}</p>}
         </div>
 
         <div className="mb-10 max-w-3xl">
@@ -83,9 +80,6 @@ function ProjectDetail() {
             </ul>
           </div>
         )}
-
-        <h2 className="mb-6 text-2xl font-semibold">Фотографии и планировки</h2>
-        <ProjectsGallery images={project.images.slice(1)} title={project.name} />
       </div>
 
       <section className="site-shell pb-20">
@@ -112,13 +106,14 @@ export const Route = createFileRoute("/projects/$slug")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Проект не найден | Компания Норд Хаус" }, { name: "robots", content: "noindex" }] };
+      return { meta: [{ title: "Проект не найден | NORDHAUS" }, { name: "robots", content: "noindex" }] };
     }
+    const cat = categoryTitleOf(loaderData)?.toLowerCase() ?? "проект";
     return {
       meta: [
-        { title: `${loaderData.name} — проект дома | Компания Норд Хаус` },
-        { name: "description", content: `Проект «${loaderData.name}»: габариты ${loaderData.size}, площадь застройки ${loaderData.area} м². Дома и бани из бруса и бревна от Норд Хаус.` },
-        { property: "og:title", content: `${loaderData.name} | Компания Норд Хаус` },
+        { title: `${loaderData.name} — ${cat} | NORDHAUS` },
+        { name: "description", content: `Проект «${loaderData.name}»: габариты ${loaderData.size}, площадь застройки ${loaderData.area} м². Дома и бани из бруса и бревна от NORDHAUS.` },
+        { property: "og:title", content: `${loaderData.name} — ${cat} | NORDHAUS` },
         { property: "og:description", content: `Габариты ${loaderData.size}, площадь застройки ${loaderData.area} м².${loaderData.floors ? ` Этажей: ${loaderData.floors}.` : ""}` },
         { property: "og:type", content: "article" },
       ],
