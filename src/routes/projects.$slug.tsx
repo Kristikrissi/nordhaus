@@ -45,7 +45,6 @@ function ProjectDetail() {
         <img src={project.images[0]} alt={project.name} className="detail-cover" />
 
         <div className="mt-10">
-          <h2 className="mb-6 text-2xl font-semibold">Фотографии и планировки</h2>
           <ProjectsGallery images={project.images.slice(1)} title={project.name} />
         </div>
 
