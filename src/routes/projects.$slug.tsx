@@ -42,11 +42,7 @@ function ProjectDetail() {
       </div>
 
       <div className="site-shell pb-20">
-        <img src={project.images[0]} alt={project.name} className="detail-cover" />
-
-        <div className="mt-10">
-          <ProjectsGallery images={project.images.slice(1)} title={project.name} />
-        </div>
+        <ProjectsGallery images={project.images} title={project.name} />
 
         <div className="mb-10 mt-12 border-b border-border py-8">
           <p className="text-sm text-muted-foreground">Размеры дома</p>
