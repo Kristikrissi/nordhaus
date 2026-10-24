@@ -20,7 +20,7 @@ function ProjectDetail() {
   const project = Route.useLoaderData();
   const category = categoryTitleOf(project);
 
-  const paragraphs = [
+  const paragraphs = project.description ?? [
     `Проект «${project.name}»${category ? ` — ${category.toLowerCase()}` : ""}. Габариты сруба по проекту — ${project.size}, площадь застройки ${project.area} м²${project.floors ? `, ${pluralFloors(project.floors)}` : ""}${project.material ? `, материал стен — ${project.material.toLowerCase()}` : ""}.`,
     project.status
       ? `Статус: ${project.status}. Строительством занимается NORDHAUS — дома и бани из бруса и бревна по индивидуальным проектам в Москве и области.`
@@ -107,7 +107,7 @@ export const Route = createFileRoute("/projects/$slug")({
     return {
       meta: [
         { title: `${loaderData.name} — ${cat} | NORDHAUS` },
-        { name: "description", content: `Проект «${loaderData.name}»: габариты ${loaderData.size}, площадь застройки ${loaderData.area} м². Дома и бани из бруса и бревна от NORDHAUS.` },
+        { name: "description", content: loaderData.description?.[0] ?? `Проект «${loaderData.name}»: габариты ${loaderData.size}, площадь застройки ${loaderData.area} м². Дома и бани из бруса и бревна от NORDHAUS.` },
         { property: "og:title", content: `${loaderData.name} — ${cat} | NORDHAUS` },
         { property: "og:description", content: `Габариты ${loaderData.size}, площадь застройки ${loaderData.area} м².${loaderData.floors ? ` Этажей: ${loaderData.floors}.` : ""}` },
         { property: "og:type", content: "article" },
