@@ -59,7 +59,7 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-border">
         <div className="container-wide flex flex-col gap-2 py-5 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
-          <span>© 2014–2026 ООО «NORDHAUS»</span>
+          <span>© 2014–2026 NORDHAUS</span>
           <span>{offices[0]?.address}</span>
         </div>
       </div>

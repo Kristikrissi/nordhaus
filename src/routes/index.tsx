@@ -10,7 +10,7 @@ const thinTitle = "font-light uppercase tracking-[0.04em] text-foreground/80";
 function Hero() {
   return (
     <section className="relative h-[100svh] min-h-[640px] overflow-hidden rounded-b-[32px]">
-      <img src="/images/home/hero.webp" alt="Усадьба из клееного бруса" className="absolute inset-0 h-full w-full object-cover" />
+      <img src="/images/home/hero.jpg" alt="Усадьба из клееного бруса" className="absolute inset-0 h-full w-full object-cover" />
       <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent" />
       <div className="container-wide relative z-10 flex h-full flex-col justify-end pb-14">
         <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
