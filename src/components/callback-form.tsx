@@ -12,7 +12,7 @@ export function CallbackForm({ compact = false }: { compact?: boolean }) {
     return (
       <div className={`rounded-xl bg-secondary p-6 text-center ${compact ? "" : "py-10"}`}>
         <p className="text-lg font-semibold text-foreground">Спасибо! Заявка отправлена.</p>
-        <p className="mt-2 text-sm text-muted-foreground">Мы перезвоним вам в ближайшее время.</p>
+        <p className="mt-2 text-sm text-muted-foreground">Мы перезвоним вам, чтобы уточнить детали и обсудить ваши пожелания.</p>
       </div>
     );
   }

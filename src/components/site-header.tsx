@@ -167,7 +167,7 @@ export function SiteHeader() {
             <div className="mb-4 flex items-start justify-between">
               <div>
                 <h3 className="text-lg font-bold uppercase">Заказать звонок</h3>
-                <p className="mt-1 text-sm text-muted-foreground">Мы перезвоним для уточнения деталей.</p>
+                <p className="mt-1 text-sm text-muted-foreground">Мы перезвоним вам, чтобы уточнить детали и обсудить ваши пожелания.</p>
               </div>
               <button type="button" aria-label="Закрыть" onClick={() => setModalOpen(false)} className="text-muted-foreground hover:text-foreground">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">

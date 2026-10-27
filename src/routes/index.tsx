@@ -130,7 +130,7 @@ function Calculator() {
     <section className="container-wide pt-20">
       <div className="mx-auto max-w-[1090px] rounded-[16px] bg-foreground/85 p-8 text-background sm:p-10">
         <h2 className="text-2xl font-light uppercase tracking-[0.04em] sm:text-[34px] leading-tight">Рассчитайте стоимость дома вашей мечты</h2>
-        <p className="mt-3 text-sm">Мы перезвоним для уточнения деталей и ваших указаний к предстоящему обсуждению</p>
+        <p className="mt-3 text-sm">Мы перезвоним вам, чтобы уточнить детали и обсудить ваши пожелания</p>
         <div className="mt-10 rounded-xl bg-background p-5 text-foreground">
           <CallbackForm />
         </div>
