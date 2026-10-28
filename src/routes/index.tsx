@@ -10,7 +10,18 @@ const thinTitle = "font-light uppercase tracking-[0.04em] text-foreground/80";
 function Hero() {
   return (
     <section className="relative h-[100svh] min-h-[640px] overflow-hidden rounded-b-[32px]">
-      <img src="/images/home/hero.jpg" alt="Усадьба из клееного бруса" className="absolute inset-0 h-full w-full object-cover" />
+      <picture>
+        <source srcSet="/images/home/hero.webp" type="image/webp" />
+        <img
+          src="/images/home/hero.jpg"
+          alt="Усадьба из клееного бруса"
+          fetchPriority="high"
+          decoding="async"
+          width={1542}
+          height={1020}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      </picture>
       <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent" />
       <div className="container-wide relative z-10 flex h-full flex-col justify-end pb-14">
         <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
@@ -142,15 +153,15 @@ function Calculator() {
 function Approach() {
   return (
     <section className="container-wide pt-20">
-      <div className="grid gap-10 rounded-[24px] bg-card p-8 shadow-sm sm:p-10 lg:grid-cols-2">
-        <div className="flex flex-col">
-          <h2 className={`text-3xl leading-tight sm:text-[36px] ${thinTitle}`}>Ваш дом — наша ответственность</h2>
-          <ul className="mt-10 list-disc space-y-2 pl-6 font-serif text-lg italic text-foreground/70">
+      <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-8 rounded-[24px] bg-card p-5 shadow-sm sm:gap-10 sm:p-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:p-10">
+        <div className="flex min-w-0 flex-col">
+          <h2 className={`text-xl leading-tight break-anywhere sm:text-3xl lg:text-[36px] ${thinTitle}`}>Ваш дом — наша ответственность</h2>
+          <ul className="mt-6 list-disc space-y-2 pl-5 font-serif text-base italic text-foreground/70 sm:mt-10 sm:pl-6 sm:text-lg">
             {["Индивидуальный подход к каждому проекту", "Контроль качества на каждом этапе", "Проверенные материалы и технологии", "Соблюдение сроков и бюджета", "Гарантия на все виды работ"].map((t) => <li key={t}>{t}</li>)}
           </ul>
           <Link to="/projects" className="btn-primary mt-6 self-start lg:mt-auto">Проекты</Link>
         </div>
-        <div className="min-w-0 overflow-hidden rounded-[20px]">
+        <div className="min-w-0 overflow-hidden rounded-[16px] sm:rounded-[20px]">
           <img src="/images/portfolio.jpg" alt="Портфолио" className="aspect-[4/3] w-full object-cover" loading="lazy" />
         </div>
       </div>
