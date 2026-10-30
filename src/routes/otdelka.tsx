@@ -53,11 +53,19 @@ function FinishingPage() {
         </Button>
         <p className="eyebrow mt-8">{finishing.eyebrow}</p>
         <h1 className="section-title mt-3 break-anywhere">{finishing.title}</h1>
-        <div className="mx-auto mt-6 max-w-3xl space-y-4 text-left text-sm leading-relaxed text-muted-foreground sm:text-base">
-          {finishing.intro.map((p, i) => (
-            <p key={i}>{p}</p>
-          ))}
-        </div>
+        {finishing.intro.map((p, i) => (
+          <p
+            key={i}
+            className={
+              "mt-4 max-w-3xl text-sm leading-relaxed sm:text-base " +
+              (i === finishing.intro.length - 1
+                ? "font-semibold text-foreground"
+                : "text-muted-foreground")
+            }
+          >
+            {p}
+          </p>
+        ))}
       </section>
 
       {/* Прайс */}
