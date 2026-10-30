@@ -11,24 +11,19 @@ const companyMenu = [
 
 /**
  * Пункт «Внутренняя и внешняя отделка» — это услуга, а не проект дома,
- * поэтому он отделён от категорий и помечен акцентным бейджем.
+ * поэтому он отделён от категорий и помечен акцентным бейджем слева.
  */
 function FinishingMenuItem({ onClick = () => {} }: { onClick?: () => void }) {
   return (
     <Link
       to="/otdelka"
       onClick={onClick}
-      className="flex items-center gap-3 rounded-lg px-4 py-2.5 transition-colors hover:bg-accent/10"
+      className="flex items-center gap-2.5 rounded-lg px-4 py-2.5 transition-colors hover:bg-accent/10"
     >
-      <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-accent/15 text-accent">
-        <Paintbrush className="size-4" />
+      <span className="shrink-0 rounded-full bg-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-accent-foreground">
+        Услуги
       </span>
-      <span className="flex flex-wrap items-center gap-2">
-        <span className="text-sm font-semibold text-foreground">{finishing.menuLabel}</span>
-        <span className="rounded-full bg-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-accent-foreground">
-          Услуги
-        </span>
-      </span>
+      <span className="min-w-0 text-sm font-semibold text-foreground">{finishing.menuLabel}</span>
     </Link>
   );
 }

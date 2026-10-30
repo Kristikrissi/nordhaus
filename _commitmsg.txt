@@ -1,0 +1,5 @@
+refactor: finishing menu badge, single prices, intro font
+
+- site-header: move "Услуги" badge to the left of the menu label, drop the icon
+- site-data: replace price ranges with a single approximate value prefixed with ~
+- otdelka: intro text now uses the same font as the company page (text-sm / sm:text-base, leading-relaxed, muted)

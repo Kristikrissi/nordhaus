@@ -53,7 +53,7 @@ function FinishingPage() {
         </Button>
         <p className="eyebrow mt-8 text-center">{finishing.eyebrow}</p>
         <h1 className="section-title mt-3 break-anywhere text-center">{finishing.title}</h1>
-        <div className="content-copy mx-auto mt-6 max-w-3xl text-center text-[15px] sm:text-base">
+        <div className="mx-auto mt-6 max-w-3xl space-y-4 text-center text-sm leading-relaxed text-muted-foreground sm:text-base">
           {finishing.intro.map((p, i) => (
             <p key={i}>{p}</p>
           ))}
