@@ -57,7 +57,7 @@ function FinishingPage() {
           <p
             key={i}
             className={
-              "mt-4 max-w-3xl text-sm leading-relaxed sm:text-base " +
+              "mx-auto mt-4 max-w-3xl text-center text-sm leading-relaxed sm:text-base " +
               (i === finishing.intro.length - 1
                 ? "font-semibold text-foreground"
                 : "text-muted-foreground")
