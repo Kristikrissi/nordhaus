@@ -78,7 +78,7 @@ function ProjectsPage() {
                 </span>
               </div>
               <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-                Отдельное направление: прайс на отделочные работы и расчёт по конкретному объекту.
+                Прайс на отделочные работы и расчёт по конкретному объекту
               </p>
             </div>
             <ArrowUpRight className="size-6 shrink-0 text-accent transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />

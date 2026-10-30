@@ -1,5 +1,5 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, Camera, Paintbrush } from "lucide-react";
+import { ArrowLeft, Camera, Paintbrush } from "lucide-react";
 import { finishing, site } from "@/lib/site-data";
 import { Button } from "@/components/ui/button";
 import { CallbackForm } from "@/components/callback-form";
@@ -51,27 +51,12 @@ function FinishingPage() {
             Каталог проектов
           </Link>
         </Button>
-        <p className="eyebrow">{finishing.eyebrow}</p>
-        <h1 className="section-title mt-3 break-anywhere">{finishing.title}</h1>
-        <div className="content-copy mt-6 max-w-3xl">
+        <p className="eyebrow mt-8 text-center">{finishing.eyebrow}</p>
+        <h1 className="section-title mt-3 break-anywhere text-center">{finishing.title}</h1>
+        <div className="content-copy mx-auto mt-6 max-w-3xl text-center text-[15px] sm:text-base">
           {finishing.intro.map((p, i) => (
             <p key={i}>{p}</p>
           ))}
-        </div>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Button variant="outline" asChild>
-            <a href="#pricing">Стоимость работ</a>
-          </Button>
-          <Button variant="outline" asChild>
-            <a href="#examples">Примеры работ</a>
-          </Button>
-          <button
-            type="button"
-            className="btn-primary"
-            onClick={() => window.dispatchEvent(new CustomEvent("open-callback-modal"))}
-          >
-            Обсудить отделку
-          </button>
         </div>
       </section>
 
@@ -117,22 +102,6 @@ function FinishingPage() {
           <div className="mt-8">
             <CallbackForm />
           </div>
-        </div>
-      </section>
-
-      {/* Ссылка на каталог */}
-      <section className="container-wide pb-20">
-        <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-border p-6 sm:p-8">
-          <div>
-            <p className="text-sm text-muted-foreground">Ищете готовый проект дома или бани?</p>
-            <p className="mt-1 font-semibold uppercase">{site.name}: каталог проектов</p>
-          </div>
-          <Button variant="pill" asChild>
-            <Link to="/projects">
-              Смотреть проекты
-              <ArrowRight />
-            </Link>
-          </Button>
         </div>
       </section>
     </main>
