@@ -23,7 +23,7 @@ function FinishingMenuItem({ onClick = () => {} }: { onClick?: () => void }) {
       <span className="shrink-0 rounded-full bg-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-accent-foreground">
         Услуги
       </span>
-      <span className="min-w-0 text-sm font-semibold text-foreground">{finishing.menuLabel}</span>
+      <span className="text-left text-sm font-semibold text-foreground">{finishing.menuLabel}</span>
     </Link>
   );
 }

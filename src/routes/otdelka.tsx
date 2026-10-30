@@ -51,9 +51,9 @@ function FinishingPage() {
             Каталог проектов
           </Link>
         </Button>
-        <p className="eyebrow mt-8 text-center">{finishing.eyebrow}</p>
-        <h1 className="section-title mt-3 break-anywhere text-center">{finishing.title}</h1>
-        <div className="mx-auto mt-6 max-w-3xl space-y-4 text-center text-sm leading-relaxed text-muted-foreground sm:text-base">
+        <p className="eyebrow mt-8">{finishing.eyebrow}</p>
+        <h1 className="section-title mt-3 break-anywhere">{finishing.title}</h1>
+        <div className="mx-auto mt-6 max-w-3xl space-y-4 text-left text-sm leading-relaxed text-muted-foreground sm:text-base">
           {finishing.intro.map((p, i) => (
             <p key={i}>{p}</p>
           ))}
