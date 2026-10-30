@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { site, categories, offices } from "@/lib/site-data";
+import { Paintbrush } from "lucide-react";
+import { site, categories, offices, finishing } from "@/lib/site-data";
 
 export function SiteFooter() {
   return (
@@ -21,6 +22,18 @@ export function SiteFooter() {
                 </Link>
               </li>
             ))}
+            <li className="border-t border-border pt-3">
+              <Link
+                to="/otdelka"
+                className="flex flex-wrap items-center gap-2 text-sm font-semibold text-foreground transition-colors hover:text-accent"
+              >
+                <Paintbrush className="size-4 shrink-0 text-accent" />
+                {finishing.menuLabel}
+                <span className="rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-accent">
+                  Услуги
+                </span>
+              </Link>
+            </li>
             <li>
               <Link to="/news" className="text-sm text-muted-foreground transition-colors hover:text-primary">
                 Новости

@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CompanyRouteImport } from './routes/company'
 import { Route as ContactsRouteImport } from './routes/contacts'
+import { Route as OtdelkaRouteImport } from './routes/otdelka'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as NewsIndexRouteImport } from './routes/news.index'
 import { Route as NewsSlugRouteImport } from './routes/news.$slug'
@@ -31,6 +32,11 @@ const CompanyRoute = CompanyRouteImport.update({
 const ContactsRoute = ContactsRouteImport.update({
   id: '/contacts',
   path: '/contacts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OtdelkaRoute = OtdelkaRouteImport.update({
+  id: '/otdelka',
+  path: '/otdelka',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -63,6 +69,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/company': typeof CompanyRoute
   '/contacts': typeof ContactsRoute
+  '/otdelka': typeof OtdelkaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/news/$slug': typeof NewsSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -73,6 +80,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/company': typeof CompanyRoute
   '/contacts': typeof ContactsRoute
+  '/otdelka': typeof OtdelkaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/news/$slug': typeof NewsSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -84,6 +92,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/company': typeof CompanyRoute
   '/contacts': typeof ContactsRoute
+  '/otdelka': typeof OtdelkaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/news/$slug': typeof NewsSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -96,6 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/company'
     | '/contacts'
+    | '/otdelka'
     | '/sitemap.xml'
     | '/news/$slug'
     | '/projects/$slug'
@@ -106,6 +116,7 @@ export interface FileRouteTypes {
     | '/'
     | '/company'
     | '/contacts'
+    | '/otdelka'
     | '/sitemap.xml'
     | '/news/$slug'
     | '/projects/$slug'
@@ -116,6 +127,7 @@ export interface FileRouteTypes {
     | '/'
     | '/company'
     | '/contacts'
+    | '/otdelka'
     | '/sitemap.xml'
     | '/news/$slug'
     | '/projects/$slug'
@@ -127,6 +139,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CompanyRoute: typeof CompanyRoute
   ContactsRoute: typeof ContactsRoute
+  OtdelkaRoute: typeof OtdelkaRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   NewsSlugRoute: typeof NewsSlugRoute
   ProjectsSlugRoute: typeof ProjectsSlugRoute
@@ -155,6 +168,13 @@ declare module '@tanstack/react-router' {
       path: '/contacts'
       fullPath: '/contacts'
       preLoaderRoute: typeof ContactsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/otdelka': {
+      id: '/otdelka'
+      path: '/otdelka'
+      fullPath: '/otdelka'
+      preLoaderRoute: typeof OtdelkaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -199,6 +219,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CompanyRoute: CompanyRoute,
   ContactsRoute: ContactsRoute,
+  OtdelkaRoute: OtdelkaRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   NewsSlugRoute: NewsSlugRoute,
   ProjectsSlugRoute: ProjectsSlugRoute,

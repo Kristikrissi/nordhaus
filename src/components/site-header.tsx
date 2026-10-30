@@ -1,12 +1,42 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { site, categories } from "@/lib/site-data";
+import { Paintbrush } from "lucide-react";
+import { site, categories, finishing } from "@/lib/site-data";
 import { CallbackForm } from "@/components/callback-form";
 
 const companyMenu = [
   { label: "О компании", to: "/company" as const, hash: undefined },
   { label: "Вакансии", to: "/company" as const, hash: "vacancy" as const },
 ];
+
+/**
+ * Пункт «Внутренняя и внешняя отделка» — это услуга, а не проект дома,
+ * поэтому он отделён от категорий и помечен акцентным бейджем.
+ */
+function FinishingMenuItem({ onClick = () => {} }: { onClick?: () => void }) {
+  return (
+    <Link
+      to="/otdelka"
+      onClick={onClick}
+      className="flex items-start gap-3 rounded-lg px-4 py-2.5 transition-colors hover:bg-accent/10"
+    >
+      <span className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full bg-accent/15 text-accent">
+        <Paintbrush className="size-4" />
+      </span>
+      <span>
+        <span className="flex flex-wrap items-center gap-2">
+          <span className="text-sm font-semibold text-foreground">{finishing.menuLabel}</span>
+          <span className="rounded-full bg-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-accent-foreground">
+            Услуги
+          </span>
+        </span>
+        <span className="mt-1 block text-xs leading-snug text-muted-foreground">
+          Цены на работы и расчёт по вашему объекту
+        </span>
+      </span>
+    </Link>
+  );
+}
 
 export function SiteHeader() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -38,8 +68,11 @@ export function SiteHeader() {
                     <path d="M1 3l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                   </svg>
                 </Link>
-                <div className="invisible absolute left-0 top-full z-50 w-80 pt-3 opacity-0 transition-all group-hover:visible group-hover:opacity-100">
+                <div className="invisible absolute left-0 top-full z-50 w-96 pt-3 opacity-0 transition-all group-hover:visible group-hover:opacity-100">
                   <div className="rounded-xl border border-border bg-popover p-2 shadow-xl">
+                    <p className="px-4 pb-1 pt-2 text-[10px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+                      Проекты из бруса и бревна
+                    </p>
                     {categories.map((c) => (
                       <Link
                         key={c.slug}
@@ -50,6 +83,8 @@ export function SiteHeader() {
                         {c.title}
                       </Link>
                     ))}
+                    <div className="my-2 h-px bg-border" />
+                    <FinishingMenuItem />
                   </div>
                 </div>
               </div>
@@ -140,6 +175,8 @@ export function SiteHeader() {
                     {c.title}
                   </Link>
                 ))}
+                <div className="my-2 h-px bg-border" />
+                <FinishingMenuItem onClick={() => setMobileOpen(false)} />
                 <Link to="/news" onClick={() => setMobileOpen(false)} className="rounded-lg px-3 py-2.5 text-sm font-semibold uppercase hover:bg-secondary">
                   Новости
                 </Link>
