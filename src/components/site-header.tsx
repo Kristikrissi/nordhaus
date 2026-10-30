@@ -18,20 +18,15 @@ function FinishingMenuItem({ onClick = () => {} }: { onClick?: () => void }) {
     <Link
       to="/otdelka"
       onClick={onClick}
-      className="flex items-start gap-3 rounded-lg px-4 py-2.5 transition-colors hover:bg-accent/10"
+      className="flex items-center gap-3 rounded-lg px-4 py-2.5 transition-colors hover:bg-accent/10"
     >
-      <span className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full bg-accent/15 text-accent">
+      <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-accent/15 text-accent">
         <Paintbrush className="size-4" />
       </span>
-      <span>
-        <span className="flex flex-wrap items-center gap-2">
-          <span className="text-sm font-semibold text-foreground">{finishing.menuLabel}</span>
-          <span className="rounded-full bg-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-accent-foreground">
-            Услуги
-          </span>
-        </span>
-        <span className="mt-1 block text-xs leading-snug text-muted-foreground">
-          Цены на работы и расчёт по вашему объекту
+      <span className="flex flex-wrap items-center gap-2">
+        <span className="text-sm font-semibold text-foreground">{finishing.menuLabel}</span>
+        <span className="rounded-full bg-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-accent-foreground">
+          Услуги
         </span>
       </span>
     </Link>
