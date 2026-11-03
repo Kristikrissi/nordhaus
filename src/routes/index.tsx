@@ -62,15 +62,9 @@ function ProjectsShowcase() {
 
   return (
     <section className="container-wide pt-16">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <p className="eyebrow">Наши работы</p>
-          <h2 className={`mt-3 text-2xl sm:text-[32px] ${thinTitle}`}>Дома, которые мы строим</h2>
-        </div>
-        <Link to="/projects" className="btn-outline">
-          Все проекты
-          <ArrowUpRight className="size-4" />
-        </Link>
+      <div className="mt-8">
+        <p className="eyebrow">Наши работы</p>
+        <h2 className={`mt-3 text-2xl sm:text-[32px] ${thinTitle}`}>Дома, которые мы строим</h2>
       </div>
 
       <div
@@ -144,6 +138,12 @@ function ProjectsShowcase() {
             <img src={src} alt="" loading="lazy" decoding="async" className="aspect-[182/100] w-full object-cover" />
           </button>
         ))}
+      </div>
+      <div className="mt-4 text-right">
+        <Link to="/projects" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+          Перейти в каталог проектов
+          <ArrowUpRight className="ml-1 inline size-4" />
+        </Link>
       </div>
     </section>
   );
