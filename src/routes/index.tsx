@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { categories, offices, site } from "@/lib/site-data";
+import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
+import { offices, site } from "@/lib/site-data";
 import { CallbackForm } from "@/components/callback-form";
 
 const showcase = ["/images/home/c1.jpg", "/images/home/c2.jpg", "/images/home/c3.jpg", "/images/home/c4.webp", "/images/home/c5.jpg"];
@@ -40,41 +41,109 @@ function Hero() {
   );
 }
 
+/**
+ * Галерея домов на главной: без категорий, листается сама,
+ * есть стрелки, точки-индикатор и полоса прогресса автопоказа.
+ */
+const AUTOPLAY_MS = 6000;
+
 function ProjectsShowcase() {
-  const [active, setActive] = useState(categories[0]!.slug);
   const [idx, setIdx] = useState(0);
-  const category = categories.find((c) => c.slug === active) ?? categories[0]!;
-  const imgs = active === categories[0]!.slug || category.images.length === 0 ? showcase : category.images.slice(0, 5);
-  const main = imgs[idx] ?? imgs[0]!;
+  const [paused, setPaused] = useState(false);
+  const n = showcase.length;
+
+  useEffect(() => {
+    if (paused || n < 2) return;
+    const t = setInterval(() => setIdx((i) => (i + 1) % n), AUTOPLAY_MS);
+    return () => clearInterval(t);
+  }, [paused, n]);
+
+  const go = (d: number) => setIdx((i) => (i + d + n) % n);
+
   return (
     <section className="container-wide pt-16">
-      <div className="flex flex-wrap justify-center gap-3">
-        {categories.map((c) => (
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="eyebrow">Наши работы</p>
+          <h2 className={`mt-3 text-2xl sm:text-[32px] ${thinTitle}`}>Дома, которые мы строим</h2>
+        </div>
+        <Link to="/projects" className="btn-outline">
+          Все проекты
+          <ArrowUpRight className="size-4" />
+        </Link>
+      </div>
+
+      <div
+        className="group relative mt-8 aspect-[4/3] overflow-hidden rounded-[24px] bg-secondary sm:aspect-[16/9] lg:aspect-[1216/700]"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
+        {showcase.map((src, i) => (
+          <img
+            key={src}
+            src={src}
+            alt={i === idx ? `Дом NORDHAUS — фото ${i + 1}` : ""}
+            loading={i === 0 ? "eager" : "lazy"}
+            decoding="async"
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out ${
+              i === idx ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        ))}
+
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-foreground/45 to-transparent" />
+
+        <button
+          type="button"
+          aria-label="Предыдущее фото"
+          onClick={() => go(-1)}
+          className="absolute left-3 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full border-0 bg-background/85 text-foreground shadow-lg backdrop-blur transition-all hover:bg-background sm:left-5 sm:size-12 sm:opacity-0 sm:group-hover:opacity-100"
+        >
+          <ChevronLeft className="size-5" />
+        </button>
+        <button
+          type="button"
+          aria-label="Следующее фото"
+          onClick={() => go(1)}
+          className="absolute right-3 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full border-0 bg-background/85 text-foreground shadow-lg backdrop-blur transition-all hover:bg-background sm:right-5 sm:size-12 sm:opacity-0 sm:group-hover:opacity-100"
+        >
+          <ChevronRight className="size-5" />
+        </button>
+
+        <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 items-center gap-2">
+          {showcase.map((src, i) => (
+            <button
+              key={src}
+              type="button"
+              aria-label={`Фото ${i + 1}`}
+              aria-current={i === idx}
+              onClick={() => setIdx(i)}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === idx ? "w-8 bg-background" : "w-3 bg-background/55 hover:bg-background/80"
+              }`}
+            />
+          ))}
+        </div>
+
+        <span className="absolute bottom-4 right-5 rounded-full bg-foreground/45 px-3 py-1 text-xs font-semibold tabular-nums text-background backdrop-blur">
+          {idx + 1} / {n}
+        </span>
+      </div>
+
+      <div className="mt-4 grid gap-3" style={{ gridTemplateColumns: `repeat(${n}, minmax(0, 1fr))` }}>
+        {showcase.map((src, i) => (
           <button
-            key={c.slug}
+            key={src}
             type="button"
-            onClick={() => { setActive(c.slug); setIdx(0); }}
-            className={`rounded-full border px-6 py-3 text-[12px] font-semibold uppercase tracking-wider transition-colors ${
-              c.slug === active ? "border-foreground/70 bg-foreground/70 text-background" : "border-foreground/40 text-foreground/80 hover:border-primary hover:text-primary"
+            aria-label={`Открыть фото ${i + 1}`}
+            onClick={() => setIdx(i)}
+            className={`overflow-hidden rounded-xl border-2 transition-all ${
+              i === idx ? "border-primary" : "border-transparent opacity-60 hover:opacity-100"
             }`}
           >
-            {c.title}
+            <img src={src} alt="" loading="lazy" decoding="async" className="aspect-[182/100] w-full object-cover" />
           </button>
         ))}
-      </div>
-      <div className="mt-10 overflow-hidden rounded-[24px]">
-        <img key={main} src={main} alt="Проект дома" className="aspect-[16/9] w-full object-cover lg:aspect-[1216/700]" />
-      </div>
-      <div className="mt-5 grid grid-cols-3 gap-5 sm:grid-cols-6">
-        {imgs.map((img, i) => (
-          <button key={img} type="button" onClick={() => setIdx(i)} className={`overflow-hidden rounded-xl border-2 ${i === idx ? "border-foreground/50" : "border-transparent"}`}>
-            <img src={img} alt="" className="aspect-[182/100] w-full object-cover" loading="lazy" />
-          </button>
-        ))}
-        <Link to="/projects" search={{ category: active }} className="flex flex-col justify-between rounded-xl bg-primary p-4 text-primary-foreground">
-          <span className="self-end text-lg leading-none">↗</span>
-          <span className="text-[12px] font-semibold uppercase tracking-wider">Перейти в проекты</span>
-        </Link>
       </div>
     </section>
   );
