@@ -5,16 +5,28 @@ import { Button } from "@/components/ui/button";
 
 /**
  * Галерея фотографий проекта с лайтбоксом.
- * Первый элемент массива показывается крупной обложкой, остальные — сеткой.
- * Обложка тоже открывается в лайтбоксе, стрелки листают все фотографии.
+ * По умолчанию первый элемент показывается крупной обложкой, остальные — сеткой.
+ * С uniform={true} все фотографии идут одной сеткой одинакового размера.
+ * Любая фотография открывается в лайтбоксе, стрелки листают весь массив.
  */
-export function ProjectsGallery({ images, title }: { images: string[]; title: string }) {
+export function ProjectsGallery({
+  images,
+  title,
+  uniform = false,
+}: {
+  images: string[];
+  title: string;
+  uniform?: boolean;
+}) {
   const [selected, setSelected] = useState<number | null>(null);
   const [cover, ...rest] = images;
+  const showCover = !uniform && cover !== undefined;
+  const gridImages = showCover ? rest : images;
+  const offset = showCover ? 1 : 0;
 
   return (
     <>
-      {cover && (
+      {showCover && cover && (
         <button
           type="button"
           onClick={() => setSelected(0)}
@@ -25,18 +37,18 @@ export function ProjectsGallery({ images, title }: { images: string[]; title: st
         </button>
       )}
 
-      <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {rest.map((src, i) => (
+      <div className={`${showCover ? "mt-8" : ""} grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3`}>
+        {gridImages.map((src, i) => (
           <button
             type="button"
             key={src}
-            onClick={() => setSelected(i + 1)}
-            aria-label={`${title} — фото ${i + 2}`}
+            onClick={() => setSelected(i + offset)}
+            aria-label={`${title} — фото ${i + offset + 1}`}
             className="cursor-pointer overflow-hidden rounded-lg border border-transparent p-0 transition-colors hover:border-primary/40"
           >
             <img
               src={src}
-              alt={`${title} — фото ${i + 2}`}
+              alt={`${title} — фото ${i + offset + 1}`}
               loading="lazy"
               className="aspect-[4/3] w-full object-cover"
             />

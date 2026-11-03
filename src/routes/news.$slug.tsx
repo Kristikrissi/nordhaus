@@ -59,7 +59,7 @@ function ArticlePage() {
 
         {gallery.length > 0 ? (
           <div className="mt-10">
-            <ProjectsGallery images={gallery} title={title} />
+            <ProjectsGallery images={gallery} title={title} uniform />
           </div>
         ) : (
           <div className="mx-auto max-w-3xl">
