@@ -564,9 +564,22 @@ export type NewsItem = {
   readTime: string;
   views: string;
   image: string;
+  gallery?: string[];
 };
 
+const fotoreportaz1 = Array.from({ length: 38 }, (_, i) => `/images/fotoreportaz-1/${String(i + 1).padStart(2, "0")}.jpg`);
+
 export const news: NewsItem[] = [
+  {
+    tag: "новости",
+    date: "3 ноября 2026",
+    title: "Фоторепортаж: три недели сборки дома из бруса — 38 кадров с площадки",
+    excerpt: "С 19 июля по 7 августа мы снимали один из наших объектов каждый день. Публикуем 38 кадров — от разметки пятна застройки до готовой коробки под кровлю. Без прикрас: как это выглядит на площадке на самом деле.",
+    readTime: "2 мин.",
+    views: "0 просмотров",
+    image: fotoreportaz1[0]!,
+    gallery: fotoreportaz1,
+  },
   {
     tag: "статьи",
     date: "30 сентября 2026",

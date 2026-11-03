@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { news, site } from "@/lib/site-data";
 import { articleBySlug } from "@/lib/news-articles";
+import { ProjectsGallery } from "@/components/projects-gallery";
 
 export const Route = createFileRoute("/news/$slug")({
   staticData: { sitemap: true },
@@ -40,26 +41,42 @@ export const Route = createFileRoute("/news/$slug")({
 
 function ArticlePage() {
   const { title, article, item } = Route.useLoaderData();
+  const gallery = item.gallery ?? [];
+
   return (
     <main className="pt-28 pb-20">
-      <article className="container-wide max-w-3xl">
-        <Link to="/news" className="text-sm text-muted-foreground hover:text-primary">← Все новости</Link>
-        <div className="mt-6 flex items-center gap-3 text-xs text-muted-foreground">
-          <span className="rounded-full bg-secondary px-3 py-1 font-semibold uppercase tracking-wide text-primary">{item.tag}</span>
-          <span>{item.date}</span>
-          <span>· {item.readTime}</span>
+      <article className="container-wide">
+        <div className="mx-auto max-w-3xl">
+          <Link to="/news" className="text-sm text-muted-foreground hover:text-primary">← Все новости</Link>
+          <div className="mt-6 flex items-center gap-3 text-xs text-muted-foreground">
+            <span className="rounded-full bg-secondary px-3 py-1 font-semibold uppercase tracking-wide text-primary">{item.tag}</span>
+            <span>{item.date}</span>
+            <span>· {item.readTime}</span>
+          </div>
+          <h1 className="mt-5 text-2xl font-bold uppercase leading-tight md:text-4xl">{title}</h1>
+          <p className="mt-8 text-lg leading-relaxed">{item.excerpt}</p>
         </div>
-        <h1 className="mt-5 text-2xl font-bold uppercase leading-tight md:text-4xl">{title}</h1>
-        <img src={item.image} alt={title} className="mt-8 aspect-[16/9] w-full rounded-xl object-cover" />
-        <p className="mt-8 text-lg leading-relaxed">{item.excerpt}</p>
-        {article.sections.map((s) => (
-          <section key={s.h} className="mt-8">
-            <h2 className="text-xl font-bold">{s.h}</h2>
-            {s.p.split(/\n+/).map((para, i) => (
-              <p key={i} className="mt-3 leading-relaxed text-muted-foreground">{para}</p>
-            ))}
-          </section>
-        ))}
+
+        {gallery.length > 0 ? (
+          <div className="mt-10">
+            <ProjectsGallery images={gallery} title={title} />
+          </div>
+        ) : (
+          <div className="mx-auto max-w-3xl">
+            <img src={item.image} alt={title} className="mt-8 aspect-[16/9] w-full rounded-xl object-cover" />
+          </div>
+        )}
+
+        <div className="mx-auto max-w-3xl">
+          {article.sections.map((s) => (
+            <section key={s.h} className="mt-8">
+              <h2 className="text-xl font-bold">{s.h}</h2>
+              {s.p.split(/\n+/).map((para, i) => (
+                <p key={i} className="mt-3 leading-relaxed text-muted-foreground">{para}</p>
+              ))}
+            </section>
+          ))}
+        </div>
       </article>
     </main>
   );
