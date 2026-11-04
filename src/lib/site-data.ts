@@ -568,8 +568,41 @@ export type NewsItem = {
 };
 
 const fotoreportaz1 = Array.from({ length: 38 }, (_, i) => `/images/fotoreportaz-1/${String(i + 1).padStart(2, "0")}.jpg`);
+const fotoreportaz2 = Array.from({ length: 19 }, (_, i) => `/images/fotoreportaz-2/${String(i + 1).padStart(2, "0")}.jpg`);
+const fotoreportaz3 = Array.from({ length: 80 }, (_, i) => `/images/fotoreportaz-3/${String(i + 1).padStart(2, "0")}.jpg`);
+const fotoreportaz4 = Array.from({ length: 46 }, (_, i) => `/images/fotoreportaz-4/${String(i + 1).padStart(2, "0")}.jpg`);
 
 export const news: NewsItem[] = [
+  {
+    tag: "новости",
+    date: "4 ноября 2026",
+    title: "Фоторепортаж со стройплощадки: 19 кадров сборки деревянного дома",
+    excerpt: "Короткий репортаж с одного из наших объектов: 19 фотографий, на которых видно, как идёт рабочая стройка — материалы, инструмент, работа бригады и то, как меняется площадка.",
+    readTime: "2 мин.",
+    views: "0 просмотров",
+    image: fotoreportaz2[0]!,
+    gallery: fotoreportaz2,
+  },
+  {
+    tag: "новости",
+    date: "4 ноября 2026",
+    title: "Фотоархив строительства: 80 кадров с объекта деревянного дома",
+    excerpt: "Самый подробный наш фотоотчёт: 80 фотографий с одной строительной площадки, расположенных в хронологическом порядке. Листайте и смотрите процесс сборки день за днём.",
+    readTime: "4 мин.",
+    views: "0 просмотров",
+    image: fotoreportaz3[0]!,
+    gallery: fotoreportaz3,
+  },
+  {
+    tag: "новости",
+    date: "4 ноября 2026",
+    title: "Фотоотчёт с объекта 2019 года: 46 кадров сборки деревянного дома",
+    excerpt: "С 6 июля по 9 августа 2019 года мы вели съёмку на одном из наших объектов: 46 фотографий, 11 съёмочных дней и пять недель строительства деревянного дома.",
+    readTime: "3 мин.",
+    views: "0 просмотров",
+    image: fotoreportaz4[0]!,
+    gallery: fotoreportaz4,
+  },
   {
     tag: "новости",
     date: "3 ноября 2026",
@@ -755,5 +788,5 @@ export const finishing = {
   /** Заглушка под будущие фотографии примеров работ. */
   galleryNote: "Примеры наших работ по отделке — фотографии появятся здесь в ближайшее время.",
   /** Пути к фотографиям примеров работ; пустой массив — показывается galleryNote. */
-  works: [] as string[],
+  works: Array.from({ length: 39 }, (_, i) => `/images/otdelka/${String(i + 1).padStart(2, "0")}.jpg`),
 };

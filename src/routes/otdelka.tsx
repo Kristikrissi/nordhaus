@@ -83,7 +83,7 @@ function FinishingPage() {
         </p>
       </section>
 
-      {/* Примеры работ: как только в finishing.works появятся фото — встанет общая галерея с лайтбоксом */}
+      {/* Примеры работ: общая галерея с лайтбоксом по finishing.works */}
       <section id="examples" className="container-wide scroll-mt-32 pt-20">
         <p className="eyebrow">Портфолио</p>
         <h2 className="section-title mt-3">Примеры работ</h2>
