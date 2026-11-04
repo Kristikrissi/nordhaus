@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 import { offices, site } from "@/lib/site-data";
 import { CallbackForm } from "@/components/callback-form";
 
-const showcase = ["/images/home/c1.jpg", "/images/home/c2.jpg", "/images/home/c3.jpg", "/images/home/c4.webp", "/images/home/c5.jpg"];
+const showcase = ["/images/home/1.jpg", "/images/home/2.jpg", "/images/home/3.jpg", "/images/home/4.jpg", "/images/home/5.jpg"];
 const aboutSlides = Array.from({ length: 12 }, (_, i) => `/images/home/a${i + 1}.jpg`);
 const thinTitle = "font-light uppercase tracking-[0.04em] text-foreground/80";
 
