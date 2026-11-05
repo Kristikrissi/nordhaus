@@ -3,7 +3,7 @@ import { ArrowLeft, Camera, Paintbrush } from "lucide-react";
 import { finishing, site } from "@/lib/site-data";
 import { Button } from "@/components/ui/button";
 import { CallbackForm } from "@/components/callback-form";
-import { ProjectsGallery } from "@/components/projects-gallery";
+import { WorksGallery } from "@/components/works-gallery";
 
 function PriceTable({ title, rows }: { title: string; rows: { work: string; price: string }[] }) {
   return (
@@ -83,14 +83,12 @@ function FinishingPage() {
         </p>
       </section>
 
-      {/* Примеры работ: общая галерея с лайтбоксом по finishing.works */}
+      {/* Примеры работ: по три фото за раз, все одного размера */}
       <section id="examples" className="container-wide scroll-mt-32 pt-20">
         <p className="eyebrow">Портфолио</p>
         <h2 className="section-title mt-3">Примеры работ</h2>
         {finishing.works.length > 0 ? (
-          <div className="mt-8">
-            <ProjectsGallery images={finishing.works} title="Примеры работ по отделке" />
-          </div>
+          <WorksGallery images={finishing.works} title="Примеры работ по отделке" />
         ) : (
           <div className="mt-8 flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-primary/40 bg-primary/5 p-10 text-center sm:p-14">
             <span className="flex size-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
