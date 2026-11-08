@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowUpRight, ImagePlus } from "lucide-react";
 import { offices, site } from "@/lib/site-data";
 import { CallbackForm } from "@/components/callback-form";
 
-const showcase = ["/images/home/1.jpg", "/images/home/2.jpg", "/images/home/3.jpg", "/images/home/4.jpg", "/images/home/5.jpg"];
-const aboutSlides = Array.from({ length: 12 }, (_, i) => `/images/home/a${i + 1}.jpg`);
+const showcase = ["/images/home/1.jpg", "/images/home/2.jpg", "/images/home/3.jpg", "/images/home/4.jpg", "/images/home/5.jpg", "/images/home/6.jpg", "/images/home/7.jpg", "/images/home/8.jpg"];
 const thinTitle = "font-light uppercase tracking-[0.04em] text-foreground/80";
 
 function Hero() {
@@ -15,7 +14,7 @@ function Hero() {
         <source srcSet="/images/home/hero.webp" type="image/webp" />
         <img
           src="/images/home/hero.jpg"
-          alt="Усадьба из клееного бруса"
+          alt="Дом из оцилиндрованного бревна"
           fetchPriority="high"
           decoding="async"
           width={1542}
@@ -172,8 +171,6 @@ function Engineering() {
 }
 
 function About() {
-  const [i, setI] = useState(0);
-  const n = aboutSlides.length;
   return (
     <section className="container-wide pt-24">
       <div className="grid gap-10 rounded-[24px] bg-card p-8 shadow-sm sm:p-10 lg:grid-cols-2">
@@ -190,14 +187,14 @@ function About() {
             NORDHAUS — дома из дерева, созданные с душой, вниманием к деталям и уважением к традициям деревянного зодчества.
           </p>
         </div>
-        <div>
-          <div className="min-w-0 overflow-hidden rounded-[20px]">
-            <img src={aboutSlides[i]} alt="Наши дома" className="aspect-[4/3] w-full object-cover" loading="lazy" />
-          </div>
-          <div className="mt-6 flex items-center justify-center gap-6 text-foreground/70">
-            <button type="button" aria-label="Назад" onClick={() => setI((i - 1 + n) % n)} className="grid h-10 w-10 place-items-center rounded-full border border-foreground/60">←</button>
-            <span className="text-sm">{i + 1} / {n}</span>
-            <button type="button" aria-label="Вперёд" onClick={() => setI((i + 1) % n)} className="grid h-10 w-10 place-items-center rounded-full border border-foreground/60">→</button>
+        {/* Заглушка: фотографии домов добавим позже в /images/home/ и вернём карусель aboutSlides */}
+        <div className="grid min-w-0 place-items-center rounded-[20px] border border-dashed border-foreground/25 bg-muted/40 px-6 py-16 text-center">
+          <div>
+            <ImagePlus className="mx-auto h-12 w-12 text-foreground/30" aria-hidden />
+            <p className="mt-5 text-[15px] font-semibold">Фотографии домов скоро появятся</p>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Мы готовим подборку снимков реализованных объектов.
+            </p>
           </div>
         </div>
       </div>
@@ -231,7 +228,7 @@ function Approach() {
           <Link to="/projects" className="btn-primary mt-6 self-start lg:mt-auto">Проекты</Link>
         </div>
         <div className="min-w-0 overflow-hidden rounded-[16px] sm:rounded-[20px]">
-          <img src="/images/portfolio.jpg" alt="Портфолио" className="aspect-[4/3] w-full object-cover" loading="lazy" />
+          <img src="/images/home/portfolio.jpg" alt="Портфолио" className="aspect-[4/3] w-full object-cover" loading="lazy" />
         </div>
       </div>
     </section>
@@ -248,13 +245,13 @@ function Quote() {
             <p className="mt-1">Именно эту философию мы вкладываем в каждый дом NORDHAUS. С любовью к дереву, уважением к природе и вниманием к каждой детали мы создаём пространства, в которых хочется жить, расти, возвращаться и оставаться.</p>
             <p className="mt-1">NORDHAUS — это больше, чем дом. Это тепло, которое передаётся из поколения в поколение. Ценность, которая не теряет своего смысла с годами, а становится только глубже.</p>
             <img
-              src="/images/12.png"
+              src="/images/home/12.png"
               alt="NORDHAUS"
               className="mx-auto mt-6 block max-w-[420px] rounded-lg object-cover"
               loading="lazy"
             />
           </div>
-          <img src="/images/sergey.jpg" alt="Сергей" className="h-full w-full rounded-lg object-cover" loading="lazy" />
+          <img src="/images/home/sergey.jpg" alt="Сергей" className="h-full w-full rounded-lg object-cover" loading="lazy" />
         </div>
       </div>
     </section>

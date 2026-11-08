@@ -1,8 +1,9 @@
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ArrowUpRight, Paintbrush } from "lucide-react";
-import { categories, projects, site, finishing, type Project } from "@/lib/site-data";
+import { categories, completedHomes, projects, site, finishing, type Project } from "@/lib/site-data";
 import { Button } from "@/components/ui/button";
 import { CallbackForm } from "@/components/callback-form";
+import { ProjectsGallery } from "@/components/projects-gallery";
 
 function categoryTitleOf(p: Project) {
   return categories.find((c) => p.categories.includes(c.slug))?.title;
@@ -84,6 +85,27 @@ function ProjectsPage() {
             <ArrowUpRight className="size-6 shrink-0 text-accent transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </div>
         </Link>
+      </section>
+
+      <section id="completed" className="container-wide scroll-mt-32 pt-20">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div className="max-w-2xl">
+            <p className="eyebrow">{completedHomes.eyebrow}</p>
+            <h2 className="section-title mt-3">{completedHomes.title}</h2>
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground sm:text-[15px]">{completedHomes.lead}</p>
+          </div>
+          <span className="shrink-0 rounded-full border border-primary/30 bg-primary/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-primary">
+            {completedHomes.images.length} фото
+          </span>
+        </div>
+
+        <div className="mt-10">
+          <ProjectsGallery images={completedHomes.images} title={completedHomes.title} uniform />
+        </div>
+
+        <p className="mt-8 rounded-2xl border border-border bg-secondary/50 p-5 text-sm leading-relaxed text-muted-foreground sm:p-6">
+          {completedHomes.note}
+        </p>
       </section>
 
       <section className="container-wide pt-20 pb-20">

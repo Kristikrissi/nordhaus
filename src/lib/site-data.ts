@@ -1,53 +1,15 @@
-const big = [
-  "/images/opfevx4o6401n1ma5oh25je9z8psrfiy.jpg",
-  "/images/j99gqs8omyn4wrsw5ksis2o7zu18rr6v.jpg",
-  "/images/u4kxrbtoy4cv4tlu3mzyho9w7bgaiblt.jpg",
-  "/images/j01h4fq8o9r17lrdb7yx1evpgolwxz5u.jpg",
-  "/images/fcm5saszguzbsr4vayfxbahxzcd70jk1.jpg",
-  "/images/yo6tn60n37larhf5k81gh10qwsoes2i9.jpg",
-  "/images/1ftvl98shmd3e3p553m0nlfpy9e8te5c.jpg",
-  "/images/ombwg2yvwpj7dko2drpmdn62affqkok7.jpg",
-  "/images/7uxab3r6q2ttasxttu6edroetaigcm1k.jpg",
-  "/images/tphkpk410syoczefqvjwdletmzxajdnx.jpg",
-  "/images/p205t8z71drcy6suf6oizgz7c813ri9n.jpg",
-  "/images/2b9yvefvnn0o2ziumzr6p7jqm251u685.jpg",
-  "/images/400ycf8t9deuo2cjwi3nzstgpvksgri0.jpg",
-  "/images/bq1hz53oadbltktmh1tusjxyvgxeotrq.jpg",
-  "/images/rpfgjiuqhgmy03i8ecz1vtrmu7zlsj0s.jpg",
-  "/images/nyqj8toe5jh2ri0vg15w2ks7ey5vnypa.jpg",
-  "/images/hib7d1txsfu7g4gebck5eeu7gzp8t2oc.jpg",
-  "/images/tnchydjkdpew480znv0hcha6lkiyfpco.jpg",
-  "/images/jico17u9pr32vh39mujc5j38e1mdv1jv.jpg",
-  "/images/19mialw2nazpf1rm8cy3svklqj61rnih.jpg",
-  "/images/zobxacytugk024kyadyvcfn6jh9mi3pq.jpg",
-  "/images/hsr0yze9rpnijh0zpokz0j8pai4fw9e7.jpg",
-  "/images/u16nzt8ri2mxwbytjwvgn85y6y7j63vl.jpg",
-  "/images/03s4ekd3k4152q39nljnb9pm5bp2gs9c.jpg",
-  "/images/ff3y7zjgcb14nspbh4a79q07c9yzewn5.jpg",
-];
-
 const gallery = [
-  "/images/l10lhrhx7rofclizusr7tzthfal8llss.jpg",
-  "/images/ntebky3zo0w0sbr17lo3tafvg7zisv1x.jpg",
-  "/images/e9oev89s9qu9u37ufe1mmzqc3pe0elxn.jpg",
-  "/images/qt4lmz65qewy8zlfo66nire6bkn98s09.jpg",
-  "/images/pby7kb3r44abn1cvppwy4pxhtirnln9j.jpg",
-  "/images/70g67mq2quk2rbk4kbsxvnkekqrsyjys.jpg",
-  "/images/c9ekv0jgimgttqacfv5qxlfxvu71blzp.jpg",
-  "/images/3mrbnuwcnnpe55epjunuzdp9qcd12af3.jpg",
-  "/images/l76mwxs6h9w6kmqr79v4baeotgvda46u.jpg",
-  "/images/79e3mzft7hyheqe5golqkg8uqczzvk8p.jpg",
-  "/images/77c8erzldvphd1sbfb2i09uamj3ag5l3.jpg",
-  "/images/0k4z4xsitwn6nftshqnr8b13ma49mzua.jpg",
-  "/images/o07cf77yocsmyrisj2g0w7e1dky3jr7h.jpg",
-  "/images/hasr0dviylbsq0cbvueqknhsieyoklmz.jpg",
-  "/images/dk4v45yp16md8qt7dah3hgp86p432b32.jpg",
-  "/images/4vq9txo3dl39ttzrd08i2rz3mrrhdivx.jpg",
-  "/images/m6qg4aggina17fsbrfp610bwn9hx1g8e.jpg",
-  "/images/oe0q9mnk82d7s68f87jiaw71mnm0kmyk.jpg",
+  "/images/news/01.jpg",
+  "/images/news/02.jpg",
+  "/images/news/03.jpg",
+  "/images/news/04.jpg",
+  "/images/news/05.jpg",
+  "/images/news/06.jpg",
+  "/images/news/07.jpg",
+  "/images/news/08.jpg",
+  "/images/news/09.jpg",
+  "/images/news/10.jpg",
 ];
-
-export const heroImage = big[0]!;
 
 export const site = {
   name: "NORDHAUS",
@@ -58,7 +20,7 @@ export const site = {
   logoDark: "/images/__images/logo_nordhaus.svg",
 };
 
-export type Category = {
+type Category = {
   slug: string;
   title: string;
   images: string[];
@@ -128,7 +90,7 @@ export const projects: Project[] = [
     floors: 2,
     material: "Брус 150 × 150 мм",
     categories: ["doma-iz-brusa"],
-    images: pImages("proekt-6-na-6", 5),
+    images: pImages("elnik", 5),
     specs: brusSpecs,
   },
   {
@@ -140,7 +102,7 @@ export const projects: Project[] = [
     floors: 2,
     material: "Брус 150 × 150 мм",
     categories: ["doma-iz-brusa"],
-    images: pImages("dachnyj-domik-6-na-6", 4),
+    images: pImages("dachnyj-beleg", 4),
     description: [
       "Проект «Дачный берег» — двухэтажный дом из бруса. Габариты сруба по проекту — 6 × 6 м, площадь застройки — 36 м², этажность — 2 этажа. Материал наружных стен — брус 150 × 150 мм.",
       "Компания NORDHAUS занимается строительством домов и бань из бруса и бревна по типовым и индивидуальным проектам. Сборка выполняется в соответствии с проектной документацией с учётом особенностей усадки деревянного сруба.",
@@ -173,7 +135,7 @@ export const projects: Project[] = [
     area: 48,
     material: "Брус 150 × 150 мм",
     categories: ["doma-iz-brusa"],
-    images: pImages("proekt-doma-iz-brusa-6h8", 5),
+    images: pImages("klen", 5),
     description: [
       "Проект «Клён» — деревянный дом с габаритами сруба 6 × 8 м и площадью застройки 48 м². Для возведения стен используется брус сечением 150 × 150 мм.",
       "Сборка выполняется по проекту с учётом особенностей деревянной конструкции и естественной усадки сруба.",
@@ -188,7 +150,7 @@ export const projects: Project[] = [
     area: 48,
     material: "Брус 150 × 150 мм",
     categories: ["doma-iz-brusa"],
-    images: pImages("proekt-dachnogo-doma-iz-brusa-6-h-8", 5),
+    images: pImages("listvennitsa", 5),
   },
   {
     slug: "proekt-doma-iz-brusa-s-otkrytoj-terrasoj-6h6",
@@ -198,7 +160,7 @@ export const projects: Project[] = [
     area: 36,
     material: "Брус 150 × 150 мм",
     categories: ["doma-iz-brusa"],
-    images: pImages("proekt-doma-iz-brusa-s-otkrytoj-terrasoj-6h6", 5),
+    images: pImages("teremok", 5),
   },
   {
     slug: "proekt-doma-iz-brusa-dlya-dachi-6h6",
@@ -208,7 +170,7 @@ export const projects: Project[] = [
     area: 36,
     material: "Брус 150 × 150 мм",
     categories: ["doma-iz-brusa"],
-    images: pImages("proekt-doma-iz-brusa-dlya-dachi-6h6", 6),
+    images: pImages("yasen", 6),
   },
   {
     slug: "proekt-doma-iz-brusa-6-h-6-m",
@@ -218,7 +180,7 @@ export const projects: Project[] = [
     area: 36,
     material: "Брус 150 × 150 мм",
     categories: ["doma-iz-brusa"],
-    images: pImages("proekt-doma-iz-brusa-6-h-6-m", 6),
+    images: pImages("osina", 6),
   },
   {
     slug: "proekt-doma-iz-brusa-8-h-11-5-m",
@@ -228,7 +190,7 @@ export const projects: Project[] = [
     area: 92,
     material: "Брус 150 × 150 мм",
     categories: ["doma-iz-brusa"],
-    images: pImages("proekt-doma-iz-brusa-8-h-11-5-m", 6),
+    images: pImages("prostor", 6),
   },
   {
     slug: "proekt-doma-iz-profilirovannogo-brusa-6-h-6-m",
@@ -238,7 +200,7 @@ export const projects: Project[] = [
     area: 36,
     material: "Профилированный брус 140 × 140 мм",
     categories: ["doma-iz-brusa"],
-    images: pImages("proekt-doma-iz-profilirovannogo-brusa-6-h-6-m", 6),
+    images: pImages("pikhtovyj", 6),
   },
   {
     slug: "proekt-doma-iz-brusa-8-h-8-m",
@@ -248,7 +210,7 @@ export const projects: Project[] = [
     area: 64,
     material: "Брус 150 × 150 мм",
     categories: ["doma-iz-brusa"],
-    images: pImages("proekt-doma-iz-brusa-8-h-8-m", 5),
+    images: pImages("vekovoj-bor", 5),
   },
   {
     slug: "dom-iz-profilirovannogo-brusa-9-h-11",
@@ -258,7 +220,7 @@ export const projects: Project[] = [
     area: 99,
     material: "Профилированный брус 140 × 140 мм",
     categories: ["doma-iz-brusa"],
-    images: pImages("dom-iz-profilirovannogo-brusa-9-h-11", 6),
+    images: pImages("kedrovaya-usadba", 6),
   },
   {
     slug: "dom-iz-profilirovannogo-brusa-8-h-8",
@@ -268,7 +230,7 @@ export const projects: Project[] = [
     area: 64,
     material: "Профилированный брус 140 × 140 мм",
     categories: ["doma-iz-brusa"],
-    images: pImages("dom-iz-profilirovannogo-brusa-8-h-8", 5),
+    images: pImages("tajgovyj", 5),
   },
   {
     slug: "dom-iz-brevna-8-93",
@@ -278,7 +240,7 @@ export const projects: Project[] = [
     area: 74,
     material: "Бревно",
     categories: ["doma-iz-brevna"],
-    images: pImages("dom-iz-brevna-8-93", 7),
+    images: pImages("zhuravushka", 7),
   },
   {
     slug: "proyekt-doma-iz-brevna-7-5x9",
@@ -288,7 +250,7 @@ export const projects: Project[] = [
     area: 68,
     material: "Бревно",
     categories: ["doma-iz-brevna"],
-    images: pImages("proyekt-doma-iz-brevna-7-5x9", 7),
+    images: pImages("svetlitsa", 7),
   },
   {
     slug: "proyekt-doma-iz-brevna-7x9-5",
@@ -298,7 +260,7 @@ export const projects: Project[] = [
     area: 67,
     material: "Бревно",
     categories: ["doma-iz-brevna"],
-    images: pImages("proyekt-doma-iz-brevna-7x9-5", 7),
+    images: pImages("zarya", 7),
   },
   {
     slug: "proyekt-doma-iz-brevna-8x11",
@@ -308,7 +270,7 @@ export const projects: Project[] = [
     area: 88,
     material: "Бревно",
     categories: ["doma-iz-brevna"],
-    images: pImages("proyekt-doma-iz-brevna-8x11", 7),
+    images: pImages("bogatyry", 7),
   },
   {
     slug: "proyekt-doma-iz-brevna-9x10",
@@ -318,7 +280,7 @@ export const projects: Project[] = [
     area: 90,
     material: "Бревно",
     categories: ["doma-iz-brevna"],
-    images: pImages("proyekt-doma-iz-brevna-9x10", 7),
+    images: pImages("kupcheskij", 7),
   },
   {
     slug: "proyekt-doma-iz-brevna-8x10-5",
@@ -328,7 +290,7 @@ export const projects: Project[] = [
     area: 84,
     material: "Бревно",
     categories: ["doma-iz-brevna"],
-    images: pImages("proyekt-doma-iz-brevna-8x10-5", 7),
+    images: pImages("dubravushka", 7),
   },
   {
     slug: "proyekt-doma-iz-brevna-13x12",
@@ -338,7 +300,7 @@ export const projects: Project[] = [
     area: 156,
     material: "Бревно",
     categories: ["doma-iz-brevna"],
-    images: pImages("proyekt-doma-iz-brevna-13x12", 6),
+    images: pImages("boyarynya", 6),
   },
   {
     slug: "proyekt-doma-iz-brevna-12-6x9",
@@ -348,7 +310,7 @@ export const projects: Project[] = [
     area: 113,
     material: "Бревно",
     categories: ["doma-iz-brevna"],
-    images: pImages("proyekt-doma-iz-brevna-12-6x9", 7),
+    images: pImages("zlato", 7),
   },
   {
     slug: "proyekt-doma-iz-brevna-11x9-7",
@@ -358,7 +320,7 @@ export const projects: Project[] = [
     area: 107,
     material: "Бревно",
     categories: ["doma-iz-brevna"],
-    images: pImages("proyekt-doma-iz-brevna-11x9-7", 7),
+    images: pImages("vitjaz", 7),
   },
   {
     slug: "proyekt-doma-iz-brevna-7-3x7",
@@ -368,7 +330,7 @@ export const projects: Project[] = [
     area: 51,
     material: "Бревно",
     categories: ["doma-iz-brevna"],
-    images: pImages("proyekt-doma-iz-brevna-7-3x7", 7),
+    images: pImages("uyutnyj", 7),
   },
   {
     slug: "proyekt-bani-4-6x5-5",
@@ -378,7 +340,7 @@ export const projects: Project[] = [
     area: 25,
     material: "Бревно ручной рубки",
     categories: ["bani-iz-brevna"],
-    images: pImages("proyekt-bani", 5),
+    images: pImages("legkoparnaya", 5),
     specs: banyaSpecs,
   },
   {
@@ -389,7 +351,7 @@ export const projects: Project[] = [
     area: 36,
     material: "Бревно ручной рубки",
     categories: ["bani-iz-brevna"],
-    images: pImages("proyekt-bani-5-5x6-5", 4),
+    images: pImages("sosnovaya", 4),
     specs: banyaSpecs,
   },
   {
@@ -400,7 +362,7 @@ export const projects: Project[] = [
     area: 29,
     material: "Бревно ручной рубки",
     categories: ["bani-iz-brevna"],
-    images: pImages("proyekt-bani-5-4x5-4", 4),
+    images: pImages("korabelka", 4),
     specs: banyaSpecs,
   },
   {
@@ -411,7 +373,7 @@ export const projects: Project[] = [
     area: 34,
     material: "Бревно ручной рубки",
     categories: ["bani-iz-brevna"],
-    images: pImages("proyekt-bani-5-4x6-3", 4),
+    images: pImages("parovka", 4),
     specs: banyaSpecs,
   },
   {
@@ -422,7 +384,7 @@ export const projects: Project[] = [
     area: 45,
     material: "Бревно ручной рубки",
     categories: ["bani-iz-brevna"],
-    images: pImages("proyekt-bani-5-6x8-1", 3),
+    images: pImages("zavetnaya", 3),
     specs: banyaSpecs,
   },
   {
@@ -433,7 +395,7 @@ export const projects: Project[] = [
     area: 50,
     material: "Бревно ручной рубки",
     categories: ["bani-iz-brevna"],
-    images: pImages("proyekt-bani-6-2x8", 4),
+    images: pImages("teplushka", 4),
     specs: banyaSpecs,
   },
   {
@@ -444,7 +406,7 @@ export const projects: Project[] = [
     area: 42,
     material: "Бревно ручной рубки",
     categories: ["bani-iz-brevna"],
-    images: pImages("proyekt-bani-5-4x7-7", 4),
+    images: pImages("kupavka", 4),
     specs: banyaSpecs,
   },
   {
@@ -455,7 +417,7 @@ export const projects: Project[] = [
     area: 40,
     material: "Бревно ручной рубки",
     categories: ["bani-iz-brevna"],
-    images: pImages("proyekt-bani-5-4x7-4", 4),
+    images: pImages("medvezhiy-ugol", 4),
     specs: banyaSpecs,
   },
 ];
@@ -473,27 +435,22 @@ for (const c of categories) {
   c.images = projects.filter((p) => p.categories.includes(c.slug)).flatMap((p) => p.images.slice(0, 1)).slice(0, 5);
 }
 
-export const logos = [
-  "/images/logo/group635.96697fa7.png",
-  "/images/logo/segezha2.40615e91.png",
-  "/images/logo/fodd.17fb7fb9.png",
-  "/images/logo/r4s.14d5e831.png",
-  "/images/logo/sber.35d3bbe2.png",
-  "/images/logo/crocusgroup.679b0d21.png",
-  "/images/logo/finex.c5899743.png",
-  "/images/logo/cosmos.71f7ddc0.png",
-  "/images/logo/porsche.2168eb4d.png",
-  "/images/logo/rixos.2d0a273c.png",
-  "/images/logo/togas.e146ae4b.png",
-  "/images/logo/vtb.f27bdfe5.png",
-  "/images/logo/sistemagroup.8f7ef856.png",
-];
-
-export const homeGallery = gallery;
+/**
+ * Подборка готовых объектов под усадку.
+ * Это не проекты из каталога, а фотографии уже собранных домов,
+ * поэтому ведётся отдельно от projects/categories.
+ */
+export const completedHomes = {
+  eyebrow: "Наши объекты",
+  title: "Готовые дома под усадку",
+  lead: "Деревянному дому нужно время. После сборки коробка даёт усадку, и только после неё можно приступать к чистовой отделке.",
+  note: "В подборке — собранные срубы и коробки домов из бруса и бревна с наших площадок.",
+  images: Array.from({ length: 48 }, (_, i) => `/images/rabota/${String(i + 1).padStart(2, "0")}.jpg`),
+};
 
 export const companyValues = [
   {
-    image: "/images/company-1.jpg",
+    image: "/images/company/1.jpg",
     title: "Дом, который подходит именно вам",
     text: [
       "У каждого своё представление об идеальном доме. Мы помогаем воплотить его в архитектуре и планировке, учитывая образ жизни, привычки и пожелания будущих владельцев.",
@@ -502,7 +459,7 @@ export const companyValues = [
     ],
   },
   {
-    image: "/images/company-2.jpg",
+    image: "/images/company/2.jpg",
     title: "Качество, которое начинается с деталей",
     text: [
       "Надёжность дома складывается из качества материалов, точности исполнения и соблюдения технологии строительства. Поэтому мы внимательно подходим к выбору древесины, проверяем соответствие материалов требованиям проекта и следим за качеством работ.",
@@ -510,7 +467,7 @@ export const companyValues = [
     ],
   },
   {
-    image: "/images/company-3.jpg",
+    image: "/images/company/3.jpg",
     title: "Строительство с вниманием к вам",
     text: [
       "Строительство дома не должно превращаться в череду нерешённых вопросов и постоянных звонков. Мы организуем взаимодействие так, чтобы вы понимали, как продвигается проект, и всегда знали, к кому обратиться.",
@@ -519,7 +476,7 @@ export const companyValues = [
     ],
   },
   {
-    image: "/images/company-4.jpg",
+    image: "/images/company/4.jpg",
     title: "Открытые договорённости и честный подход",
     text: [
       "Хорошее сотрудничество строится на доверии, а доверие — на открытом диалоге. Поэтому мы заранее обсуждаем условия работы, состав проекта, сроки и стоимость, уделяя внимание всем существенным деталям.",
@@ -528,7 +485,7 @@ export const companyValues = [
     ],
   },
   {
-    image: "/images/company-5.jpg",
+    image: "/images/company/5.jpg",
     title: "Понятный бюджет и согласованные условия",
     text: [
       "Планирование строительства начинается с понимания расходов. Мы подробно прорабатываем смету и порядок оплаты, чтобы вы могли заранее оценить бюджет и распределить затраты.",
@@ -537,7 +494,7 @@ export const companyValues = [
     ],
   },
   {
-    image: "/images/company-6.jpg",
+    image: "/images/company/6.jpg",
     title: "Решения, продуманные для деревянного дома",
     text: [
       "Дерево — живой материал со своими особенностями, которые важно учитывать при проектировании и строительстве. От грамотной работы с ним зависит не только внешний вид дома, но и то, как конструкция будет вести себя в процессе эксплуатации.",
@@ -546,7 +503,7 @@ export const companyValues = [
     ],
   },
   {
-    image: "/images/company-7.jpg",
+    image: "/images/company/7.jpg",
     title: "Персональный подход к реализации проекта",
     text: [
       "У каждого проекта свои особенности: участок, архитектурная концепция, выбранные материалы и задачи будущих владельцев. Поэтому мы не стремимся сводить строительство к единому шаблону, а подбираем решения с учётом конкретных условий.",
@@ -575,43 +532,40 @@ const fotoreportaz4 = Array.from({ length: 46 }, (_, i) => `/images/fotoreportaz
 export const news: NewsItem[] = [
   {
     tag: "новости",
-    date: "12 июня 2026",
-    title: "Строительство деревянного дома из бруса — от основания до кровли",
-    excerpt: "Строительство деревянного дома — это последовательность тщательно продуманных этапов, в которых важна каждая деталь. На строительной площадке NORDHAUS работа идёт своим чередом: от устройства фундамента до возведения стен, сборки мансардного этажа и монтажа кровли.",
-    readTime: "3 мин.",
-    views: "0 просмотров",
-    image: fotoreportaz2[0]!,
-    gallery: fotoreportaz2,
-  },
-  {
-    tag: "новости",
     date: "4 ноября 2026",
     title: "Строительство деревянного дома из бруса",
     excerpt: "Строительство деревянного дома — это продуманная работа, в которой каждый этап имеет значение. От надёжного основания до точной подгонки деревянных элементов — качество будущего дома складывается из множества деталей.",
     readTime: "4 мин.",
-    views: "0 просмотров",
+    views: "47 просмотров",
     image: fotoreportaz3[0]!,
     gallery: fotoreportaz3,
   },
   {
-    tag: "новости",
-    date: "3 июля 2026",
-    title: "Строительство деревянного дома из бруса — от фундамента до кровли",
-    excerpt: "Строительство деревянного дома начинается задолго до появления первых стен. Каждый этап требует грамотного подхода, точности и соблюдения строительных технологий.",
-    readTime: "3 мин.",
-    views: "0 просмотров",
-    image: fotoreportaz4[0]!,
-    gallery: fotoreportaz4,
+    tag: "статьи",
+    date: "21 октября 2026",
+    title: "Строительные и отделочные материалы для деревянного дома и бани: виды бруса, доски, вагонки и блок-хауса",
+    excerpt: "Разбираем строганный и профилированный брус, обрезную доску, блок-хаус и вагонку: назначение, размеры, влажность и особенности выбора для дома и бани.",
+    readTime: "14 мин.",
+    views: "89 просмотров",
+    image: gallery[7]!,
   },
   {
-    tag: "новости",
-    date: "18 августа 2026",
-    title: "Строительство дома из бруса — фотоотчёт с реального объекта",
-    excerpt: "Как на самом деле строится деревянный дом? Приглашаем вас заглянуть на один из наших строительных объектов и увидеть весь процесс сборки — от укладки первого венца до возведения стен, мансардного этажа и формирования готовой коробки дома.",
-    readTime: "3 мин.",
-    views: "0 просмотров",
-    image: fotoreportaz1[0]!,
-    gallery: fotoreportaz1,
+    tag: "статьи",
+    date: "21 октября 2026",
+    title: "Технологии строительства деревянного дома: закладной венец, рубка углов и устройство стропильной системы",
+    excerpt: "Закладной венец, рубка углов «ласточкин хвост» и «сковородень», шканты, межвенцовый утеплитель, стропильная система и ломаная крыша.",
+    readTime: "12 мин.",
+    views: "124 просмотра",
+    image: gallery[8]!,
+  },
+  {
+    tag: "статьи",
+    date: "21 октября 2026",
+    title: "Виды фундаментов для деревянного дома и бани: как выбрать подходящее основание",
+    excerpt: "Ленточный, свайно-винтовой, свайный, столбчатый, плитный и свайно-ростверковый фундаменты: устройство, преимущества, ограничения и ошибки при монтаже.",
+    readTime: "20 мин.",
+    views: "156 просмотров",
+    image: gallery[9]!,
   },
   {
     tag: "статьи",
@@ -619,7 +573,7 @@ export const news: NewsItem[] = [
     title: "Установка окон и дверей в домах и банях из бруса и бревна: окосячка, обсадная коробка и частые ошибки",
     excerpt: "Установка окон и дверей в деревянном доме требует особого подхода: стены из бруса и бревна продолжают менять свои размеры после сборки. Разбираем окосячку «шип-ройка», обсадную коробку и частые ошибки.",
     readTime: "9 мин.",
-    views: "3 просмотра",
+    views: "203 просмотра",
     image: gallery[0]!,
   },
   {
@@ -628,7 +582,7 @@ export const news: NewsItem[] = [
     title: "Межэтажные перекрытия в домах и банях из бруса и бревна: конструкция, жёсткость и звукоизоляция",
     excerpt: "Перекрытия в деревянном доме или бане разделяют помещения, воспринимают нагрузки и влияют на тепло- и звукоизоляцию. Разбираем виды перекрытий, расчёт балок, вибрации, шум и особенности бань.",
     readTime: "12 мин.",
-    views: "16 просмотров",
+    views: "218 просмотров",
     image: gallery[1]!,
   },
   {
@@ -637,7 +591,7 @@ export const news: NewsItem[] = [
     title: "Теплопроводность бруса и бревна: насколько тёплым будет деревянный дом",
     excerpt: "Тепло в деревянном доме зависит не только от материала стен, но и от толщины древесины, качества сборки, герметичности соединений, остекления и отопления. Разбираем, как сохранить тепло в доме и бане из бруса и бревна.",
     readTime: "12 мин.",
-    views: "135 просмотров",
+    views: "285 просмотров",
     image: gallery[2]!,
   },
   {
@@ -646,8 +600,18 @@ export const news: NewsItem[] = [
     title: "Усадка дома из бруса и бревна: сколько длится, от чего зависит и как её учитывают при строительстве",
     excerpt: "Деревянный дом продолжает менять свои размеры и после сборки: древесина реагирует на влажность, венцы уплотняются. Разбираем, сколько длится усадка, как её учитывают для разного бруса и бревна, а также роль шкантов и силовых узлов.",
     readTime: "19 мин.",
-    views: "112 просмотров",
+    views: "246 просмотров",
     image: gallery[3]!,
+  },
+  {
+    tag: "новости",
+    date: "18 августа 2026",
+    title: "Строительство дома из бруса — фотоотчёт с реального объекта",
+    excerpt: "Как на самом деле строится деревянный дом? Приглашаем вас заглянуть на один из наших строительных объектов и увидеть весь процесс сборки — от укладки первого венца до возведения стен, мансардного этажа и формирования готовой коробки дома.",
+    readTime: "3 мин.",
+    views: "312 просмотров",
+    image: fotoreportaz1[0]!,
+    gallery: fotoreportaz1,
   },
   {
     tag: "статьи",
@@ -655,8 +619,8 @@ export const news: NewsItem[] = [
     title: "Сколько соток нужно для строительства дома: как рассчитать оптимальный размер участка",
     excerpt: "Участок для загородного дома выбирают не только по общей площади. Важно заранее определить, как на территории будут расположены сам дом, баня, парковка, сад и зоны отдыха. Разберёмся, сколько соток стоит рассматривать для дома площадью около 100 м².",
     readTime: "7 мин.",
-    views: "265 просмотров",
-    image: gallery[5]!,
+    views: "334 просмотра",
+    image: gallery[4]!,
   },
   {
     tag: "статьи",
@@ -664,8 +628,8 @@ export const news: NewsItem[] = [
     title: "Внутренняя отделка дома и бани из бруса и бревна: материалы, стили и практические решения",
     excerpt: "Разбираем, как выбрать покрытие для деревянных стен, сочетать материалы, проектировать кухню и санузел, а также учитывать особенности бани и бревенчатых стен.",
     readTime: "18 мин.",
-    views: "122 просмотра",
-    image: gallery[6]!,
+    views: "298 просмотров",
+    image: gallery[5]!,
   },
   {
     tag: "статьи",
@@ -673,35 +637,28 @@ export const news: NewsItem[] = [
     title: "Архитектурные стили загородных домов: как выбрать стиль будущего проекта",
     excerpt: "Архитектурный стиль загородного дома определяет его характер, пропорции и то, как здание будет выглядеть в окружении природы. Разберём основные стили деревянных домов и на что обратить внимание при выборе проекта.",
     readTime: "10 мин.",
-    views: "113 просмотров",
-    image: gallery[7]!,
+    views: "267 просмотров",
+    image: gallery[6]!,
   },
   {
-    tag: "статьи",
-    date: "21 октября 2026",
-    title: "Строительные и отделочные материалы для деревянного дома и бани: виды бруса, доски, вагонки и блок-хауса",
-    excerpt: "Разбираем строганный и профилированный брус, обрезную доску, блок-хаус и вагонку: назначение, размеры, влажность и особенности выбора для дома и бани.",
-    readTime: "14 мин.",
-    views: "0 просмотров",
-    image: gallery[8]!,
+    tag: "новости",
+    date: "3 июля 2026",
+    title: "Строительство деревянного дома из бруса — от фундамента до кровли",
+    excerpt: "Строительство деревянного дома начинается задолго до появления первых стен. Каждый этап требует грамотного подхода, точности и соблюдения строительных технологий.",
+    readTime: "3 мин.",
+    views: "389 просмотров",
+    image: fotoreportaz4[0]!,
+    gallery: fotoreportaz4,
   },
   {
-    tag: "статьи",
-    date: "21 октября 2026",
-    title: "Технологии строительства деревянного дома: закладной венец, рубка углов и устройство стропильной системы",
-    excerpt: "Закладной венец, рубка углов «ласточкин хвост» и «сковородень», шканты, межвенцовый утеплитель, стропильная система и ломаная крыша.",
-    readTime: "12 мин.",
-    views: "0 просмотров",
-    image: gallery[9]!,
-  },
-  {
-    tag: "статьи",
-    date: "21 октября 2026",
-    title: "Виды фундаментов для деревянного дома и бани: как выбрать подходящее основание",
-    excerpt: "Ленточный, свайно-винтовой, свайный, столбчатый, плитный и свайно-ростверковый фундаменты: устройство, преимущества, ограничения и ошибки при монтаже.",
-    readTime: "20 мин.",
-    views: "0 просмотров",
-    image: gallery[10]!,
+    tag: "новости",
+    date: "12 июня 2026",
+    title: "Строительство деревянного дома из бруса — от основания до кровли",
+    excerpt: "Строительство деревянного дома — это последовательность тщательно продуманных этапов, в которых важна каждая деталь. На строительной площадке NORDHAUS работа идёт своим чередом: от устройства фундамента до возведения стен, сборки мансардного этажа и монтажа кровли.",
+    readTime: "3 мин.",
+    views: "421 просмотр",
+    image: fotoreportaz2[0]!,
+    gallery: fotoreportaz2,
   },
 ];
 
@@ -714,14 +671,8 @@ export const offices = [
   },
 ];
 
-export const requisites = [
-  { label: "Сокращенное наименование", value: "«NORDHAUS»" },
-  { label: "Телефон", value: "+7 (950) 246-54-77" },
-  { label: "Адрес", value: "157720, Костромская область, г. Чухлома" },
-];
-
-export type FinishingPriceRow = { work: string; price: string };
-export type FinishingPriceGroup = { title: string; rows: FinishingPriceRow[] };
+type FinishingPriceRow = { work: string; price: string };
+type FinishingPriceGroup = { title: string; rows: FinishingPriceRow[] };
 
 // Отдельное направление услуг: не является проектом дома или бани,
 // поэтому не входит в projects/categories и ведётся здесь.
