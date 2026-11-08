@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight, ArrowUpRight, ImagePlus } from "lucide-react
 import { offices, site } from "@/lib/site-data";
 import { CallbackForm } from "@/components/callback-form";
 
-const showcase = ["/images/home/1.jpg", "/images/home/2.jpg", "/images/home/3.jpg", "/images/home/4.jpg", "/images/home/5.jpg", "/images/home/6.jpg", "/images/home/7.jpg", "/images/home/8.jpg"];
+const showcase = Array.from({ length: 12 }, (_, i) => `/images/home/${i + 1}.jpg`);
 const thinTitle = "font-light uppercase tracking-[0.04em] text-foreground/80";
 
 function Hero() {
@@ -187,7 +187,7 @@ function About() {
             NORDHAUS — дома из дерева, созданные с душой, вниманием к деталям и уважением к традициям деревянного зодчества.
           </p>
         </div>
-        {/* Заглушка: фотографии домов добавим позже в /images/home/ и вернём карусель aboutSlides */}
+        {/* Заглушка: карусель вернётся, когда добавим новые фото домов в /images/home/ */}
         <div className="grid min-w-0 place-items-center rounded-[20px] border border-dashed border-foreground/25 bg-muted/40 px-6 py-16 text-center">
           <div>
             <ImagePlus className="mx-auto h-12 w-12 text-foreground/30" aria-hidden />
