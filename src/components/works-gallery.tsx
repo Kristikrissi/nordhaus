@@ -127,9 +127,6 @@ export function WorksGallery({ images, title }: { images: string[]; title: strin
                 >
                   <ChevronLeft className="size-5" />
                 </button>
-                <span className="text-xs tabular-nums text-muted-foreground">
-                  {selected + 1} / {images.length}
-                </span>
                 <button
                   type="button"
                   aria-label="Следующее фото"

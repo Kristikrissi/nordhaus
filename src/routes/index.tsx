@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { ChevronLeft, ChevronRight, ArrowUpRight, ImagePlus } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 import { offices, site } from "@/lib/site-data";
 import { CallbackForm } from "@/components/callback-form";
 
 const showcase = Array.from({ length: 12 }, (_, i) => `/images/home/${i + 1}.jpg`);
+const aboutSlides = Array.from({ length: 6 }, (_, i) => `/images/home/about/${String(i + 1).padStart(2, "0")}.jpg`);
 const thinTitle = "font-light uppercase tracking-[0.04em] text-foreground/80";
 
 function Hero() {
@@ -117,10 +118,6 @@ function ProjectsShowcase() {
             />
           ))}
         </div>
-
-        <span className="absolute bottom-4 right-5 rounded-full bg-foreground/45 px-3 py-1 text-xs font-semibold tabular-nums text-background backdrop-blur">
-          {idx + 1} / {n}
-        </span>
       </div>
 
       <div className="mt-4 grid gap-3" style={{ gridTemplateColumns: `repeat(${n}, minmax(0, 1fr))` }}>
@@ -171,6 +168,7 @@ function Engineering() {
 }
 
 function About() {
+  const [slide, setSlide] = useState(0);
   return (
     <section className="container-wide pt-24">
       <div className="grid gap-10 rounded-[24px] bg-card p-8 shadow-sm sm:p-10 lg:grid-cols-2">
@@ -187,15 +185,36 @@ function About() {
             NORDHAUS — дома из дерева, созданные с душой, вниманием к деталям и уважением к традициям деревянного зодчества.
           </p>
         </div>
-        {/* Заглушка: карусель вернётся, когда добавим новые фото домов в /images/home/ */}
-        <div className="grid min-w-0 place-items-center rounded-[20px] border border-dashed border-foreground/25 bg-muted/40 px-6 py-16 text-center">
-          <div>
-            <ImagePlus className="mx-auto h-12 w-12 text-foreground/30" aria-hidden />
-            <p className="mt-5 text-[15px] font-semibold">Фотографии домов скоро появятся</p>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Мы готовим подборку снимков реализованных объектов.
-            </p>
-          </div>
+        <div className="relative min-w-0 overflow-hidden rounded-[20px] bg-secondary">
+          {aboutSlides.map((src, i) => (
+            <img
+              key={src}
+              src={src}
+              alt={i === slide ? `Дом NORDHAUS — фото ${i + 1}` : ""}
+              loading={i === 0 ? "eager" : "lazy"}
+              decoding="async"
+              className={`aspect-[4/3] w-full object-cover transition-opacity duration-700 ease-out ${
+                i === slide ? "opacity-100" : "pointer-events-none absolute inset-0 opacity-0"
+              }`}
+            />
+          ))}
+
+          <button
+            type="button"
+            aria-label="Предыдущее фото"
+            onClick={() => setSlide((slide - 1 + aboutSlides.length) % aboutSlides.length)}
+            className="absolute left-3 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full border-0 bg-background/85 text-foreground shadow-lg backdrop-blur transition-all hover:bg-background hover:text-primary"
+          >
+            <ChevronLeft className="size-5" />
+          </button>
+          <button
+            type="button"
+            aria-label="Следующее фото"
+            onClick={() => setSlide((slide + 1) % aboutSlides.length)}
+            className="absolute right-3 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full border-0 bg-background/85 text-foreground shadow-lg backdrop-blur transition-all hover:bg-background hover:text-primary"
+          >
+            <ChevronRight className="size-5" />
+          </button>
         </div>
       </div>
     </section>

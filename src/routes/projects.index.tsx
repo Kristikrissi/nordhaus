@@ -88,11 +88,9 @@ function ProjectsPage() {
       </section>
 
       <section id="completed" className="container-wide scroll-mt-32 pt-20">
-        <div className="max-w-2xl">
-          <p className="eyebrow">{completedHomes.eyebrow}</p>
-          <h2 className="section-title mt-3">{completedHomes.title}</h2>
-          <p className="mt-4 text-sm leading-relaxed text-muted-foreground sm:text-[15px]">{completedHomes.lead}</p>
-        </div>
+        <p className="eyebrow">{completedHomes.eyebrow}</p>
+        <h2 className="section-title mt-3">{completedHomes.title}</h2>
+        <p className="mt-4 text-justify text-sm leading-relaxed text-muted-foreground sm:text-[15px]">{completedHomes.lead}</p>
 
         <div className="mt-10">
           <WorksGallery images={completedHomes.images} title={completedHomes.title} />

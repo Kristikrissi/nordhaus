@@ -66,9 +66,6 @@ export function ProjectsGallery({
                 <Button variant="circle" size="icon" aria-label="Предыдущее фото" onClick={() => setSelected((selected + images.length - 1) % images.length)}>
                   <ArrowLeft />
                 </Button>
-                <span className="text-xs text-muted-foreground">
-                  {selected + 1} / {images.length}
-                </span>
                 <Button variant="circle" size="icon" aria-label="Следующее фото" onClick={() => setSelected((selected + 1) % images.length)}>
                   <ArrowRight />
                 </Button>
