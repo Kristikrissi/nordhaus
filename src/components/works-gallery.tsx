@@ -111,33 +111,31 @@ export function WorksGallery({ images, title }: { images: string[]; title: strin
         <DialogContent className="max-w-4xl">
           <DialogTitle>{title}</DialogTitle>
           {selected !== null && (
-            <>
+            <div className="relative">
               <img
                 src={images[selected]}
                 alt={`${title} — фото ${selected + 1}`}
                 className="max-h-[70svh] w-full object-contain"
               />
-              <div className="flex items-center justify-between">
-                <button
-                  type="button"
-                  aria-label="Предыдущее фото"
-                  onClick={() => pick(-1)}
-                  disabled={selected === 0}
-                  className="grid size-10 place-items-center rounded-full bg-secondary text-foreground transition-colors hover:bg-primary hover:text-primary-foreground disabled:pointer-events-none disabled:opacity-30"
-                >
-                  <ChevronLeft className="size-5" />
-                </button>
-                <button
-                  type="button"
-                  aria-label="Следующее фото"
-                  onClick={() => pick(1)}
-                  disabled={selected === images.length - 1}
-                  className="grid size-10 place-items-center rounded-full bg-secondary text-foreground transition-colors hover:bg-primary hover:text-primary-foreground disabled:pointer-events-none disabled:opacity-30"
-                >
-                  <ChevronRight className="size-5" />
-                </button>
-              </div>
-            </>
+              <button
+                type="button"
+                aria-label="Предыдущее фото"
+                onClick={() => pick(-1)}
+                disabled={selected === 0}
+                className="absolute left-1 top-1/2 grid size-10 -translate-y-1/2 place-items-center rounded-full bg-secondary text-foreground transition-colors hover:bg-primary hover:text-primary-foreground disabled:pointer-events-none disabled:opacity-30 sm:left-2"
+              >
+                <ChevronLeft className="size-5" />
+              </button>
+              <button
+                type="button"
+                aria-label="Следующее фото"
+                onClick={() => pick(1)}
+                disabled={selected === images.length - 1}
+                className="absolute right-1 top-1/2 grid size-10 -translate-y-1/2 place-items-center rounded-full bg-secondary text-foreground transition-colors hover:bg-primary hover:text-primary-foreground disabled:pointer-events-none disabled:opacity-30 sm:right-2"
+              >
+                <ChevronRight className="size-5" />
+              </button>
+            </div>
           )}
         </DialogContent>
       </Dialog>

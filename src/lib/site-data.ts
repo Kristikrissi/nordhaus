@@ -18,6 +18,8 @@ export const site = {
   phoneHref: "tel:+79502465477",
   email: "n99511285@gmail.com",
   logoDark: "/images/__images/logo_nordhaus.svg",
+  /** Ссылка на чат компании в мессенджере MAX. */
+  maxChat: "https://max.ru/u/f9LHodD0cOLm-OAXYVEw45zIgiIZk4ldFctUsSQeczYuCG6GR4s8-m9c2i8",
 };
 
 type Category = {

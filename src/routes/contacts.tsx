@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { offices, site } from "@/lib/site-data";
 import { CallbackForm } from "@/components/callback-form";
+import { MaxLink } from "@/components/max-link";
 
 function ContactsPage() {
   return (
@@ -31,6 +32,12 @@ function ContactsPage() {
                         <a href={site.phoneHref} className="font-semibold transition-colors hover:text-primary">
                           {site.phone}
                         </a>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-xs uppercase tracking-wide text-muted-foreground">Мессенджер MAX</dt>
+                      <dd className="mt-1">
+                        <MaxLink />
                       </dd>
                     </div>
                     <div>

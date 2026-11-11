@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { Paintbrush } from "lucide-react";
 import { site, categories, finishing } from "@/lib/site-data";
 import { CallbackForm } from "@/components/callback-form";
+import { MaxLink } from "@/components/max-link";
 
 const companyMenu = [
   { label: "О компании", to: "/company" as const, hash: undefined },
@@ -124,16 +125,7 @@ export function SiteHeader() {
               >
                 {site.phone}
               </a>
-              <button
-                type="button"
-                aria-label="Поиск по сайту"
-                className="hidden text-foreground/70 transition-colors hover:text-primary sm:block"
-              >
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <circle cx="9" cy="9" r="6.25" stroke="currentColor" strokeWidth="1.6" />
-                  <path d="M13.5 13.5L18 18" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-                </svg>
-              </button>
+              <MaxLink className="hidden text-foreground/70 md:inline-flex" />
               <button type="button" onClick={() => setModalOpen(true)} className="btn-primary hidden !px-6 !py-2.5 sm:inline-flex">
                 Заказать звонок
               </button>
@@ -177,9 +169,12 @@ export function SiteHeader() {
                   Контакты
                 </Link>
               </nav>
-              <a href={site.phoneHref} className="mt-3 block px-3 text-sm font-semibold">
-                {site.phone}
-              </a>
+              <div className="mt-3 flex items-center justify-between gap-3 px-3">
+                <a href={site.phoneHref} className="text-sm font-semibold">
+                  {site.phone}
+                </a>
+                <MaxLink className="text-foreground/80" />
+              </div>
               <button type="button" onClick={() => setModalOpen(true)} className="btn-primary mt-3 w-full">
                 Заказать звонок
               </button>

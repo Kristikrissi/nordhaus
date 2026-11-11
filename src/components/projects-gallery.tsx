@@ -60,17 +60,27 @@ export function ProjectsGallery({
         <DialogContent className="max-w-5xl">
           <DialogTitle>{title}</DialogTitle>
           {selected !== null && (
-            <>
+            <div className="relative">
               <img src={images[selected]} alt={title} className="max-h-[70svh] w-full object-contain" />
-              <div className="flex items-center justify-between">
-                <Button variant="circle" size="icon" aria-label="Предыдущее фото" onClick={() => setSelected((selected + images.length - 1) % images.length)}>
-                  <ArrowLeft />
-                </Button>
-                <Button variant="circle" size="icon" aria-label="Следующее фото" onClick={() => setSelected((selected + 1) % images.length)}>
-                  <ArrowRight />
-                </Button>
-              </div>
-            </>
+              <Button
+                variant="circle"
+                size="icon"
+                aria-label="Предыдущее фото"
+                onClick={() => setSelected((selected + images.length - 1) % images.length)}
+                className="absolute left-1 top-1/2 -translate-y-1/2 bg-secondary/90 backdrop-blur sm:left-2"
+              >
+                <ArrowLeft />
+              </Button>
+              <Button
+                variant="circle"
+                size="icon"
+                aria-label="Следующее фото"
+                onClick={() => setSelected((selected + 1) % images.length)}
+                className="absolute right-1 top-1/2 -translate-y-1/2 bg-secondary/90 backdrop-blur sm:right-2"
+              >
+                <ArrowRight />
+              </Button>
+            </div>
           )}
         </DialogContent>
       </Dialog>

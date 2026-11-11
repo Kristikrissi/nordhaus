@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { site, categories, offices, finishing } from "@/lib/site-data";
+import { MaxLink } from "@/components/max-link";
 
 export function SiteFooter() {
   return (
@@ -45,6 +46,9 @@ export function SiteFooter() {
               <a href={site.phoneHref} className="text-sm font-semibold transition-colors hover:text-primary">
                 {site.phone}
               </a>
+            </li>
+            <li>
+              <MaxLink className="text-muted-foreground" />
             </li>
             <li>
               <a href={`mailto:${site.email}`} className="text-sm text-muted-foreground transition-colors hover:text-primary">

@@ -3,6 +3,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 import { offices, site } from "@/lib/site-data";
 import { CallbackForm } from "@/components/callback-form";
+import { MaxLink } from "@/components/max-link";
 
 const showcase = Array.from({ length: 12 }, (_, i) => `/images/home/${i + 1}.jpg`);
 const aboutSlides = Array.from({ length: 6 }, (_, i) => `/images/home/about/${String(i + 1).padStart(2, "0")}.jpg`);
@@ -185,19 +186,23 @@ function About() {
             NORDHAUS — дома из дерева, созданные с душой, вниманием к деталям и уважением к традициям деревянного зодчества.
           </p>
         </div>
-        <div className="relative min-w-0 overflow-hidden rounded-[20px] bg-secondary">
-          {aboutSlides.map((src, i) => (
-            <img
-              key={src}
-              src={src}
-              alt={i === slide ? `Дом NORDHAUS — фото ${i + 1}` : ""}
-              loading={i === 0 ? "eager" : "lazy"}
-              decoding="async"
-              className={`aspect-[4/3] w-full object-cover transition-opacity duration-700 ease-out ${
-                i === slide ? "opacity-100" : "pointer-events-none absolute inset-0 opacity-0"
-              }`}
-            />
-          ))}
+        {/* Кадры лежат в одной ячейке grid: контейнер равен самому высокому
+            фото, поэтому картинка показывается целиком и без сдвига макета. */}
+        <div className="relative grid min-w-0 self-center">
+          <div className="grid place-items-center overflow-hidden rounded-[20px]">
+            {aboutSlides.map((src, i) => (
+              <img
+                key={src}
+                src={src}
+                alt={i === slide ? `Дом NORDHAUS — фото ${i + 1}` : ""}
+                loading={i === 0 ? "eager" : "lazy"}
+                decoding="async"
+                className={`col-start-1 row-start-1 block h-auto w-full transition-opacity duration-700 ease-out ${
+                  i === slide ? "opacity-100" : "pointer-events-none opacity-0"
+                }`}
+              />
+            ))}
+          </div>
 
           <button
             type="button"
@@ -300,6 +305,9 @@ function Contacts() {
           <p className="mt-6 text-[15px] leading-relaxed">{office.address}</p>
           <p className="mt-3 text-sm text-muted-foreground">Пн - Пт: с 10:00 до 19:00<br />Сб: с 11:00 до 17:00</p>
           <a href={site.phoneHref} className="mt-3 block text-sm">{site.phone}</a>
+          <div className="mt-2 flex items-center gap-3 text-sm text-muted-foreground">
+            <MaxLink />
+          </div>
           <a href={`mailto:${site.email}`} className="mt-1 block text-sm">{site.email}</a>
         </div>
         <iframe
