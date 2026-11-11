@@ -125,7 +125,9 @@ export function SiteHeader() {
               >
                 {site.phone}
               </a>
-              <MaxLink className="hidden text-foreground/70 md:inline-flex" />
+              <span className="hidden md:flex">
+                <MaxLink />
+              </span>
               <button type="button" onClick={() => setModalOpen(true)} className="btn-primary hidden !px-6 !py-2.5 sm:inline-flex">
                 Заказать звонок
               </button>
@@ -173,7 +175,7 @@ export function SiteHeader() {
                 <a href={site.phoneHref} className="text-sm font-semibold">
                   {site.phone}
                 </a>
-                <MaxLink className="text-foreground/80" />
+                <MaxLink />
               </div>
               <button type="button" onClick={() => setModalOpen(true)} className="btn-primary mt-3 w-full">
                 Заказать звонок

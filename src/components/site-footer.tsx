@@ -48,7 +48,7 @@ export function SiteFooter() {
               </a>
             </li>
             <li>
-              <MaxLink className="text-muted-foreground" />
+              <MaxLink />
             </li>
             <li>
               <a href={`mailto:${site.email}`} className="text-sm text-muted-foreground transition-colors hover:text-primary">

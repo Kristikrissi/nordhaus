@@ -305,7 +305,7 @@ function Contacts() {
           <p className="mt-6 text-[15px] leading-relaxed">{office.address}</p>
           <p className="mt-3 text-sm text-muted-foreground">Пн - Пт: с 10:00 до 19:00<br />Сб: с 11:00 до 17:00</p>
           <a href={site.phoneHref} className="mt-3 block text-sm">{site.phone}</a>
-          <div className="mt-2 flex items-center gap-3 text-sm text-muted-foreground">
+          <div className="mt-2">
             <MaxLink />
           </div>
           <a href={`mailto:${site.email}`} className="mt-1 block text-sm">{site.email}</a>

@@ -1,23 +1,26 @@
 import { site } from "@/lib/site-data";
 
-/** Знак MAX: буква M в скруглённой рамке, наследует currentColor. */
-export function MaxIcon({ className = "size-5" }: { className?: string }) {
+/**
+ * Фирменный знак MAX — официальный цветной логотип из брендбука
+ * (go.max.ru/brandbook), голубой градиент. Цвет не наследуется,
+ * поэтому знак одинаково читается и на светлом, и на тёмном фоне.
+ */
+export function MaxIcon({ className = "size-6" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
-      <rect x="1.5" y="1.5" width="21" height="21" rx="6.5" stroke="currentColor" strokeWidth="1.5" />
-      <path
-        d="M6.6 17V7.8l5.4 5.4 5.4-5.4V17"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <img
+      src="/images/__images/max.svg"
+      alt="MAX"
+      width={24}
+      height={24}
+      loading="lazy"
+      decoding="async"
+      className={`shrink-0 ${className}`}
+    />
   );
 }
 
 type MaxLinkProps = {
-  /** Дополнительные классы — оформление (цвет) берётся от места использования. */
+  /** Дополнительные классы — размер и отступы задаёт место использования. */
   className?: string;
 };
 
@@ -33,9 +36,9 @@ export function MaxLink({ className = "" }: MaxLinkProps) {
       rel="noopener noreferrer"
       aria-label="Написать в мессенджер MAX"
       title="Написать в MAX"
-      className={`inline-flex items-center transition-colors hover:text-primary ${className}`}
+      className={`inline-flex items-center transition-opacity hover:opacity-80 ${className}`}
     >
-      <MaxIcon className="size-6" />
+      <MaxIcon />
     </a>
   );
 }
