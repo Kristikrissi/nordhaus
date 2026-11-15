@@ -1,6 +1,6 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
-import { categories, projects, site, type Project } from "@/lib/site-data";
+import { categories, projects, site, formatPrice, type Project } from "@/lib/site-data";
 import { Button } from "@/components/ui/button";
 import { CallbackForm } from "@/components/callback-form";
 import { ProjectsGallery } from "@/components/projects-gallery";
@@ -56,6 +56,38 @@ function ProjectDetail() {
           </p>
           {project.status && <p className="project-meta mt-2">Статус: {project.status}</p>}
         </div>
+
+        {/* Стоимость сруба под усадку: две комплектации по сечению наружных стен. */}
+        {(project.price145 || project.price195) && (
+          <div className="mb-10 rounded-2xl border border-border bg-card p-6 sm:p-8">
+            <h2 className="text-2xl font-semibold">Стоимость сруба под усадку</h2>
+            <dl className="mt-5 grid gap-4 sm:grid-cols-2">
+              {project.price145 && (
+                <div className="rounded-xl bg-secondary/60 p-5">
+                  <dt className="text-xs uppercase tracking-wide text-muted-foreground">
+                    Наружные стены — брус 145 × 145 мм
+                  </dt>
+                  <dd className="mt-2 text-2xl font-bold tracking-tight">
+                    {formatPrice(project.price145)}
+                  </dd>
+                </div>
+              )}
+              {project.price195 && (
+                <div className="rounded-xl bg-secondary/60 p-5">
+                  <dt className="text-xs uppercase tracking-wide text-muted-foreground">
+                    Наружные стены — брус 195 × 145 мм
+                  </dt>
+                  <dd className="mt-2 text-2xl font-bold tracking-tight">
+                    {formatPrice(project.price195)}
+                  </dd>
+                </div>
+              )}
+            </dl>
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+              Внутренние перегородки в обоих случаях — брус 95 × 145 мм.
+            </p>
+          </div>
+        )}
 
         <div className="mb-10 max-w-3xl">
           <div className="content-copy">

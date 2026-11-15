@@ -85,9 +85,9 @@ export const Route = createFileRoute("/contacts")({
   head: () => ({
     meta: [
       { title: "Контакты компании и адрес офиса в Чухломе | NORDHAUS" },
-      { name: "description", content: "Контакты NORDHAUS: офис в Чухломе (Костромская область), телефон +7 (950) 246-54-77, email n99511285@gmail.com." },
+      { name: "description", content: `Контакты NORDHAUS: офис в Чухломе (Костромская область), телефон ${site.phone}, email ${site.email}.` },
       { property: "og:title", content: "Контакты | NORDHAUS" },
-      { property: "og:description", content: "Офис в Чухломе, Костромская область. Телефон +7 (950) 246-54-77, email n99511285@gmail.com." },
+      { property: "og:description", content: `Офис в Чухломе, Костромская область. Телефон ${site.phone}, email ${site.email}.` },
       { property: "og:type", content: "website" },
     ],
     links: [{ rel: "canonical", href: `${site.url}/contacts` }],

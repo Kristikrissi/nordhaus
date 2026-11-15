@@ -16,7 +16,7 @@ export const site = {
   url: "https://nordhaus-swart.vercel.app",
   phone: "+7 (950) 246-54-77",
   phoneHref: "tel:+79502465477",
-  email: "n99511285@gmail.com",
+  email: "nordhaus444@gmail.com",
   logoDark: "/images/__images/logo_nordhaus.svg",
   /** Ссылка на чат компании в мессенджере MAX. */
   maxChat: "https://max.ru/u/f9LHodD0cOLm-OAXYVEw45zIgiIZk4ldFctUsSQeczYuCG6GR4s8-m9c2i8",
@@ -45,10 +45,20 @@ export type Project = {
   description?: string[];
   /** Комплектность проекта по данным проекта строительства. */
   specs?: string[];
+  /** Стоимость сруба под усадку, брус 145×145 мм, перегородки 95×145 мм. */
+  price145?: number;
+  /** Стоимость сруба под усадку, брус 195×145 мм, перегородки 95×145 мм. */
+  price195?: number;
 };
 
 const pImages = (slug: string, n: number) =>
   Array.from({ length: n }, (_, i) => `/images/projects/${slug}/${i + 1}.jpg`);
+
+/** 1350000 → «1 350 000 ₽» с неразрывными пробелами-разделителями. */
+export function formatPrice(n: number): string {
+  const s = n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "\u00A0");
+  return `${s}\u00A0₽`;
+}
 
 const brusSpecs = [
   "Внешние стены из бруса 150 × 150 мм",
@@ -92,8 +102,10 @@ export const projects: Project[] = [
     floors: 2,
     material: "Брус 150 × 150 мм",
     categories: ["doma-iz-brusa"],
-    images: pImages("elnik", 5),
+    images: pImages("elnik", 3),
     specs: brusSpecs,
+    price145: 1_350_000,
+    price195: 1_570_000,
   },
   {
     slug: "dachnyj-domik-6-na-6",
@@ -104,12 +116,14 @@ export const projects: Project[] = [
     floors: 2,
     material: "Брус 150 × 150 мм",
     categories: ["doma-iz-brusa"],
-    images: pImages("dachnyj-beleg", 4),
+    images: pImages("dachnyj-beleg", 3),
+    price145: 1_520_000,
+    price195: 1_660_000,
     description: [
       "Проект «Дачный берег» — двухэтажный дом из бруса. Габариты сруба по проекту — 6 × 6 м, площадь застройки — 36 м², этажность — 2 этажа. Материал наружных стен — брус 150 × 150 мм.",
       "Компания NORDHAUS занимается строительством домов и бань из бруса и бревна по типовым и индивидуальным проектам. Сборка выполняется в соответствии с проектной документацией с учётом особенностей усадки деревянного сруба.",
       "NORDHAUS реализует проекты деревянных домов и бань с учётом пожеланий заказчика. Возможны согласование комплектации, выбор дополнительных опций и организация доставки к месту строительства.",
-      "Стоимость, сроки строительства и условия доставки рассчитываются индивидуально.",
+      "Сроки строительства и условия доставки рассчитываются индивидуально.",
     ],
     specs: [
       "Наружные стены из бруса 150 × 150 мм",
@@ -137,7 +151,9 @@ export const projects: Project[] = [
     area: 48,
     material: "Брус 150 × 150 мм",
     categories: ["doma-iz-brusa"],
-    images: pImages("klen", 5),
+    images: pImages("klen", 3),
+    price145: 1_650_000,
+    price195: 1_780_000,
     description: [
       "Проект «Клён» — деревянный дом с габаритами сруба 6 × 8 м и площадью застройки 48 м². Для возведения стен используется брус сечением 150 × 150 мм.",
       "Сборка выполняется по проекту с учётом особенностей деревянной конструкции и естественной усадки сруба.",
@@ -152,7 +168,9 @@ export const projects: Project[] = [
     area: 48,
     material: "Брус 150 × 150 мм",
     categories: ["doma-iz-brusa"],
-    images: pImages("listvennitsa", 5),
+    images: pImages("listvennitsa", 3),
+    price145: 1_940_000,
+    price195: 2_140_000,
   },
   {
     slug: "proekt-doma-iz-brusa-s-otkrytoj-terrasoj-6h6",
@@ -162,7 +180,9 @@ export const projects: Project[] = [
     area: 36,
     material: "Брус 150 × 150 мм",
     categories: ["doma-iz-brusa"],
-    images: pImages("teremok", 5),
+    images: pImages("teremok", 3),
+    price145: 1_270_000,
+    price195: 1_480_000,
   },
   {
     slug: "proekt-doma-iz-brusa-dlya-dachi-6h6",
@@ -172,7 +192,9 @@ export const projects: Project[] = [
     area: 36,
     material: "Брус 150 × 150 мм",
     categories: ["doma-iz-brusa"],
-    images: pImages("yasen", 6),
+    images: pImages("yasen", 4),
+    price145: 1_400_000,
+    price195: 1_650_000,
   },
   {
     slug: "proekt-doma-iz-brusa-6-h-6-m",
@@ -182,7 +204,9 @@ export const projects: Project[] = [
     area: 36,
     material: "Брус 150 × 150 мм",
     categories: ["doma-iz-brusa"],
-    images: pImages("osina", 6),
+    images: pImages("osina", 4),
+    price145: 1_540_000,
+    price195: 1_730_000,
   },
   {
     slug: "proekt-doma-iz-brusa-8-h-11-5-m",
@@ -192,7 +216,9 @@ export const projects: Project[] = [
     area: 92,
     material: "Брус 150 × 150 мм",
     categories: ["doma-iz-brusa"],
-    images: pImages("prostor", 6),
+    images: pImages("prostor", 4),
+    price145: 2_500_000,
+    price195: 2_860_000,
   },
   {
     slug: "proekt-doma-iz-profilirovannogo-brusa-6-h-6-m",
@@ -202,7 +228,9 @@ export const projects: Project[] = [
     area: 36,
     material: "Профилированный брус 140 × 140 мм",
     categories: ["doma-iz-brusa"],
-    images: pImages("pikhtovyj", 6),
+    images: pImages("pikhtovyj", 4),
+    price145: 1_530_000,
+    price195: 1_690_000,
   },
   {
     slug: "proekt-doma-iz-brusa-8-h-8-m",
@@ -212,7 +240,7 @@ export const projects: Project[] = [
     area: 64,
     material: "Брус 150 × 150 мм",
     categories: ["doma-iz-brusa"],
-    images: pImages("vekovoj-bor", 5),
+    images: pImages("vekovoj-bor", 3),
   },
   {
     slug: "dom-iz-profilirovannogo-brusa-9-h-11",
@@ -222,7 +250,9 @@ export const projects: Project[] = [
     area: 99,
     material: "Профилированный брус 140 × 140 мм",
     categories: ["doma-iz-brusa"],
-    images: pImages("kedrovaya-usadba", 6),
+    images: pImages("kedrovaya-usadba", 4),
+    price145: 2_670_000,
+    price195: 3_150_000,
   },
   {
     slug: "dom-iz-profilirovannogo-brusa-8-h-8",
@@ -230,9 +260,11 @@ export const projects: Project[] = [
     code: "б-13",
     size: "8 × 8 м",
     area: 64,
-    material: "Профилированный брус 140 × 140 мм",
+    material: "Брус 150 × 150 мм",
     categories: ["doma-iz-brusa"],
-    images: pImages("tajgovyj", 5),
+    images: pImages("tajgovyj", 3),
+    price145: 1_870_000,
+    price195: 2_180_000,
   },
   {
     slug: "dom-iz-brevna-8-93",
@@ -242,7 +274,7 @@ export const projects: Project[] = [
     area: 74,
     material: "Бревно",
     categories: ["doma-iz-brevna"],
-    images: pImages("zhuravushka", 7),
+    images: pImages("zhuravushka", 4),
   },
   {
     slug: "proyekt-doma-iz-brevna-7-5x9",
@@ -252,7 +284,7 @@ export const projects: Project[] = [
     area: 68,
     material: "Бревно",
     categories: ["doma-iz-brevna"],
-    images: pImages("svetlitsa", 7),
+    images: pImages("svetlitsa", 4),
   },
   {
     slug: "proyekt-doma-iz-brevna-7x9-5",
@@ -262,7 +294,7 @@ export const projects: Project[] = [
     area: 67,
     material: "Бревно",
     categories: ["doma-iz-brevna"],
-    images: pImages("zarya", 7),
+    images: pImages("zarya", 4),
   },
   {
     slug: "proyekt-doma-iz-brevna-8x11",
@@ -272,7 +304,7 @@ export const projects: Project[] = [
     area: 88,
     material: "Бревно",
     categories: ["doma-iz-brevna"],
-    images: pImages("bogatyry", 7),
+    images: pImages("bogatyry", 4),
   },
   {
     slug: "proyekt-doma-iz-brevna-9x10",
@@ -282,7 +314,7 @@ export const projects: Project[] = [
     area: 90,
     material: "Бревно",
     categories: ["doma-iz-brevna"],
-    images: pImages("kupcheskij", 7),
+    images: pImages("kupcheskij", 4),
   },
   {
     slug: "proyekt-doma-iz-brevna-8x10-5",
@@ -292,7 +324,7 @@ export const projects: Project[] = [
     area: 84,
     material: "Бревно",
     categories: ["doma-iz-brevna"],
-    images: pImages("dubravushka", 7),
+    images: pImages("dubravushka", 4),
   },
   {
     slug: "proyekt-doma-iz-brevna-13x12",
@@ -302,7 +334,7 @@ export const projects: Project[] = [
     area: 156,
     material: "Бревно",
     categories: ["doma-iz-brevna"],
-    images: pImages("boyarynya", 6),
+    images: pImages("boyarynya", 3),
   },
   {
     slug: "proyekt-doma-iz-brevna-12-6x9",
@@ -312,7 +344,7 @@ export const projects: Project[] = [
     area: 113,
     material: "Бревно",
     categories: ["doma-iz-brevna"],
-    images: pImages("zlato", 7),
+    images: pImages("zlato", 4),
   },
   {
     slug: "proyekt-doma-iz-brevna-11x9-7",
@@ -322,7 +354,7 @@ export const projects: Project[] = [
     area: 107,
     material: "Бревно",
     categories: ["doma-iz-brevna"],
-    images: pImages("vitjaz", 7),
+    images: pImages("vitjaz", 4),
   },
   {
     slug: "proyekt-doma-iz-brevna-7-3x7",
@@ -332,7 +364,7 @@ export const projects: Project[] = [
     area: 51,
     material: "Бревно",
     categories: ["doma-iz-brevna"],
-    images: pImages("uyutnyj", 7),
+    images: pImages("uyutnyj", 4),
   },
   {
     slug: "proyekt-bani-4-6x5-5",

@@ -1,12 +1,17 @@
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ArrowUpRight, Paintbrush } from "lucide-react";
-import { categories, completedHomes, projects, site, finishing, type Project } from "@/lib/site-data";
+import { categories, completedHomes, projects, site, finishing, formatPrice, type Project } from "@/lib/site-data";
 import { Button } from "@/components/ui/button";
 import { CallbackForm } from "@/components/callback-form";
 import { WorksGallery } from "@/components/works-gallery";
 
 function categoryTitleOf(p: Project) {
   return categories.find((c) => p.categories.includes(c.slug))?.title;
+}
+
+function priceFrom(p: Project) {
+  if (!p.price145) return null;
+  return formatPrice(p.price145);
 }
 
 function ProjectsPage() {
@@ -48,6 +53,9 @@ function ProjectsPage() {
                     {p.size ? ` · ${p.size}` : ""}
                     {p.area ? ` · застройка ${p.area} м²` : ""}
                   </p>
+                  {priceFrom(p) && (
+                    <p className="mt-2.5 text-lg font-bold tracking-tight">{priceFrom(p)}</p>
+                  )}
                 </div>
                 <ArrowUpRight className="size-5 shrink-0 text-primary" />
               </div>

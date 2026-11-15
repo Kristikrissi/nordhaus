@@ -13,6 +13,7 @@ import { type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { ContentGuard } from "@/components/content-guard";
 import { site } from "@/lib/site-data";
 
 function NotFoundComponent() {
@@ -72,6 +73,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:description", content: "Строительство домов и бань из бруса и бревна по индивидуальным проектам в Москве и области." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      /*
+       * noai/noimageai — сигнал краулерам не использовать текст и картинки
+       * для обучения моделей. Индексацию в поиске они не отключают, поэтому
+       * index/follow указываем явно: без этого парсер, не знающий noai,
+       * может трактовать строку как «нет разрешённых директив».
+       */
+      { name: "robots", content: "index, follow, noai, noimageai" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -109,6 +117,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <ContentGuard />
       <SiteHeader />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />

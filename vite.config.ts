@@ -18,6 +18,11 @@ export default defineConfig({
     tailwindcss(),
     // Free SSR hosting: Vercel (Hobby). Switch preset when deploying elsewhere,
     // e.g. "cloudflare-pages" or "node-server".
+    //
+    // HTTP-заголовки безопасности ставятся в src/server.ts, а не через
+    // routeRules/vercel.json: nitro-пресет "vercel" отдаёт платформу через
+    // Build Output API, и правила вида "/**" становятся маршрутом без
+    // continue — это могло бы перехватить раздачу страниц.
     nitro({ preset: "vercel" }),
   ],
 });

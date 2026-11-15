@@ -77,6 +77,30 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
   }
+
+  /*
+   * Защита контента от механического копирования на уровне CSS: работает
+   * и с отключённым JavaScript (JS-слой добавляет блокировку правого клика).
+   * Поля ввода и программный текст остаются выделяемыми.
+   */
+  body {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  input,
+  textarea,
+  [contenteditable="true"],
+  code,
+  pre {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+
+  /* Картинки нельзя перетащить в проводник/другую вкладку (Chromium, WebKit). */
+  img {
+    -webkit-user-drag: none;
+  }
 }
 
 @layer components {
