@@ -241,6 +241,8 @@ export const projects: Project[] = [
     material: "Брус 150 × 150 мм",
     categories: ["doma-iz-brusa"],
     images: pImages("vekovoj-bor", 3),
+    price145: 1_850_000,
+    price195: 2_100_000,
   },
   {
     slug: "dom-iz-profilirovannogo-brusa-9-h-11",
