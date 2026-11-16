@@ -4,6 +4,7 @@ import { categories, projects, site, formatPrice, type Project } from "@/lib/sit
 import { Button } from "@/components/ui/button";
 import { CallbackForm } from "@/components/callback-form";
 import { ProjectsGallery } from "@/components/projects-gallery";
+import { ProjectsIntro } from "@/components/projects-intro";
 
 function categoryTitleOf(p: Project) {
   return categories.find((c) => p.categories.includes(c.slug))?.title;
@@ -18,7 +19,15 @@ function pluralFloors(n: number | undefined) {
 
 function ProjectDetail() {
   const project = Route.useLoaderData();
+  const search = Route.useSearch();
   const category = categoryTitleOf(project);
+
+  // Возврат в каталог должен вести в ту категорию, из которой пришли.
+  // Если категория в URL не передана или не подходит проекту — берём категорию проекта.
+  const backCategory =
+    search.category && categories.some((c) => c.slug === search.category && project.categories.includes(c.slug))
+      ? search.category
+      : project.categories[0];
 
   const paragraphs = project.description ?? [
     `Проект «${project.name}»${category ? ` — ${category.toLowerCase()}` : ""}. Габариты сруба по проекту — ${project.size}, площадь застройки ${project.area} м²${project.floors ? `, ${pluralFloors(project.floors)}` : ""}${project.material ? `, материал стен — ${project.material.toLowerCase()}` : ""}.`,
@@ -31,7 +40,7 @@ function ProjectDetail() {
     <main className="pt-28">
       <div className="site-shell pt-6 pb-12">
         <Button variant="link" className="mb-7 p-0" asChild>
-          <Link to="/projects">
+          <Link to="/projects" search={backCategory ? { category: backCategory } : {}}>
             <ArrowLeft />
             Каталог проектов
           </Link>
@@ -39,6 +48,10 @@ function ProjectDetail() {
 
         {category && <p className="section-label">{category}</p>}
         <h1 className="section-title mt-4">{project.name}</h1>
+
+        <div className="mt-8">
+          <ProjectsIntro />
+        </div>
       </div>
 
       <div className="site-shell pb-20">
@@ -58,7 +71,7 @@ function ProjectDetail() {
         </div>
 
         {/* Стоимость сруба под усадку: две комплектации по сечению наружных стен. */}
-        {(project.price145 || project.price195) && (
+        {project.price145 || project.price195 ? (
           <div className="mb-10 rounded-2xl border border-border bg-card p-6 sm:p-8">
             <h2 className="text-2xl font-semibold">Стоимость сруба под усадку</h2>
             <dl className="mt-5 grid gap-4 sm:grid-cols-2">
@@ -86,6 +99,20 @@ function ProjectDetail() {
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
               Внутренние перегородки в обоих случаях — брус 95 × 145 мм.
             </p>
+          </div>
+        ) : (
+          <div className="mb-10 rounded-2xl border border-border bg-card p-6 sm:p-8">
+            <h2 className="text-2xl font-semibold">Стоимость по запросу</h2>
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+              Сруб из бревна ручной рубки рассчитывается индивидуально: итоговая цена зависит от диаметра бревна, объёма работ, типа фундамента и кровли. Укажите габариты и пожелания — подготовим смету в течение дня.
+            </p>
+            <button
+              type="button"
+              className="btn-primary mt-6"
+              onClick={() => window.dispatchEvent(new CustomEvent("open-callback-modal"))}
+            >
+              Узнать стоимость
+            </button>
           </div>
         )}
 
@@ -126,6 +153,8 @@ function ProjectDetail() {
 
 export const Route = createFileRoute("/projects/$slug")({
   staticData: { sitemap: true },
+  validateSearch: (s: Record<string, unknown>): { category?: string } =>
+    typeof s["category"] === "string" ? { category: s["category"] } : {},
   loader: ({ params }) => {
     const project = projects.find((p) => p.slug === params.slug);
     if (!project) throw notFound();

@@ -257,15 +257,15 @@ export const projects: Project[] = [
     price145: 828_000,
   },
   {
-    slug: "kresh",
-    name: "Крещат",
+    slug: "bereza",
+    name: "Берёза",
     code: "Б-026",
     size: "6 × 7,5 м",
     area: 45,
     floors: 1,
     material: "Профилированный брус 140 × 140 мм",
     categories: ["bani-iz-brusa"],
-    images: pImages("kresh", 3),
+    images: pImages("bereza", 3),
     price145: 773_000,
   },
   {
@@ -577,6 +577,17 @@ export const projects: Project[] = [
     specs: banyaSpecs,
   },
 ];
+
+/**
+ * Вводный блок об индивидуальном проектировании.
+ * Показывается сверху и в каталоге, и на странице отдельного проекта.
+ */
+export const projectsIntro = {
+  paragraphs: [
+    "Представленные проекты — лишь отправная точка на пути к вашему идеальному дому.",
+    "Мы воплощаем в жизнь не только готовые проекты, но и индивидуальные идеи. Создадим и построим деревянный дом, который будет полностью соответствовать вашим пожеланиям, образу жизни и представлению о комфорте.",
+  ],
+};
 
 export const categories: Category[] = [
   { slug: "doma-iz-brusa", title: "Дома из бруса", images: [] },

@@ -3,6 +3,7 @@ import { ArrowUpRight, Paintbrush } from "lucide-react";
 import { categories, completedHomes, projects, site, finishing, formatPrice, type Project } from "@/lib/site-data";
 import { Button } from "@/components/ui/button";
 import { CallbackForm } from "@/components/callback-form";
+import { ProjectsIntro } from "@/components/projects-intro";
 import { WorksGallery } from "@/components/works-gallery";
 
 function categoryTitleOf(p: Project) {
@@ -34,6 +35,11 @@ function ProjectsPage() {
       <section className="container-wide">
         <p className="eyebrow">Дома и бани из бруса и бревна</p>
         <h1 className="section-title mt-3">Каталог проектов</h1>
+
+        <div className="mt-8">
+          <ProjectsIntro />
+        </div>
+
         <div className="mt-8 flex flex-wrap gap-3">
           <Button variant={!active ? "pill" : "outline"} onClick={() => setActive(null)}>
             Все проекты
@@ -49,7 +55,13 @@ function ProjectsPage() {
       <section className="container-wide pt-12">
         <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {visible.map((p) => (
-            <Link key={p.slug} to="/projects/$slug" params={{ slug: p.slug }} className="project-link">
+            <Link
+              key={p.slug}
+              to="/projects/$slug"
+              params={{ slug: p.slug }}
+              search={active ? { category: active } : {}}
+              className="project-link"
+            >
               <div className="overflow-hidden rounded-lg">
                 <img src={p.images[0]} alt={p.name} loading="lazy" className="project-photo" />
               </div>
@@ -61,8 +73,10 @@ function ProjectsPage() {
                     {p.size ? ` · ${p.size}` : ""}
                     {p.area ? ` · застройка ${p.area} м²` : ""}
                   </p>
-                  {priceFrom(p) && (
+                  {priceFrom(p) ? (
                     <p className="mt-2.5 text-lg font-bold tracking-tight">{priceFrom(p)}</p>
+                  ) : (
+                    <p className="mt-2.5 text-sm font-semibold text-accent">Цену уточняйте</p>
                   )}
                 </div>
                 <ArrowUpRight className="size-5 shrink-0 text-primary" />
