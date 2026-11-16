@@ -14,12 +14,20 @@ function priceFrom(p: Project) {
   return formatPrice(p.price145);
 }
 
+// Витрина идёт блоками по категориям: сначала все проекты первой категории,
+// затем следующей — независимо от порядка проектов в данных.
+const categoryRank = new Map(categories.map((c, i) => [c.slug, i]));
+const rankOf = (p: Project) =>
+  Math.min(...p.categories.map((c) => categoryRank.get(c) ?? Number.MAX_SAFE_INTEGER));
+
 function ProjectsPage() {
   const active = Route.useSearch().category ?? null;
   const navigate = useNavigate({ from: "/projects/" });
   const setActive = (slug: string | null) =>
     navigate({ search: slug ? { category: slug } : {}, replace: true, resetScroll: false });
-  const visible = active ? projects.filter((p) => p.categories.includes(active)) : projects;
+  const visible = (active ? projects.filter((p) => p.categories.includes(active)) : projects)
+    .slice()
+    .sort((a, b) => rankOf(a) - rankOf(b));
 
   return (
     <main className="pt-28">
