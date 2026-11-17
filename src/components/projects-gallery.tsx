@@ -5,52 +5,37 @@ import { Button } from "@/components/ui/button";
 
 /**
  * Галерея фотографий проекта с лайтбоксом.
- * По умолчанию первый элемент показывается крупной обложкой, остальные — сеткой.
- * С uniform={true} все фотографии идут одной сеткой одинакового размера.
+ * Все фотографии идут единой сеткой одного размера, без крупной обложки —
+ * так витрина проекта совпадает с сеткой каталога.
  * Любая фотография открывается в лайтбоксе, стрелки листают весь массив.
  */
 export function ProjectsGallery({
   images,
   title,
-  uniform = false,
+  className = "",
 }: {
   images: string[];
   title: string;
-  uniform?: boolean;
+  className?: string;
 }) {
   const [selected, setSelected] = useState<number | null>(null);
-  const [cover, ...rest] = images;
-  const showCover = !uniform && cover !== undefined;
-  const gridImages = showCover ? rest : images;
-  const offset = showCover ? 1 : 0;
 
   return (
     <>
-      {showCover && cover && (
-        <button
-          type="button"
-          onClick={() => setSelected(0)}
-          aria-label={`${title} — фото 1`}
-          className="block w-full cursor-pointer overflow-hidden rounded-lg"
-        >
-          <img src={cover} alt={title} className="detail-cover" />
-        </button>
-      )}
-
-      <div className={`${showCover ? "mt-8" : ""} grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3`}>
-        {gridImages.map((src, i) => (
+      <div className={`${className} grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3`.trim()}>
+        {images.map((src, i) => (
           <button
             type="button"
             key={src}
-            onClick={() => setSelected(i + offset)}
-            aria-label={`${title} — фото ${i + offset + 1}`}
-            className="cursor-pointer overflow-hidden rounded-lg border border-transparent p-0 transition-colors hover:border-primary/40"
+            onClick={() => setSelected(i)}
+            aria-label={`${title} — фото ${i + 1}`}
+            className="project-link cursor-pointer overflow-hidden rounded-lg border border-transparent p-0 transition-colors hover:border-primary/40"
           >
             <img
               src={src}
-              alt={`${title} — фото ${i + offset + 1}`}
+              alt={`${title} — фото ${i + 1}`}
               loading="lazy"
-              className="aspect-[4/3] w-full object-cover"
+              className="project-photo"
             />
           </button>
         ))}
