@@ -16,7 +16,13 @@ function ContactsPage() {
               <div className="grid lg:grid-cols-2">
                 <div className="p-8">
                   <p className="eyebrow">{o.region}</p>
-                  <p className="mt-4 text-lg font-semibold leading-snug">{o.address}</p>
+                  <p className="mt-4 text-lg font-semibold leading-snug">
+                    {o.addressLines.map((line) => (
+                      <span key={line} className="block">
+                        {line}
+                      </span>
+                    ))}
+                  </p>
                   <dl className="mt-6 space-y-4 text-sm">
                     <div>
                       <dt className="text-xs uppercase tracking-wide text-muted-foreground">Режим работы</dt>

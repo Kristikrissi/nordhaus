@@ -21,6 +21,8 @@ function ProjectDetail() {
   const project = Route.useLoaderData();
   const search = Route.useSearch();
   const category = categoryTitleOf(project);
+  // Баня или дом — от этого зависят подписи на странице.
+  const isBanya = project.categories.some((c) => c.startsWith("bani"));
 
   // Возврат в каталог должен вести в ту категорию, из которой пришли.
   // Если категория в URL не передана или не подходит проекту — берём категорию проекта.
@@ -58,14 +60,13 @@ function ProjectDetail() {
         <ProjectsGallery images={project.images} title={project.name} className="mt-8" />
 
         <div className="mb-10 border-b border-border py-8">
-          <p className="text-sm text-muted-foreground">Размеры дома</p>
+          <p className="text-sm text-muted-foreground">Размеры {isBanya ? "бани" : "дома"}</p>
           <p className="mt-2 text-2xl">
             {project.size}
             {project.floors ? ` · ${pluralFloors(project.floors)}` : ""}
           </p>
           <p className="project-meta mt-2">
             Площадь застройки {project.area} м²{project.material ? ` · ${project.material}` : ""}
-            {project.code ? ` · ${project.code}` : ""}
           </p>
           {project.status && <p className="project-meta mt-2">Статус: {project.status}</p>}
         </div>
@@ -97,14 +98,14 @@ function ProjectDetail() {
               )}
             </dl>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              Внутренние перегородки в обоих случаях — брус 95 × 145 мм.
+              Внутренние перегородки — брус 95 × 145 мм.
             </p>
           </div>
         ) : (
           <div className="mb-10 rounded-2xl border border-border bg-card p-6 sm:p-8">
             <h2 className="text-2xl font-semibold">Стоимость по запросу</h2>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              Сруб из бревна ручной рубки рассчитывается индивидуально: итоговая цена зависит от диаметра бревна, объёма работ, типа фундамента и кровли. Укажите габариты и пожелания — подготовим смету в течение дня.
+              Сруб из оцилиндрованного бревна рассчитывается индивидуально: итоговая цена зависит от диаметра бревна, объёма работ, типа фундамента и кровли. Укажите габариты и пожелания — подготовим смету в течение дня.
             </p>
             <button
               type="button"
@@ -138,7 +139,7 @@ function ProjectDetail() {
 
       <section className="site-shell pb-20">
         <div className="rounded-2xl bg-secondary p-8 sm:p-12">
-          <h2 className="section-title">Хотите такой же дом?</h2>
+          <h2 className="section-title">Хотите {isBanya ? "такую же баню" : "такой же дом"}?</h2>
           <p className="mt-4 text-sm text-muted-foreground">
             Мы перезвоним вам, чтобы уточнить детали и обсудить ваши пожелания
           </p>

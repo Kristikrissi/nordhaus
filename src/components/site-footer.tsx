@@ -57,7 +57,11 @@ export function SiteFooter() {
             </li>
             {offices.map((o) => (
               <li key={o.region} className="text-sm text-muted-foreground">
-                {o.address}
+                {o.addressLines.map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
               </li>
             ))}
           </ul>

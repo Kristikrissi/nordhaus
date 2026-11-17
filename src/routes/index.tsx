@@ -302,7 +302,13 @@ function Contacts() {
               </button>
             ))}
           </div>
-          <p className="mt-6 text-[15px] leading-relaxed">{office.address}</p>
+          <p className="mt-6 text-[15px] leading-relaxed">
+            {office.addressLines.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
+          </p>
           <p className="mt-3 text-sm text-muted-foreground">
             {office.hours.map((h) => (
               <span key={h} className="block">
