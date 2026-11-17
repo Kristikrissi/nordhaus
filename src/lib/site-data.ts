@@ -591,8 +591,8 @@ export const projectsIntro = {
 
 export const categories: Category[] = [
   { slug: "doma-iz-brusa", title: "Дома из бруса", images: [] },
-  { slug: "doma-iz-brevna", title: "Дома из бревна", images: [] },
   { slug: "bani-iz-brusa", title: "Бани из бруса", images: [] },
+  { slug: "doma-iz-brevna", title: "Дома из бревна", images: [] },
   { slug: "bani-iz-brevna", title: "Бани из бревна", images: [] },
 ];
 
