@@ -1,10 +1,17 @@
-import { useState } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { articles } from "@/lib/news-articles";
 import { news, site, type NewsItem } from "@/lib/site-data";
 
+type Tag = "все" | NewsItem["tag"];
+const TAGS: readonly Tag[] = ["все", "новости", "статьи"];
+
 function NewsPage() {
-  const [tag, setTag] = useState<"все" | NewsItem["tag"]>("все");
+  // Фильтр держим в URL, а не в состоянии: тогда возврат из статьи
+  // попадает в ту же вкладку, из которой в неё вошли.
+  const tag = Route.useSearch().tag ?? "все";
+  const navigate = useNavigate({ from: "/news/" });
+  const setTag = (t: Tag) =>
+    navigate({ search: t === "все" ? {} : { tag: t }, replace: true, resetScroll: false });
   const visible = tag === "все" ? news : news.filter((n) => n.tag === tag);
 
   return (
@@ -13,7 +20,7 @@ function NewsPage() {
         <p className="eyebrow">Блог</p>
         <h1 className="section-title mt-3">Новости</h1>
         <div className="mt-8 flex flex-wrap gap-2">
-          {(["все", "новости", "статьи"] as const).map((t) => (
+          {TAGS.map((t) => (
             <button
               key={t}
               type="button"
@@ -31,7 +38,13 @@ function NewsPage() {
       <section className="container-wide pt-12 pb-20">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {visible.map((n) => (
-            <Link key={n.title} to="/news/$slug" params={{ slug: articles[n.title]!.slug }} className="group block overflow-hidden rounded-xl border border-border bg-card transition-shadow hover:shadow-lg">
+            <Link
+              key={n.title}
+              to="/news/$slug"
+              params={{ slug: articles[n.title]!.slug }}
+              search={tag === "все" ? {} : { tag }}
+              className="group block overflow-hidden rounded-xl border border-border bg-card transition-shadow hover:shadow-lg"
+            >
               <div className="aspect-[16/10] overflow-hidden">
                 <img src={n.image} alt={n.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
               </div>
@@ -56,6 +69,8 @@ function NewsPage() {
 
 export const Route = createFileRoute("/news/")({
   staticData: { sitemap: true },
+  validateSearch: (s: Record<string, unknown>): { tag?: Tag } =>
+    s["tag"] === "новости" || s["tag"] === "статьи" ? { tag: s["tag"] } : {},
   head: () => ({
     meta: [
       { title: "Новости и статьи о домах и банях из бруса и бревна | NORDHAUS" },

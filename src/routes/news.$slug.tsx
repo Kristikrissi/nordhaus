@@ -5,6 +5,8 @@ import { ProjectsGallery } from "@/components/projects-gallery";
 
 export const Route = createFileRoute("/news/$slug")({
   staticData: { sitemap: true },
+  validateSearch: (s: Record<string, unknown>): { tag?: "новости" | "статьи" } =>
+    s["tag"] === "новости" || s["tag"] === "статьи" ? { tag: s["tag"] } : {},
   loader: ({ params }) => {
     const found = articleBySlug(params.slug);
     if (!found) throw notFound();
@@ -41,13 +43,22 @@ export const Route = createFileRoute("/news/$slug")({
 
 function ArticlePage() {
   const { title, article, item } = Route.useLoaderData();
+  const search = Route.useSearch();
   const gallery = item.gallery ?? [];
+  // Возврат в блог должен вести в ту же вкладку, из которой пришли.
+  const backLabel = search.tag ? `Все ${search.tag}` : "Все новости";
 
   return (
     <main className="pt-28 pb-20">
       <article className="container-wide">
         <div className="mx-auto max-w-3xl">
-          <Link to="/news" className="text-sm text-muted-foreground hover:text-primary">← Все новости</Link>
+          <Link
+            to="/news"
+            search={search.tag ? { tag: search.tag } : {}}
+            className="text-sm text-muted-foreground hover:text-primary"
+          >
+            ← {backLabel}
+          </Link>
           <div className="mt-6 flex items-center gap-3 text-xs text-muted-foreground">
             <span className="rounded-full bg-secondary px-3 py-1 font-semibold uppercase tracking-wide text-primary">{item.tag}</span>
             <span>{item.date}</span>
