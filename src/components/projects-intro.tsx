@@ -6,11 +6,14 @@ import { projectsIntro } from "@/lib/site-data";
  * фон и типографика, чтобы оба пояснения читались одинаково.
  * Показывается сверху в каталоге и на странице проекта, поэтому вынесен
  * в компонент — правки не приходится дублировать.
+ * `variant="project"` — текст про кондовый лес для страницы одного проекта.
  */
-export function ProjectsIntro() {
+export function ProjectsIntro({ variant = "catalog" }: { variant?: "catalog" | "project" }) {
+  const paragraphs = variant === "project" ? projectsIntro.projectParagraphs : projectsIntro.paragraphs;
+
   return (
     <div className="rounded-2xl border border-border bg-secondary/50 p-5 sm:p-6">
-      {projectsIntro.paragraphs.map((p, i) => (
+      {paragraphs.map((p, i) => (
         <p key={i} className={`text-sm leading-relaxed text-muted-foreground${i ? " mt-3" : ""}`}>
           {p}
         </p>

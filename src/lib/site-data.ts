@@ -194,7 +194,7 @@ export const projects: Project[] = [
     material: "Профилированный брус 140 × 140 мм",
     categories: ["bani-iz-brusa"],
     images: pImages("topol", 3),
-    price145: 718_000,
+    price145: 835_000,
   },
   {
     slug: "olha",
@@ -206,7 +206,7 @@ export const projects: Project[] = [
     material: "Профилированный брус 140 × 140 мм",
     categories: ["bani-iz-brusa"],
     images: pImages("olha", 3),
-    price145: 745_000,
+    price145: 850_000,
   },
   {
     slug: "verba",
@@ -218,7 +218,7 @@ export const projects: Project[] = [
     material: "Профилированный брус 140 × 140 мм",
     categories: ["bani-iz-brusa"],
     images: pImages("verba", 3),
-    price145: 497_000,
+    price145: 640_000,
   },
   {
     slug: "dub",
@@ -230,7 +230,7 @@ export const projects: Project[] = [
     material: "Профилированный брус 140 × 140 мм",
     categories: ["bani-iz-brusa"],
     images: pImages("dub", 3),
-    price145: 718_000,
+    price145: 830_000,
   },
   {
     slug: "kedar",
@@ -242,7 +242,7 @@ export const projects: Project[] = [
     material: "Профилированный брус 140 × 140 мм",
     categories: ["bani-iz-brusa"],
     images: pImages("kedar", 3),
-    price145: 800_000,
+    price145: 955_000,
   },
   {
     slug: "pinya",
@@ -254,7 +254,7 @@ export const projects: Project[] = [
     material: "Профилированный брус 140 × 140 мм",
     categories: ["bani-iz-brusa"],
     images: pImages("pinya", 3),
-    price145: 828_000,
+    price145: 960_000,
   },
   {
     slug: "bereza",
@@ -266,7 +266,7 @@ export const projects: Project[] = [
     material: "Профилированный брус 140 × 140 мм",
     categories: ["bani-iz-brusa"],
     images: pImages("bereza", 3),
-    price145: 773_000,
+    price145: 870_000,
   },
   {
     slug: "sosna",
@@ -278,7 +278,7 @@ export const projects: Project[] = [
     material: "Профилированный брус 140 × 140 мм",
     categories: ["bani-iz-brusa"],
     images: pImages("sosna", 3),
-    price145: 718_000,
+    price145: 840_000,
   },
   {
     slug: "yun",
@@ -644,7 +644,6 @@ export const projects: Project[] = [
     area: 176,
     floors: 1,
     material: "Брус 150 × 150 мм",
-    status: "Построен",
     categories: ["doma-iz-brusa"],
     images: pImages("kashtan", 3),
     description: [
@@ -698,7 +697,6 @@ export const projects: Project[] = [
     area: 128,
     floors: 1,
     material: "Брус 150 × 150 мм",
-    status: "Построен",
     categories: ["doma-iz-brusa"],
     images: pImages("morena", 3),
     description: [
@@ -716,7 +714,6 @@ export const projects: Project[] = [
     area: 366,
     floors: 1,
     material: "Брус 150 × 150 мм",
-    status: "Построен",
     categories: ["doma-iz-brusa"],
     images: pImages("ladoga", 3),
     description: [
@@ -731,11 +728,16 @@ export const projects: Project[] = [
 
 /**
  * Вводный блок об индивидуальном проектировании.
- * Показывается сверху и в каталоге, и на странице отдельного проекта.
+ * Показывается сверху и в каталоге, и на странице отдельного проекта,
+ * но тексты различаются: в каталоге — про проектирование, на странице
+ * проекта — про материал.
  */
 export const projectsIntro = {
   paragraphs: [
     "Мы строим дома и бани по готовым проектам, проектам заказчика, а также разрабатываем индивидуальные проекты с учётом ваших пожеланий.",
+  ],
+  projectParagraphs: [
+    "Для строительства домов и бань мы используем исключительно кондовый лес — добротную древесину высокого качества.",
   ],
 };
 

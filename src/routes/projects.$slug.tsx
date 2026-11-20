@@ -52,7 +52,7 @@ function ProjectDetail() {
         <h1 className="section-title mt-4">{project.name}</h1>
 
         <div className="mt-8">
-          <ProjectsIntro />
+          <ProjectsIntro variant="project" />
         </div>
       </div>
 
