@@ -1,6 +1,6 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
-import { categories, projects, site, formatPrice, type Project } from "@/lib/site-data";
+import { categories, projects, site, formatPrice, brusSectionNote, logSectionNote, type Project } from "@/lib/site-data";
 import { Button } from "@/components/ui/button";
 import { CallbackForm } from "@/components/callback-form";
 import { ProjectsGallery } from "@/components/projects-gallery";
@@ -100,6 +100,7 @@ function ProjectDetail() {
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
               Внутренние перегородки — брус 95 × 145 мм.
             </p>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{brusSectionNote}</p>
           </div>
         ) : (
           <div className="mb-10 rounded-2xl border border-border bg-card p-6 sm:p-8">
@@ -107,6 +108,7 @@ function ProjectDetail() {
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
               Сруб из оцилиндрованного бревна рассчитывается индивидуально: итоговая цена зависит от диаметра бревна, объёма работ, типа фундамента и кровли. Укажите габариты и пожелания — подготовим смету в течение дня.
             </p>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{logSectionNote}</p>
             <button
               type="button"
               className="btn-primary mt-6"
@@ -117,23 +119,53 @@ function ProjectDetail() {
           </div>
         )}
 
-        <div className="mb-10 max-w-3xl">
-          <div className="content-copy">
-            {paragraphs.map((p, i) => (
-              <p key={i}>{p}</p>
+        {project.sections ? (
+          <div className="content-copy max-w-3xl">
+            {project.sections.map((s, si) => (
+              <div key={si} className={s.title ? "mt-10" : undefined}>
+                {s.title && <h2 className="mb-4 text-2xl font-semibold text-foreground">{s.title}</h2>}
+                {s.paragraphs?.map((p, i) => <p key={`p${i}`}>{p}</p>)}
+                {s.groups?.map((g, gi) => (
+                  <div key={`g${gi}`} className="mt-6">
+                    <h3 className="mb-2 text-lg font-semibold text-foreground">{g.title}</h3>
+                    <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted-foreground">
+                      {g.items.map((it) => (
+                        <li key={it}>{it}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+                {s.items && (
+                  <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted-foreground">
+                    {s.items.map((it) => (
+                      <li key={it}>{it}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             ))}
           </div>
-        </div>
+        ) : (
+          <>
+            <div className="mb-10 max-w-3xl">
+              <div className="content-copy">
+                {paragraphs.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+            </div>
 
-        {project.specs && (
-          <div className="mb-10">
-            <h2 className="mb-4 text-2xl font-semibold">Комплектность проекта</h2>
-            <ul className="max-w-3xl list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted-foreground">
-              {project.specs.map((s) => (
-                <li key={s}>{s}</li>
-              ))}
-            </ul>
-          </div>
+            {project.specs && (
+              <div className="mb-10">
+                <h2 className="mb-4 text-2xl font-semibold">Комплектность проекта</h2>
+                <ul className="max-w-3xl list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted-foreground">
+                  {project.specs.map((s) => (
+                    <li key={s}>{s}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </>
         )}
       </div>
 
@@ -166,10 +198,16 @@ export const Route = createFileRoute("/projects/$slug")({
       return { meta: [{ title: "Проект не найден | NORDHAUS" }, { name: "robots", content: "noindex" }] };
     }
     const cat = categoryTitleOf(loaderData)?.toLowerCase() ?? "проект";
+    // Для meta description берём первый абзац описания; у проектов из бруса
+    // текст живёт в sections, поэтому используем его как источник.
+    const lead =
+      loaderData.description?.[0] ??
+      loaderData.sections?.find((s) => s.paragraphs?.length)?.paragraphs?.[0] ??
+      `Проект «${loaderData.name}»: габариты ${loaderData.size}, площадь застройки ${loaderData.area} м². Дома и бани из бруса и бревна от NORDHAUS.`;
     return {
       meta: [
         { title: `${loaderData.name} — ${cat} | NORDHAUS` },
-        { name: "description", content: loaderData.description?.[0] ?? `Проект «${loaderData.name}»: габариты ${loaderData.size}, площадь застройки ${loaderData.area} м². Дома и бани из бруса и бревна от NORDHAUS.` },
+        { name: "description", content: lead },
         { property: "og:title", content: `${loaderData.name} — ${cat} | NORDHAUS` },
         { property: "og:description", content: `Габариты ${loaderData.size}, площадь застройки ${loaderData.area} м².${loaderData.floors ? ` Этажей: ${loaderData.floors}.` : ""}` },
         { property: "og:type", content: "article" },
