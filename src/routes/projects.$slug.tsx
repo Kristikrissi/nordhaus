@@ -1,6 +1,7 @@
-import { Link, createFileRoute, notFound } from "@tanstack/react-router";
+import { Link, createFileRoute, notFound, useRouter } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { categories, projects, site, formatPrice, brusSectionNote, logSectionNote, type Project } from "@/lib/site-data";
+import { canReturnToCatalog } from "@/lib/scroll-return";
 import { Button } from "@/components/ui/button";
 import { CallbackForm } from "@/components/callback-form";
 import { ProjectsGallery } from "@/components/projects-gallery";
@@ -20,16 +21,21 @@ function pluralFloors(n: number | undefined) {
 function ProjectDetail() {
   const project = Route.useLoaderData();
   const search = Route.useSearch();
+  const router = useRouter();
   const category = categoryTitleOf(project);
   // Баня или дом — от этого зависят подписи на странице.
   const isBanya = project.categories.some((c) => c.startsWith("bani"));
 
-  // Возврат в каталог должен вести в ту категорию, из которой пришли.
-  // Если категория в URL не передана или не подходит проекту — берём категорию проекта.
+  // Резервный адрес возврата — используется, когда проект открыли не из
+  // каталога (прямая ссылка, новая вкладка). Параметр category отсутствует —
+  // значит список был открыт без фильтра, и вести надо в «Все проекты»,
+  // а не в первую категорию проекта.
   const backCategory =
-    search.category && categories.some((c) => c.slug === search.category && project.categories.includes(c.slug))
-      ? search.category
-      : project.categories[0];
+    search.category === undefined
+      ? null
+      : categories.some((c) => c.slug === search.category && project.categories.includes(c.slug))
+        ? search.category
+        : project.categories[0];
 
   const paragraphs = project.description ?? [
     `Проект «${project.name}»${category ? ` — ${category.toLowerCase()}` : ""}. Габариты сруба по проекту — ${project.size}, площадь застройки ${project.area} м²${project.floors ? `, ${pluralFloors(project.floors)}` : ""}${project.material ? `, материал стен — ${project.material.toLowerCase()}` : ""}.`,
@@ -42,7 +48,20 @@ function ProjectDetail() {
     <main className="pt-28">
       <div className="site-shell pt-6 pb-12">
         <Button variant="link" className="mb-7 p-0" asChild>
-          <Link to="/projects" search={backCategory ? { category: backCategory } : {}}>
+          <Link
+            to="/projects"
+            search={backCategory ? { category: backCategory } : {}}
+            onClick={(e) => {
+              // Если проект открыли из списка каталога, идём назад по истории:
+              // так восстанавливаются и выбранный фильтр, и позиция прокрутки.
+              // Адрес ссылки остаётся корректным запасным вариантом — на
+              // случай прямой ссылки на проект, краулеров и отключённого JS.
+              if (canReturnToCatalog()) {
+                e.preventDefault();
+                router.history.back();
+              }
+            }}
+          >
             <ArrowLeft />
             Каталог проектов
           </Link>

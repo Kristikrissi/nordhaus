@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ArrowUpRight, Paintbrush } from "lucide-react";
 import { categories, completedHomes, projects, site, finishing, formatPrice, type Project } from "@/lib/site-data";
+import { markCatalogEntry } from "@/lib/scroll-return";
 import { Button } from "@/components/ui/button";
 import { CallbackForm } from "@/components/callback-form";
 import { ProjectsIntro } from "@/components/projects-intro";
@@ -24,6 +26,13 @@ const rankOf = (p: Project) =>
 function ProjectsPage() {
   const active = Route.useSearch().category ?? null;
   const navigate = useNavigate({ from: "/projects/" });
+
+  // Запоминаем индекс текущей записи истории: возврат из карточки проекта
+  // (history.back) должен попасть в этот же список, а не в начало страницы.
+  useEffect(() => {
+    markCatalogEntry();
+  }, []);
+
   const setActive = (slug: string | null) =>
     navigate({ search: slug ? { category: slug } : {}, replace: true, resetScroll: false });
   const visible = (active ? projects.filter((p) => p.categories.includes(active)) : projects)
