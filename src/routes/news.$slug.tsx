@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { news, site } from "@/lib/site-data";
 import { articleBySlug } from "@/lib/news-articles";
 import { ProjectsGallery } from "@/components/projects-gallery";
+import { OptimizedImg } from "@/components/optimized-img";
 
 export const Route = createFileRoute("/news/$slug")({
   staticData: { sitemap: true },
@@ -74,7 +75,7 @@ function ArticlePage() {
           </div>
         ) : (
           <div className="mx-auto max-w-3xl">
-            <img src={item.image} alt={title} className="mt-8 aspect-[16/9] w-full rounded-xl object-cover" />
+            <OptimizedImg src={item.image} w={1280} lcp alt={title} className="mt-8 aspect-[16/9] w-full rounded-xl object-cover" />
           </div>
         )}
 

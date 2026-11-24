@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { articles } from "@/lib/news-articles";
 import { news, site, type NewsItem } from "@/lib/site-data";
+import { OptimizedImg } from "@/components/optimized-img";
 
 type Tag = "все" | NewsItem["tag"];
 const TAGS: readonly Tag[] = ["все", "новости", "статьи"];
@@ -46,7 +47,7 @@ function NewsPage() {
               className="group block overflow-hidden rounded-xl border border-border bg-card transition-shadow hover:shadow-lg"
             >
               <div className="aspect-[16/10] overflow-hidden">
-                <img src={n.image} alt={n.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+                <OptimizedImg src={n.image} w={640} alt={n.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
               </div>
               <div className="p-6">
                 <div className="flex items-center gap-3 text-xs text-muted-foreground">

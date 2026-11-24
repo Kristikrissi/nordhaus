@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { companyValues, site } from "@/lib/site-data";
 import { CallbackForm } from "@/components/callback-form";
+import { OptimizedImg } from "@/components/optimized-img";
 
 function CompanyPage() {
   return (
@@ -27,7 +28,7 @@ function CompanyPage() {
         {companyValues.map((v, i) => (
           <div key={v.title} className="overflow-hidden rounded-2xl border border-border bg-card lg:grid lg:grid-cols-2">
             <div className={`overflow-hidden ${i % 2 === 1 ? "lg:order-2" : ""}`}>
-              <img src={v.image} alt={v.title} className="h-64 w-full object-cover sm:h-80 lg:h-full" loading="lazy" />
+              <OptimizedImg src={v.image} w={1280} alt={v.title} className="h-64 w-full object-cover sm:h-80 lg:h-full" />
             </div>
             <div className="p-8 sm:p-10">
               <span className="text-4xl font-extrabold text-primary/30">{String(i + 1).padStart(2, "0")}</span>

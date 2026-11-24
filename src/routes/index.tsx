@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 import { offices, site } from "@/lib/site-data";
 import { CallbackForm } from "@/components/callback-form";
 import { MaxLink } from "@/components/max-link";
+import { OptimizedImg, preloadVariant } from "@/components/optimized-img";
 
 const showcase = Array.from({ length: 12 }, (_, i) => `/images/home/${i + 1}.jpg`);
 const aboutSlides = Array.from({ length: 6 }, (_, i) => `/images/home/about/${String(i + 1).padStart(2, "0")}.jpg`);
@@ -12,18 +13,17 @@ const thinTitle = "font-light uppercase tracking-[0.04em] text-foreground/80";
 function Hero() {
   return (
     <section className="relative h-[100svh] min-h-[640px] overflow-hidden rounded-b-[32px]">
-      <picture>
-        <source srcSet="/images/home/hero.webp" type="image/webp" />
-        <img
-          src="/images/home/hero.jpg"
-          alt="Дом из оцилиндрованного бревна"
-          fetchPriority="high"
-          decoding="async"
-          width={1542}
-          height={1020}
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-      </picture>
+      {/* hero@1280 легче, чем имевшийся hero.webp (270 КБ), поэтому webp-источник
+          убран: браузер всё равно выбирал его как поддерживаемый. */}
+      <OptimizedImg
+        src="/images/home/hero.jpg"
+        alt="Дом из оцилиндрованного бревна"
+        w={1280}
+        lcp
+        width={1280}
+        height={847}
+        className="absolute inset-0 h-full w-full object-cover"
+      />
       <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent" />
       <div className="container-wide relative z-10 flex h-full flex-col justify-end pb-14">
         <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
@@ -59,6 +59,13 @@ function ProjectsShowcase() {
     return () => clearInterval(t);
   }, [paused, n]);
 
+  // Держим в кэше только следующий кадр — показ по стрелке и автопрокрутка
+  // остаются без белой вспышки при двух загруженных фотографиях вместо двенадцати.
+  useEffect(() => {
+    if (n < 2) return;
+    preloadVariant(showcase[(idx + 1) % n]!, 1280);
+  }, [idx, n]);
+
   const go = (d: number) => setIdx((i) => (i + d + n) % n);
 
   return (
@@ -73,18 +80,17 @@ function ProjectsShowcase() {
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
-        {showcase.map((src, i) => (
-          <img
-            key={src}
-            src={src}
-            alt={i === idx ? `Дом NORDHAUS — фото ${i + 1}` : ""}
-            loading={i === 0 ? "eager" : "lazy"}
-            decoding="async"
-            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out ${
-              i === idx ? "opacity-100" : "opacity-0"
-            }`}
-          />
-        ))}
+        {/* В DOM только активный кадр: раньше все 12 фотографий выкладывались
+            сразу (4 МБ при 350 КБ на файл), хотя видна одна. Следующая
+            предзагружается отдельно — смена остаётся плавной. */}
+        <OptimizedImg
+          key={idx}
+          src={showcase[idx]!}
+          w={1280}
+          lcp={idx === 0}
+          alt={`Дом NORDHAUS — фото ${idx + 1}`}
+          className="absolute inset-0 h-full w-full object-cover animate-fade-in"
+        />
 
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-foreground/45 to-transparent" />
 
@@ -132,7 +138,9 @@ function ProjectsShowcase() {
               i === idx ? "border-primary" : "border-transparent opacity-60 hover:opacity-100"
             }`}
           >
-            <img src={src} alt="" loading="lazy" decoding="async" className="aspect-[182/100] w-full object-cover" />
+            {/* Полоса из 12 превью: берётся @320 — на ~90 CSS px колонки
+                этого хватает с doubled retina, а вес в разы меньше. */}
+            <OptimizedImg src={src} w={320} alt="" className="aspect-[182/100] w-full object-cover" />
           </button>
         ))}
       </div>
@@ -170,6 +178,13 @@ function Engineering() {
 
 function About() {
   const [slide, setSlide] = useState(0);
+
+  // Следующий кадр держим в кэше: грузим две фотографии вместо шести.
+  useEffect(() => {
+    if (aboutSlides.length < 2) return;
+    preloadVariant(aboutSlides[(slide + 1) % aboutSlides.length]!, 640);
+  }, [slide]);
+
   return (
     <section className="container-wide pt-24">
       <div className="grid gap-10 rounded-[24px] bg-card p-8 shadow-sm sm:p-10 lg:grid-cols-2">
@@ -186,22 +201,19 @@ function About() {
             NORDHAUS — дома из дерева, созданные с душой, вниманием к деталям и уважением к традициям деревянного зодчества.
           </p>
         </div>
-        {/* Кадры лежат в одной ячейке grid: контейнер равен самому высокому
-            фото, поэтому картинка показывается целиком и без сдвига макета. */}
+        {/* Кадры лежат в одной ячейке grid. Раньше высота ячейки держалась
+            всеми шестью картинками сразу (6 × ~300 КБ в DOM); теперь все кадры
+            1200 × 900, поэтому аспект задан контейнеру — высота не прыгает,
+            а в DOM остаётся только активный кадр. */}
         <div className="relative grid min-w-0 self-center">
-          <div className="grid place-items-center overflow-hidden rounded-[20px]">
-            {aboutSlides.map((src, i) => (
-              <img
-                key={src}
-                src={src}
-                alt={i === slide ? `Дом NORDHAUS — фото ${i + 1}` : ""}
-                loading={i === 0 ? "eager" : "lazy"}
-                decoding="async"
-                className={`col-start-1 row-start-1 block h-auto w-full transition-opacity duration-700 ease-out ${
-                  i === slide ? "opacity-100" : "pointer-events-none opacity-0"
-                }`}
-              />
-            ))}
+          <div className="grid aspect-[4/3] place-items-center overflow-hidden rounded-[20px]">
+            <OptimizedImg
+              key={slide}
+              src={aboutSlides[slide]!}
+              w={640}
+              alt={`Дом NORDHAUS — фото ${slide + 1}`}
+              className="col-start-1 row-start-1 block h-auto w-full animate-fade-in"
+            />
           </div>
 
           <button
@@ -251,9 +263,9 @@ function Approach() {
           </ul>
           <Link to="/projects" className="btn-primary mt-6 self-start lg:mt-auto">Проекты</Link>
         </div>
-        <div className="min-w-0 overflow-hidden rounded-[16px] sm:rounded-[20px]">
-          <img src="/images/home/portfolio.jpg" alt="Портфолио" className="aspect-[4/3] w-full object-cover" loading="lazy" />
-        </div>
+          <div className="min-w-0 overflow-hidden rounded-[16px] sm:rounded-[20px]">
+            <OptimizedImg src="/images/home/portfolio.jpg" alt="Портфолио" w={640} className="aspect-[4/3] w-full object-cover" />
+          </div>
       </div>
     </section>
   );
@@ -275,7 +287,7 @@ function Quote() {
               loading="lazy"
             />
           </div>
-          <img src="/images/home/sergey.jpg" alt="Сергей" className="h-full w-full rounded-lg object-cover" loading="lazy" />
+          <OptimizedImg src="/images/home/sergey.jpg" alt="Сергей" w={640} className="h-full w-full rounded-lg object-cover" />
         </div>
       </div>
     </section>
@@ -359,7 +371,12 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: `${site.url}/` }],
+    links: [
+      { rel: "canonical", href: `${site.url}/` },
+      // LCP-кадр грузим preload-ом: браузер начинает его качать в <head>,
+      // не дожидаясь, пока дойдёт до <img> в разметке секции.
+      { rel: "preload", as: "image", type: "image/jpeg", href: "/images/home/hero@1280.jpg" },
+    ],
   }),
   component: Index,
 });

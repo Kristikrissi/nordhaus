@@ -4,6 +4,7 @@ import { ArrowUpRight, Paintbrush } from "lucide-react";
 import { categories, completedHomes, projects, site, finishing, formatPrice, type Project } from "@/lib/site-data";
 import { markCatalogEntry } from "@/lib/scroll-return";
 import { Button } from "@/components/ui/button";
+import { OptimizedImg } from "@/components/optimized-img";
 import { CallbackForm } from "@/components/callback-form";
 import { ProjectsIntro } from "@/components/projects-intro";
 import { WorksGallery } from "@/components/works-gallery";
@@ -72,7 +73,7 @@ function ProjectsPage() {
               className="project-link"
             >
               <div className="overflow-hidden rounded-lg">
-                <img src={p.images[0]} alt={p.name} loading="lazy" className="project-photo" />
+                <OptimizedImg src={p.images[0]!} w={640} alt={p.name} className="project-photo" />
               </div>
               <div className="mt-5 flex items-start justify-between gap-3">
                 <div>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { OptimizedImg, preloadVariant } from "@/components/optimized-img";
 
 const PER_PAGE_DESKTOP = 3;
 const PER_PAGE_MOBILE = 1;
@@ -43,6 +44,14 @@ export function WorksGallery({ images, title }: { images: string[]; title: strin
     setPage((p) => Math.min(p, pages - 1));
   }, [pages]);
 
+  // Лайтбокс листается по границам списка, поэтому предзагружаем
+  // предыдущий и следующий кадры в полном web-размере.
+  useEffect(() => {
+    if (selected === null || images.length < 2) return;
+    preloadVariant(images[Math.min(selected + 1, images.length - 1)]!, 1280);
+    preloadVariant(images[Math.max(selected - 1, 0)]!, 1280);
+  }, [selected, images]);
+
   const visible = images.slice(page * perPage, page * perPage + perPage);
 
   // Стрелки по краям сетки листают страницы по кругу.
@@ -71,11 +80,10 @@ export function WorksGallery({ images, title }: { images: string[]; title: strin
                 aria-label={`${title} — фото ${n + 1}`}
                 className="group cursor-pointer overflow-hidden rounded-xl border border-border/50 bg-secondary transition-all hover:border-primary/50 hover:shadow-lg"
               >
-                <img
+                <OptimizedImg
                   src={src}
+                  w={640}
                   alt={`${title} — фото ${n + 1}`}
-                  loading="lazy"
-                  decoding="async"
                   className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                 />
               </button>
@@ -112,11 +120,14 @@ export function WorksGallery({ images, title }: { images: string[]; title: strin
           <DialogTitle>{title}</DialogTitle>
           {selected !== null && (
             <div className="relative">
-              <img
-                src={images[selected]}
+              <OptimizedImg
+                key={selected}
+                src={images[selected]!}
+                w={1280}
                 alt={`${title} — фото ${selected + 1}`}
                 className="max-h-[70svh] w-full object-contain"
               />
+              {/* Переход по стрелкам: соседние кадры уже в кэше. */}
               <button
                 type="button"
                 aria-label="Предыдущее фото"

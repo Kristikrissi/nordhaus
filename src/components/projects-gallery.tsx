@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { OptimizedImg, preloadVariant } from "@/components/optimized-img";
 
 /**
  * Галерея фотографий проекта с лайтбоксом.
@@ -20,6 +21,14 @@ export function ProjectsGallery({
 }) {
   const [selected, setSelected] = useState<number | null>(null);
 
+  // Переход по стрелкам в лайтбоксе не должен показывать пустой кадр:
+  // соседние фотографии предзагружаются в полном web-размере.
+  useEffect(() => {
+    if (selected === null || images.length < 2) return;
+    preloadVariant(images[(selected + 1) % images.length]!, 1280);
+    preloadVariant(images[(selected + images.length - 1) % images.length]!, 1280);
+  }, [selected, images]);
+
   return (
     <>
       <div className={`${className} grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3`.trim()}>
@@ -31,10 +40,10 @@ export function ProjectsGallery({
             aria-label={`${title} — фото ${i + 1}`}
             className="project-link cursor-pointer overflow-hidden rounded-lg border border-transparent p-0 transition-colors hover:border-primary/40"
           >
-            <img
+            <OptimizedImg
               src={src}
+              w={640}
               alt={`${title} — фото ${i + 1}`}
-              loading="lazy"
               className="project-photo"
             />
           </button>
@@ -46,7 +55,13 @@ export function ProjectsGallery({
           <DialogTitle>{title}</DialogTitle>
           {selected !== null && (
             <div className="relative">
-              <img src={images[selected]} alt={title} className="max-h-[70svh] w-full object-contain" />
+              <OptimizedImg
+                key={selected}
+                src={images[selected]!}
+                w={1280}
+                alt={title}
+                className="max-h-[70svh] w-full object-contain"
+              />
               <Button
                 variant="circle"
                 size="icon"
