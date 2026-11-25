@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ArrowUpRight, Paintbrush } from "lucide-react";
-import { categories, completedHomes, projects, site, finishing, formatPrice, type Project } from "@/lib/site-data";
+import { categories, completedHomes, projects, site, finishing, formatPriceValue, type Project } from "@/lib/site-data";
 import { markCatalogEntry } from "@/lib/scroll-return";
 import { Button } from "@/components/ui/button";
 import { OptimizedImg } from "@/components/optimized-img";
@@ -14,8 +14,7 @@ function categoryTitleOf(p: Project) {
 }
 
 function priceFrom(p: Project) {
-  if (!p.price145) return null;
-  return formatPrice(p.price145);
+  return formatPriceValue(p.price145);
 }
 
 // Витрина идёт блоками по категориям: сначала все проекты первой категории,

@@ -28,10 +28,15 @@ type Category = {
   images: string[];
 };
 
+/**
+ * Цена сруба: число в рублях или «on-request», если комплектация
+ * просчитана не для всех сечений и стоимость называется по запросу.
+ */
+export type Price = number | "on-request";
+
 export type Project = {
   slug: string;
   name: string;
-  code?: string;
   /** Габариты сруба по проекту, например «8 × 11 м». */
   size: string;
   /** Площадь застройки в м² (произведение габаритов). */
@@ -54,9 +59,9 @@ export type Project = {
   /** Структурированные разделы страницы проекта. */
   sections?: ProjectSection[];
   /** Стоимость сруба под усадку, брус 145×145 мм, перегородки 95×145 мм. */
-  price145?: number;
+  price145?: Price;
   /** Стоимость сруба под усадку, брус 195×145 мм, перегородки 95×145 мм. */
-  price195?: number;
+  price195?: Price;
 };
 
 export type ProjectSection = {
@@ -73,6 +78,18 @@ const pImages = (slug: string, n: number) =>
 export function formatPrice(n: number): string {
   const s = n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "\u00A0");
   return `${s}\u00A0₽`;
+}
+
+/** Текст для позиции, цена которой ещё не просчитана. */
+export const PRICE_ON_REQUEST = "Уточняйте";
+
+/**
+ * Цена для вывода на страницу: число → «1 350 000 ₽», "on-request" →
+ * «Уточняйте», отсутствие значения → null (позиция не показывается).
+ */
+export function formatPriceValue(price: Price | undefined): string | null {
+  if (price === undefined) return null;
+  return price === "on-request" ? PRICE_ON_REQUEST : formatPrice(price);
 }
 
 const brusSpecs = [
@@ -442,7 +459,6 @@ export const projects: Project[] = [
   {
     slug: "elnik",
     name: "Ельник",
-    code: "б-1",
     size: "6 × 6 м",
     area: 36,
     floors: 2,
@@ -456,7 +472,6 @@ export const projects: Project[] = [
   {
     slug: "dachnyj-bereg",
     name: "Дачный берег",
-    code: "б-2",
     size: "6 × 6 м",
     area: 36,
     floors: 2,
@@ -469,7 +484,6 @@ export const projects: Project[] = [
   {
     slug: "klen",
     name: "Клён",
-    code: "б-3",
     size: "6 × 8 м",
     area: 48,
     material: "Брус 145 × 145 мм или 195 × 145 мм",
@@ -481,7 +495,6 @@ export const projects: Project[] = [
   {
     slug: "listvennitsa",
     name: "Лиственница",
-    code: "б-4",
     size: "6 × 8 м",
     area: 48,
     material: "Брус 145 × 145 мм или 195 × 145 мм",
@@ -493,7 +506,6 @@ export const projects: Project[] = [
   {
     slug: "iva",
     name: "Ива",
-    code: "Б-033",
     size: "4 × 4 м",
     area: 16,
     floors: 1,
@@ -506,7 +518,6 @@ export const projects: Project[] = [
   {
     slug: "topol",
     name: "Тополь",
-    code: "Б-032",
     size: "5 × 6,5 м",
     area: 33,
     floors: 1,
@@ -519,7 +530,6 @@ export const projects: Project[] = [
   {
     slug: "olha",
     name: "Ольха",
-    code: "Б-031",
     size: "6 × 7,5 м",
     area: 45,
     floors: 1,
@@ -532,7 +542,6 @@ export const projects: Project[] = [
   {
     slug: "verba",
     name: "Верба",
-    code: "Б-030",
     size: "4,5 × 4,5 м",
     area: 20,
     floors: 1,
@@ -545,7 +554,6 @@ export const projects: Project[] = [
   {
     slug: "dub",
     name: "Дуб",
-    code: "Б-029",
     size: "6 × 6 м",
     area: 36,
     floors: 1,
@@ -558,7 +566,6 @@ export const projects: Project[] = [
   {
     slug: "kedar",
     name: "Кедр",
-    code: "Б-028",
     size: "5,5 × 8 м",
     area: 44,
     floors: 1,
@@ -571,7 +578,6 @@ export const projects: Project[] = [
   {
     slug: "pihta",
     name: "Пихта",
-    code: "Б-027",
     size: "7 × 7 м",
     area: 49,
     floors: 1,
@@ -584,7 +590,6 @@ export const projects: Project[] = [
   {
     slug: "bereza",
     name: "Берёза",
-    code: "Б-026",
     size: "6 × 7,5 м",
     area: 45,
     floors: 1,
@@ -597,7 +602,6 @@ export const projects: Project[] = [
   {
     slug: "sosna",
     name: "Сосна",
-    code: "Б-025",
     size: "5,5 × 7,5 м",
     area: 41,
     floors: 1,
@@ -610,7 +614,6 @@ export const projects: Project[] = [
   {
     slug: "tis",
     name: "Тис",
-    code: "Б-024",
     size: "5,5 × 7 м",
     area: 39,
     floors: 1,
@@ -623,7 +626,6 @@ export const projects: Project[] = [
   {
     slug: "teremok",
     name: "Теремок",
-    code: "б-5",
     size: "6 × 6 м",
     area: 36,
     material: "Брус 145 × 145 мм или 195 × 145 мм",
@@ -635,7 +637,6 @@ export const projects: Project[] = [
   {
     slug: "yasen",
     name: "Ясень",
-    code: "б-6",
     size: "6 × 6 м",
     area: 36,
     material: "Брус 145 × 145 мм или 195 × 145 мм",
@@ -647,7 +648,6 @@ export const projects: Project[] = [
   {
     slug: "osina",
     name: "Осина",
-    code: "б-7",
     size: "6 × 6 м",
     area: 36,
     material: "Брус 145 × 145 мм или 195 × 145 мм",
@@ -659,7 +659,6 @@ export const projects: Project[] = [
   {
     slug: "prostor",
     name: "Простор",
-    code: "б-8",
     size: "8 × 11,5 м",
     area: 92,
     material: "Брус 145 × 145 мм или 195 × 145 мм",
@@ -671,7 +670,6 @@ export const projects: Project[] = [
   {
     slug: "pihtovyj",
     name: "Пихтовый",
-    code: "б-9",
     size: "6 × 6 м",
     area: 36,
     material: "Брус 145 × 145 мм или 195 × 145 мм",
@@ -683,7 +681,6 @@ export const projects: Project[] = [
   {
     slug: "vekovoj-bor",
     name: "Вековой бор",
-    code: "б-10",
     size: "8 × 8 м",
     area: 64,
     material: "Брус 145 × 145 мм или 195 × 145 мм",
@@ -695,7 +692,6 @@ export const projects: Project[] = [
   {
     slug: "kedrovaya-usadba",
     name: "Кедровая усадьба",
-    code: "б-12",
     size: "9 × 11 м",
     area: 99,
     material: "Брус 145 × 145 мм или 195 × 145 мм",
@@ -707,7 +703,6 @@ export const projects: Project[] = [
   {
     slug: "tajgovyj",
     name: "Тайговый",
-    code: "б-13",
     size: "8 × 8 м",
     area: 64,
     material: "Брус 145 × 145 мм или 195 × 145 мм",
@@ -719,7 +714,6 @@ export const projects: Project[] = [
   {
     slug: "zhuravushka",
     name: "Журавушка",
-    code: "ДО-1",
     size: "8 × 9,3 м",
     area: 74,
     material: "Бревно",
@@ -729,7 +723,6 @@ export const projects: Project[] = [
   {
     slug: "svetlitsa",
     name: "Светлица",
-    code: "ДО-2",
     size: "7,5 × 9 м",
     area: 68,
     material: "Бревно",
@@ -739,7 +732,6 @@ export const projects: Project[] = [
   {
     slug: "zarya",
     name: "Заря",
-    code: "ДО-3",
     size: "7 × 9,5 м",
     area: 67,
     material: "Бревно",
@@ -749,7 +741,6 @@ export const projects: Project[] = [
   {
     slug: "bogatyry",
     name: "Богатырь",
-    code: "ДО-4",
     size: "8 × 11 м",
     area: 88,
     material: "Бревно",
@@ -759,7 +750,6 @@ export const projects: Project[] = [
   {
     slug: "kupcheskij",
     name: "Купеческий",
-    code: "ДО-5",
     size: "9 × 10 м",
     area: 90,
     material: "Бревно",
@@ -769,7 +759,6 @@ export const projects: Project[] = [
   {
     slug: "dubravushka",
     name: "Дубравушка",
-    code: "ДО-6",
     size: "8 × 10,5 м",
     area: 84,
     material: "Бревно",
@@ -779,7 +768,6 @@ export const projects: Project[] = [
   {
     slug: "boyarynya",
     name: "Боярыня",
-    code: "ДО-7",
     size: "13 × 12 м",
     area: 156,
     material: "Бревно",
@@ -789,7 +777,6 @@ export const projects: Project[] = [
   {
     slug: "zlato",
     name: "Злато",
-    code: "ДО-8",
     size: "12,6 × 9 м",
     area: 113,
     material: "Бревно",
@@ -799,7 +786,6 @@ export const projects: Project[] = [
   {
     slug: "vitjaz",
     name: "Витязь",
-    code: "ДО-9",
     size: "11 × 9,7 м",
     area: 107,
     material: "Бревно",
@@ -809,7 +795,6 @@ export const projects: Project[] = [
   {
     slug: "uyutnyj",
     name: "Уютный",
-    code: "ДО-10",
     size: "7,3 × 7 м",
     area: 51,
     material: "Бревно",
@@ -819,7 +804,6 @@ export const projects: Project[] = [
   {
     slug: "legkoparnaya",
     name: "Легкопарная",
-    code: "БР-1",
     size: "4,6 × 5,5 м",
     area: 25,
     material: "Оцилиндрованное бревно",
@@ -829,7 +813,6 @@ export const projects: Project[] = [
   {
     slug: "sosnovaya",
     name: "Сосновая",
-    code: "БР-2",
     size: "5,5 × 6,5 м",
     area: 36,
     material: "Оцилиндрованное бревно",
@@ -839,7 +822,6 @@ export const projects: Project[] = [
   {
     slug: "korabelka",
     name: "Корабелка",
-    code: "БР-3",
     size: "5,4 × 5,4 м",
     area: 29,
     material: "Оцилиндрованное бревно",
@@ -849,7 +831,6 @@ export const projects: Project[] = [
   {
     slug: "parovka",
     name: "Паровка",
-    code: "БР-4",
     size: "5,4 × 6,3 м",
     area: 34,
     material: "Оцилиндрованное бревно",
@@ -859,7 +840,6 @@ export const projects: Project[] = [
   {
     slug: "zavetnaya",
     name: "Заветная",
-    code: "БР-5",
     size: "5,6 × 8,1 м",
     area: 45,
     material: "Оцилиндрованное бревно",
@@ -869,7 +849,6 @@ export const projects: Project[] = [
   {
     slug: "teplushka",
     name: "Теплушка",
-    code: "БР-6",
     size: "6,2 × 8 м",
     area: 50,
     material: "Оцилиндрованное бревно",
@@ -879,7 +858,6 @@ export const projects: Project[] = [
   {
     slug: "kupavka",
     name: "Купавка",
-    code: "БР-7",
     size: "5,4 × 7,7 м",
     area: 42,
     material: "Оцилиндрованное бревно",
@@ -889,7 +867,6 @@ export const projects: Project[] = [
   {
     slug: "medvezhiy-ugol",
     name: "Медвежий угол",
-    code: "БР-8",
     size: "5,4 × 7,4 м",
     area: 40,
     material: "Оцилиндрованное бревно",
@@ -899,7 +876,6 @@ export const projects: Project[] = [
   {
     slug: "cheremukha",
     name: "Черёмуха",
-    code: "дб-225",
     size: "8 × 10 м",
     area: 80,
     floors: 1,
@@ -910,50 +886,44 @@ export const projects: Project[] = [
     price195: 1_900_000,
     highlights: [
       "Гостиная со вторым светом и панорамным остеклением — главное пространство дома: высокий объём и большие окна делают его светлым даже в пасмурные дни.",
-      "В планировке предусмотрены терраса, отдельная котельная и санузел. Высота потолков первого этажа — 2,85 м до усадки и отделки.",
     ],
     specs: brusSpecs,
   },
   {
     slug: "ivolga",
     name: "Иволга",
-    code: "дб-107",
     size: "10 × 10 м",
     area: 100,
     floors: 2,
     material: "Брус 145 × 145 мм или 195 × 145 мм",
     categories: ["doma-iz-brusa"],
     images: pImages("ivolga", 3),
-    price145: 1_620_000,
-    price195: 1_990_000,
+    price145: 2_450_000,
+    price195: 2_855_000,
     highlights: [
       "Гостиная со вторым светом и балкон на мансардном уровне: три спальни и общая зона распределены между первым этажом и мансардой.",
-      "Высота потолков первого этажа — 2,70 м, мансардного — 2,55 м до усадки и отделки; боковые стены мансарды высотой 1,35 м.",
     ],
     specs: brusSpecs,
   },
   {
     slug: "ryabinushka",
     name: "Рябинушка",
-    code: "дб-185",
     size: "7,5 × 12 м",
     area: 90,
     floors: 2,
     material: "Брус 145 × 145 мм или 195 × 145 мм",
     categories: ["doma-iz-brusa"],
     images: pImages("ryabinushka", 3),
-    price145: 1_685_000,
-    price195: 2_172_000,
+    price145: 2_150_000,
+    price195: 2_550_000,
     highlights: [
       "Второй свет в гостиной и терраса: четыре спальни компактно размещены на мансардном уровне, поэтому участок остаётся свободным под сад и хозяйственные постройки.",
-      "Вытянутая форма 7,5 × 12 м позволяет развернуть жилые помещения вдоль длинного фасада. Высота потолков первого этажа — 2,70 м, мансардного — 2,55 м до усадки и отделки.",
     ],
     specs: brusSpecs,
   },
   {
     slug: "kashtan",
     name: "Каштан",
-    code: "п-178",
     size: "10,1 × 17,4 м",
     area: 176,
     floors: 1,
@@ -961,6 +931,7 @@ export const projects: Project[] = [
     categories: ["doma-iz-brusa"],
     images: pImages("kashtan", 3),
     price145: 2_650_000,
+    price195: "on-request",
     highlights: [
       "Крытая терраса с двумя входами — из кухни-гостиной и из спальни — работает как ещё одна комната под открытым небом: здесь удобно и отдыхать, и работать.",
       "Панорамные окна наполняют интерьеры светом, а вытянутая форма здания создаёт ощущение простора. В планировке три спальни и два санузла.",
@@ -970,7 +941,6 @@ export const projects: Project[] = [
   {
     slug: "svir",
     name: "Свирь",
-    code: "п-154",
     size: "13,2 × 11,5 м",
     area: 152,
     floors: 2,
@@ -978,6 +948,7 @@ export const projects: Project[] = [
     categories: ["doma-iz-brusa"],
     images: pImages("svir", 4),
     price145: 2_850_000,
+    price195: "on-request",
     highlights: [
       "Высокие окна в пол наполняют дом светом и сохраняют единение с участком, а остеклённая терраса подходит под зимний сад и работает как дополнительная зона отдыха в любое время года.",
       "Вместительная кухня-гостиная рассчитана на семейные ужины и встречи гостей, приватная часть вынесена на второй этаж: четыре спальни и два санузла.",
@@ -987,7 +958,6 @@ export const projects: Project[] = [
   {
     slug: "severyanin",
     name: "Северянин",
-    code: "п-339",
     size: "11,9 × 13,2 м",
     area: 157,
     floors: 2,
@@ -995,6 +965,7 @@ export const projects: Project[] = [
     categories: ["doma-iz-brusa"],
     images: pImages("severyanin", 4),
     price145: 2_750_000,
+    price195: "on-request",
     highlights: [
       "Центральное место занимает гостиная с панорамными окнами, вторым светом и выходом на террасу площадью 35 м² — она спроектирована как полноценная зона отдыха.",
       "На первом этаже две спальни, одна с прямым выходом на террасу; второй этаж занимает мастер-спальня с собственным балконом и видом на участок.",
@@ -1011,6 +982,7 @@ export const projects: Project[] = [
     categories: ["doma-iz-brusa"],
     images: pImages("morena", 3),
     price145: 2_250_000,
+    price195: "on-request",
     highlights: [
       "Три спальни и два санузла размещены на одном уровне, без лестниц: формат удобен для постоянного проживания и для семьи с детьми.",
       "Вытянутый объём 8,5 × 15 м позволяет зонировать приватную и гостевую части без потери площади.",
@@ -1026,6 +998,8 @@ export const projects: Project[] = [
     material: "Брус 145 × 145 мм или 195 × 145 мм",
     categories: ["doma-iz-brusa"],
     images: pImages("kupina", 3),
+    price145: 1_848_000,
+    price195: 2_016_000,
     highlights: [
       "Шесть изолированных помещений: три комнаты площадью 13, 12 и 9 м² и три вспомогательных — 7, 4 и 2 м² под кухню, санузел и котельную. Планировка разделяет гостевую и приватную части, не превращая дом в один проходной зал.",
       "Прямоугольная форма без изломов и выступающих террас даёт минимум отходов пиломатериала и короткие сроки сборки коробки, а крыльцо площадью 2 м² защищает вход от дождевой и талой воды.",
@@ -1056,9 +1030,11 @@ export const projects: Project[] = [
     material: "Брус 145 × 145 мм или 195 × 145 мм",
     categories: ["doma-iz-brusa"],
     images: pImages("zatishye", 3),
+    price145: 1_260_000,
+    price195: 1_490_000,
     highlights: [
       "Вытянутый прямоугольник 7 × 10 м позволяет развернуть остекление на длинный фасад, а второй свет поднимает потолок и наполняет гостиную светом даже в пасмурные дни.",
-      "Котельная вынесена в отдельное помещение: инженерный блок не смешивается с жилой частью и не требует вытяжных каналов через спальни. Все помещения расположены в одном уровне, без лестниц.",
+      "Котельная вынесена в отдельное помещение: инженерный блок не смешивается с жилой частью и не требует вытяжных каналов через спальни.",
     ],
     specs: brusSpecs,
   },
@@ -1071,6 +1047,8 @@ export const projects: Project[] = [
     material: "Брус 145 × 145 мм или 195 × 145 мм",
     categories: ["doma-iz-brusa"],
     images: pImages("metelitsa", 3),
+    price145: 1_226_000,
+    price195: 1_440_000,
     highlights: [
       "Все помещения расположены на одном уровне, без лестниц: спальня отделена от общей зоны, а сезонное проживание не требует прогрева лишних помещений.",
       "Компактное пятно застройки 88 м² оставляет на участке место под сад, парковку и зону отдыха.",
