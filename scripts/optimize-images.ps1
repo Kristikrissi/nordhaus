@@ -128,11 +128,88 @@ function Resize-ToJpeg {
   }
 }
 
+# --- WinRT/WIC: форматы, которые GDI+ не читает (WebP внутри .jpg) ---------
+# GDI+ понимает JPEG, PNG, BMP и GIF. WebP декодирует WIC — при условии, что
+# в системе есть расширение WebpImageExtension (в Windows 10/11 ставится
+# из Store, на машинах без него остаётся резервная копия оригинала).
+$winrtReady = $false
+try {
+  Add-Type -AssemblyName System.Runtime.WindowsRuntime -ErrorAction Stop
+  $null = [Windows.Storage.StorageFile, Windows.Storage, ContentType = WindowsRuntime]
+  $null = [Windows.Storage.StorageFolder, Windows.Storage, ContentType = WindowsRuntime]
+  $null = [Windows.Graphics.Imaging.BitmapDecoder, Windows.Graphics.Imaging, ContentType = WindowsRuntime]
+  $null = [Windows.Graphics.Imaging.BitmapEncoder, Windows.Graphics.Imaging, ContentType = WindowsRuntime]
+  $null = [Windows.Graphics.Imaging.BitmapTransform, Windows.Graphics.Imaging, ContentType = WindowsRuntime]
+  $asTaskOp = ([System.WindowsRuntimeSystemExtensions].GetMethods() |
+    Where-Object { $_.Name -eq "AsTask" -and $_.GetParameters().Count -eq 1 -and $_.GetParameters()[0].ParameterType.Name -eq 'IAsyncOperation`1' })[0]
+  $asTaskAct = ([System.WindowsRuntimeSystemExtensions].GetMethods() |
+    Where-Object { $_.Name -eq "AsTask" -and $_.GetParameters().Count -eq 1 -and $_.GetParameters()[0].ParameterType.Name -eq "IAsyncAction" })[0]
+  $winrtReady = [bool]$asTaskOp -and [bool]$asTaskAct
+} catch {
+  $winrtReady = $false
+}
+
+function Invoke-AwaitOp {
+  param($Operation, [Type]$ResultType)
+  $task = $asTaskOp.MakeGenericMethod($ResultType).Invoke($null, @($Operation))
+  $task.Wait(-1) | Out-Null
+  return $task.Result
+}
+
+function Invoke-AwaitAction {
+  param($Operation)
+  $task = $asTaskAct.Invoke($null, @($Operation))
+  $task.Wait(-1) | Out-Null
+}
+
+# Качество JPEG здесь не настраивается: BitmapPropertySet из PowerShell не
+# принимает ключ ImageQuality, поэтому WIC пишет со своим значением по
+# умолчанию (0.9). Для WebP-исходников это всё равно в разы меньше оригинала.
+function Resize-ToJpegWinRT {
+  param([string]$SourcePath, [int]$TargetWidth, [string]$OutPath)
+
+  $srcFile = Invoke-AwaitOp ([Windows.Storage.StorageFile]::GetFileFromPathAsync($SourcePath)) ([Windows.Storage.StorageFile])
+  $inStream = Invoke-AwaitOp ($srcFile.OpenAsync([Windows.Storage.FileAccessMode]::Read)) ([Windows.Storage.Streams.IRandomAccessStream])
+  try {
+    $decoder = Invoke-AwaitOp ([Windows.Graphics.Imaging.BitmapDecoder]::CreateAsync($inStream)) ([Windows.Graphics.Imaging.BitmapDecoder])
+    # Апскейл запрещён и здесь: вариант не шире оригинала.
+    $w = [Math]::Min($TargetWidth, $decoder.PixelWidth)
+    $h = [Math]::Max(1, [int][Math]::Round($decoder.PixelHeight * ($w / $decoder.PixelWidth)))
+
+    $transform = New-Object Windows.Graphics.Imaging.BitmapTransform
+    $transform.ScaledWidth = [uint32]$w
+    $transform.ScaledHeight = [uint32]$h
+    $transform.InterpolationMode = [Windows.Graphics.Imaging.BitmapInterpolationMode]::Fant
+    $pixels = Invoke-AwaitOp ($decoder.GetPixelDataAsync(
+        [Windows.Graphics.Imaging.BitmapPixelFormat]::Bgra8,
+        [Windows.Graphics.Imaging.BitmapAlphaMode]::Premultiplied,
+        $transform,
+        [Windows.Graphics.Imaging.ExifOrientationMode]::RespectExifOrientation,
+        [Windows.Graphics.Imaging.ColorManagementMode]::DoNotColorManage)) ([Windows.Graphics.Imaging.PixelDataProvider])
+
+    $folder = Invoke-AwaitOp ([Windows.Storage.StorageFolder]::GetFolderFromPathAsync((Split-Path $OutPath))) ([Windows.Storage.StorageFolder])
+    $outFile = Invoke-AwaitOp ($folder.CreateFileAsync((Split-Path $OutPath -Leaf), [Windows.Storage.CreationCollisionOption]::ReplaceExisting)) ([Windows.Storage.StorageFile])
+    $outStream = Invoke-AwaitOp ($outFile.OpenAsync([Windows.Storage.FileAccessMode]::ReadWrite)) ([Windows.Storage.Streams.IRandomAccessStream])
+    try {
+      $encoder = Invoke-AwaitOp ([Windows.Graphics.Imaging.BitmapEncoder]::CreateAsync([Windows.Graphics.Imaging.BitmapEncoder]::JpegEncoderId, $outStream)) ([Windows.Graphics.Imaging.BitmapEncoder])
+      $encoder.SetPixelData(
+        [Windows.Graphics.Imaging.BitmapPixelFormat]::Bgra8,
+        [Windows.Graphics.Imaging.BitmapAlphaMode]::Premultiplied,
+        [uint32]$w, [uint32]$h, 96, 96, $pixels.DetachPixelData())
+      Invoke-AwaitAction ($encoder.FlushAsync())
+    } finally {
+      $outStream.Dispose()
+    }
+  } finally {
+    $inStream.Dispose()
+  }
+}
+
 $files = Get-ChildItem -Recurse -File -Path $Root -Filter *.jpg |
   Where-Object { $_.Name -notmatch '@\d+\.jpg$' } |
   Sort-Object FullName
 
-$made = 0; $skipped = 0; $copied = 0
+$made = 0; $skipped = 0; $copied = 0; $viaWic = 0
 $beforeBytes = 0L; $afterBytes = 0L
 
 Write-Host ("Обрабатываю {0} файлов, лестница {1} px, качество q{2}{3}" -f `
@@ -171,15 +248,40 @@ foreach ($f in $files) {
       $img.Dispose()
     }
   } catch {
-    # Файл не читается GDI+: например, внутри .jpg лежит WebP (RIFF) — такое
-    # есть в public/images/projects/siyanie. Варианты всё равно должны
-    # существовать, иначе страница получит 404, поэтому кладём копию оригинала.
-    foreach ($w in $Ladder) {
-      $out = Join-Path $dir "$base@$w.jpg"
-      if (-not (Test-Path $out)) { Copy-Item $f.FullName $out }
+    # GDI+ не читает файл: внутри .jpg может лежать WebP (RIFF). Пробуем WIC —
+    # он декодирует WebP, если в системе есть WebpImageExtension.
+    $done = $false
+    if ($winrtReady) {
+      try {
+        $beforeBytes += $f.Length
+        foreach ($w in $Ladder) {
+          $out = Join-Path $dir "$base@$w.jpg"
+          $outInfo = Get-Item $out -ErrorAction SilentlyContinue
+          if (-not $Force -and $outInfo -and $outInfo.LastWriteTime -gt $f.LastWriteTime) {
+            $skipped++
+            $afterBytes += $outInfo.Length
+            continue
+          }
+          if ($DryRun) { $made++; continue }
+          Resize-ToJpegWinRT -SourcePath $f.FullName -TargetWidth $w -OutPath $out
+          $afterBytes += (Get-Item $out).Length
+          $made++
+        }
+        $done = $true
+        $viaWic++
+      } catch {
+        Write-Host ("  WIC не справился с {0}: {1}" -f $f.Name, $_.Exception.Message) -ForegroundColor DarkYellow
+      }
     }
-    $copied++
-    Write-Host ("  КОПИЯ {0}: не читается как JPEG — варианты скопированы как есть" -f $f.Name) -ForegroundColor DarkYellow
+    if (-not $done) {
+      # Последний резерв: копия оригинала, чтобы страница не получила 404.
+      foreach ($w in $Ladder) {
+        $out = Join-Path $dir "$base@$w.jpg"
+        if (-not (Test-Path $out)) { Copy-Item $f.FullName $out }
+      }
+      $copied++
+      Write-Host ("  КОПИЯ {0}: формат не декодируется — варианты скопированы как есть" -f $f.Name) -ForegroundColor DarkYellow
+    }
   }
 }
 
@@ -187,7 +289,11 @@ Write-Host ""
 if ($DryRun) {
   Write-Host ("Будет создано вариантов: {0}" -f $made) -ForegroundColor Green
 } else {
-  Write-Host ("Создано вариантов: {0}   пропущено (актуальны): {1}   скопировано без пересчёта: {2}" -f $made, $skipped, $copied) -ForegroundColor Green
+  Write-Host ("Создано вариантов: {0}   пропущено (актуальны): {1}   через WIC (WebP): {2}   скопировано без пересчёта: {3}" -f `
+    $made, $skipped, $viaWic, $copied) -ForegroundColor Green
+  if (-not $winrtReady) {
+    Write-Host "WIC недоступен — файлы в формате WebP будут только скопированы." -ForegroundColor DarkYellow
+  }
   $mb = { param($b) [Math]::Round($b / 1MB, 1) }
   Write-Host ("Оригиналы: {0} MB   web-варианты суммарно: {1} MB" -f (& $mb $beforeBytes), (& $mb $afterBytes))
   Write-Host ""
