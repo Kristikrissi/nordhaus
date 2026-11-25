@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { OptimizedImg, preloadVariant } from "@/components/optimized-img";
 
@@ -28,11 +28,14 @@ function usePerPage() {
  * Постраничная галерея: три фотографии за раз на десктопе, одна на мобильном,
  * все одинакового размера. Стрелки — по краям фотографий.
  * Клик по фото открывает лайтбокс, в котором листается вся коллекция.
+ * Кнопка «Смотреть все фото» показывает сразу всю коллекцию сеткой.
  */
 export function WorksGallery({ images, title }: { images: string[]; title: string }) {
   const perPage = usePerPage();
   const pages = Math.max(1, Math.ceil(images.length / perPage));
   const [page, setPage] = useState(0);
+  // Диалог: открыт обзор всей коллекции или один крупный кадр.
+  const [allOpen, setAllOpen] = useState(false);
   const [selected, setSelected] = useState<number | null>(null);
 
   useEffect(() => {
@@ -52,21 +55,60 @@ export function WorksGallery({ images, title }: { images: string[]; title: strin
     preloadVariant(images[Math.max(selected - 1, 0)]!, 1280);
   }, [selected, images]);
 
+  // Клавиатура в лайтбоксе: ← → листают кадры, Esc закрывает (обрабатывает Dialog).
+  useEffect(() => {
+    if (selected === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+      e.preventDefault();
+      setSelected((cur) => {
+        if (cur === null) return cur;
+        const next = cur + (e.key === "ArrowRight" ? 1 : -1);
+        return next < 0 || next >= images.length ? cur : next;
+      });
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [selected, images.length]);
+
   const visible = images.slice(page * perPage, page * perPage + perPage);
 
   // Стрелки по краям сетки листают страницы по кругу.
   const step = (delta: number) => setPage((p) => (p + delta + pages) % pages);
   // Стрелки в лайтбоксе листают все фотографии подряд.
-  const pick = (n: number) => {
-    if (selected === null) return;
-    const next = selected + n;
-    if (next < 0 || next >= images.length) return;
-    setSelected(next);
-    setPage(Math.floor(next / perPage));
+  const pick = (delta: number) =>
+    setSelected((cur) => {
+      if (cur === null) return cur;
+      const next = cur + delta;
+      return next < 0 || next >= images.length ? cur : next;
+    });
+
+  const openAll = () => {
+    setSelected(null);
+    setAllOpen(true);
+  };
+  // Клик по кадру в обзоре открывает его крупно в том же диалоге.
+  const openSingle = (n: number) => {
+    setSelected(n);
+    setAllOpen(true);
+  };
+  const closeAll = () => {
+    // Постраничная сетка встаёт на страницу последнего просмотренного кадра.
+    if (selected !== null) setPage(Math.floor(selected / perPage));
+    setAllOpen(false);
+    setSelected(null);
   };
 
   return (
     <div className="mt-8">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <p className="text-sm text-muted-foreground">Всего {images.length} фото</p>
+        <button type="button" onClick={openAll} className="btn-outline">
+          <Maximize2 className="size-4" />
+          Смотреть все фото
+        </button>
+      </div>
+
       <div className="relative">
         {/* Смена страницы: key={page} перезапускает animate-fade-up */}
         <div key={page} className="grid animate-fade-up gap-5 md:grid-cols-3">
@@ -76,7 +118,7 @@ export function WorksGallery({ images, title }: { images: string[]; title: strin
               <button
                 type="button"
                 key={src}
-                onClick={() => setSelected(n)}
+                onClick={() => openSingle(n)}
                 aria-label={`${title} — фото ${n + 1}`}
                 className="group cursor-pointer overflow-hidden rounded-xl border border-border/50 bg-secondary transition-all hover:border-primary/50 hover:shadow-lg"
               >
@@ -110,15 +152,35 @@ export function WorksGallery({ images, title }: { images: string[]; title: strin
         </button>
       </div>
 
-      <Dialog
-        open={selected !== null}
-        onOpenChange={(o) => {
-          if (!o) setSelected(null);
-        }}
-      >
-        <DialogContent className="max-w-4xl">
-          <DialogTitle>{title}</DialogTitle>
-          {selected !== null && (
+      <Dialog open={allOpen} onOpenChange={(o) => (o ? setAllOpen(true) : closeAll())}>
+        <DialogContent className={selected === null ? "max-w-6xl" : "max-w-4xl"}>
+          <DialogTitle className="pr-8">
+            {selected === null ? `${title} — все фото` : `${title} — фото ${selected + 1}`}
+          </DialogTitle>
+
+          {selected === null ? (
+            /* Обзор: вся коллекция сразу, прокручивается внутри диалога. */
+            <div className="max-h-[68svh] overflow-y-auto overscroll-contain pr-1">
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+                {images.map((src, n) => (
+                  <button
+                    type="button"
+                    key={src}
+                    onClick={() => openSingle(n)}
+                    aria-label={`${title} — фото ${n + 1}`}
+                    className="group cursor-pointer overflow-hidden rounded-lg border border-border/50 bg-secondary transition-all hover:border-primary/50 hover:shadow-md"
+                  >
+                    <OptimizedImg
+                      src={src}
+                      w={320}
+                      alt={`${title} — фото ${n + 1}`}
+                      className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : (
             <div className="relative">
               <OptimizedImg
                 key={selected}
@@ -146,6 +208,22 @@ export function WorksGallery({ images, title }: { images: string[]; title: strin
               >
                 <ChevronRight className="size-5" />
               </button>
+            </div>
+          )}
+
+          {selected !== null && (
+            <div className="flex items-center justify-between gap-3">
+              <button
+                type="button"
+                onClick={() => setSelected(null)}
+                className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-border bg-background px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.06em] text-foreground transition-colors hover:border-primary hover:text-primary"
+              >
+                <ChevronLeft className="size-4" />
+                Все фото
+              </button>
+              <span className="text-sm tabular-nums text-muted-foreground">
+                {selected + 1} / {images.length}
+              </span>
             </div>
           )}
         </DialogContent>
