@@ -217,10 +217,10 @@ export const Route = createFileRoute("/projects/$slug")({
       return { meta: [{ title: "Проект не найден | NORDHAUS" }, { name: "robots", content: "noindex" }] };
     }
     const cat = categoryTitleOf(loaderData)?.toLowerCase() ?? "проект";
-    // Для meta description берём первый абзац описания; у проектов из бруса
-    // текст живёт в sections, поэтому используем его как источник.
+    // Для meta description берём особенность проекта, если она задана:
+    // генерируемое вступление из sections слишком короткое для сниппета.
     const lead =
-      loaderData.description?.[0] ??
+      loaderData.highlights?.[0] ??
       loaderData.sections?.find((s) => s.paragraphs?.length)?.paragraphs?.[0] ??
       `Проект «${loaderData.name}»: габариты ${loaderData.size}, площадь застройки ${loaderData.area} м². Дома и бани из бруса и бревна от NORDHAUS.`;
     return {
