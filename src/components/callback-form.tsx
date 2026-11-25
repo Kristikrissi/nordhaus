@@ -1,12 +1,25 @@
-import { useState } from "react";
-import { site } from "@/lib/site-data";
+import { useState, useEffect, type FormEvent } from "react";
+import { sendCallback } from "@/lib/callback-server";
 
+/**
+ * Форма «Заказать звонок» — отправляет заявку на почту через server function.
+ * Состояния: idle / loading / sent / error.
+ * Honeypot-поле для защиты от ботов.
+ */
 export function CallbackForm({ compact = false }: { compact?: boolean }) {
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [consent, setConsent] = useState(false);
+  const [hp, setHp] = useState("");
+
+  useEffect(() => {
+    // Бот заполнил honeypot — тихо игнорируем.
+    if (hp) setSent(true);
+  }, [hp]);
 
   if (sent) {
     return (
@@ -19,14 +32,49 @@ export function CallbackForm({ compact = false }: { compact?: boolean }) {
 
   const canSubmit = name.trim() && phone.trim() && consent;
 
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+    try {
+      const res = await sendCallback({
+        data: {
+          name: name.trim(),
+          phone: phone.trim(),
+          email: email.trim(),
+          source: window.location.href,
+        },
+      });
+      if (res.ok) {
+        setSent(true);
+      } else {
+        setError(res.error ?? "Не удалось отправить. Попробуйте позже.");
+      }
+    } catch {
+      setError("Ошибка сети. Проверьте соединение и попробуйте снова.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        setSent(true);
-      }}
+      onSubmit={handleSubmit}
       className={compact ? "space-y-3" : "space-y-4"}
     >
+      {/* Honeypot — скрыт от пользователя, доступен ботам в разметке. */}
+      <div className="sr-only" aria-hidden="true">
+        <label>
+          Оставьте это пустым
+          <input
+            type="text"
+            name="website"
+            value={hp}
+            onChange={(e) => setHp(e.target.value)}
+          />
+        </label>
+      </div>
+
       <div className={compact ? "space-y-3" : "grid gap-4 sm:grid-cols-3"}>
         <label className="block">
           <span className="mb-1 block text-xs font-medium text-muted-foreground">Ваше имя *</span>
@@ -64,9 +112,15 @@ export function CallbackForm({ compact = false }: { compact?: boolean }) {
         <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-0.5 h-4 w-4 accent-[var(--primary)]" />
         <span>Я согласен на обработку персональных данных</span>
       </label>
-      <button type="submit" disabled={!canSubmit} className="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto">
-        Отправить
+      {error && <p className="text-sm text-destructive">{error}</p>}
+      <button
+        type="submit"
+        disabled={!canSubmit || loading}
+        className="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+      >
+        {loading ? "Отправляю…" : "Отправить"}
       </button>
     </form>
   );
 }
+

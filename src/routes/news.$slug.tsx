@@ -1,15 +1,16 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { news, site } from "@/lib/site-data";
-import { articleBySlug } from "@/lib/news-articles";
+import { getArticleBySlug } from "@/lib/news-server";
 import { ProjectsGallery } from "@/components/projects-gallery";
-import { OptimizedImg } from "@/components/optimized-img";
+import { OptimizedImg, webVariant } from "@/components/optimized-img";
 
 export const Route = createFileRoute("/news/$slug")({
   staticData: { sitemap: true },
   validateSearch: (s: Record<string, unknown>): { tag?: "новости" | "статьи" } =>
     s["tag"] === "новости" || s["tag"] === "статьи" ? { tag: s["tag"] } : {},
-  loader: ({ params }) => {
-    const found = articleBySlug(params.slug);
+  // Текст статьи приходит с сервера: весь каталог статей не едет в бандле.
+  loader: async ({ params }) => {
+    const found = await getArticleBySlug({ data: params.slug });
     if (!found) throw notFound();
     const [title, article] = found;
     const item = news.find((n) => n.title === title)!;
@@ -27,7 +28,11 @@ export const Route = createFileRoute("/news/$slug")({
         { property: "og:type", content: "article" },
         { name: "twitter:card", content: "summary" },
       ],
-      links: [{ rel: "canonical", href: `${site.url}/news/${loaderData.article.slug}` }],
+      links: [
+        { rel: "canonical", href: `${site.url}/news/${loaderData.article.slug}` },
+        // Обложка статьи — LCP-элемент.
+        { rel: "preload", href: webVariant(loaderData.item.image, 1280), as: "image" },
+      ],
     };
   },
   notFoundComponent: () => (

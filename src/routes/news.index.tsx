@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { articles } from "@/lib/news-articles";
+import { getArticleSlugs } from "@/lib/news-server";
 import { news, site, type NewsItem } from "@/lib/site-data";
 import { OptimizedImg } from "@/components/optimized-img";
 
@@ -10,6 +10,7 @@ function NewsPage() {
   // Фильтр держим в URL, а не в состоянии: тогда возврат из статьи
   // попадает в ту же вкладку, из которой в неё вошли.
   const tag = Route.useSearch().tag ?? "все";
+  const slugs = Route.useLoaderData();
   const navigate = useNavigate({ from: "/news/" });
   const setTag = (t: Tag) =>
     navigate({ search: t === "все" ? {} : { tag: t }, replace: true, resetScroll: false });
@@ -42,7 +43,7 @@ function NewsPage() {
             <Link
               key={n.title}
               to="/news/$slug"
-              params={{ slug: articles[n.title]!.slug }}
+              params={{ slug: slugs[n.title]! }}
               search={tag === "все" ? {} : { tag }}
               className="group block overflow-hidden rounded-xl border border-border bg-card transition-shadow hover:shadow-lg"
             >
@@ -70,6 +71,8 @@ function NewsPage() {
 
 export const Route = createFileRoute("/news/")({
   staticData: { sitemap: true },
+  // На клиент уходят только slug'и, а не тексты всех статей.
+  loader: () => getArticleSlugs(),
   validateSearch: (s: Record<string, unknown>): { tag?: Tag } =>
     s["tag"] === "новости" || s["tag"] === "статьи" ? { tag: s["tag"] } : {},
   head: () => ({

@@ -126,7 +126,7 @@ function ProjectsPage() {
         </Link>
       </section>
 
-      <section id="completed" className="container-wide scroll-mt-32 pt-20">
+      <section id="completed" className="container-wide cv-auto scroll-mt-32 pt-20">
         <p className="eyebrow">{completedHomes.eyebrow}</p>
         <h2 className="section-title mt-3">{completedHomes.title}</h2>
         <p className="mt-4 text-justify text-sm leading-relaxed text-muted-foreground sm:text-[15px]">{completedHomes.lead}</p>

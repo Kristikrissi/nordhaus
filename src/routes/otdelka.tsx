@@ -84,7 +84,7 @@ function FinishingPage() {
       </section>
 
       {/* Примеры работ: по три фото за раз, все одного размера */}
-      <section id="examples" className="container-wide scroll-mt-32 pt-20">
+      <section id="examples" className="container-wide cv-auto scroll-mt-32 pt-20">
         <p className="eyebrow">Портфолио</p>
         <h2 className="section-title mt-3">Примеры работ</h2>
         {finishing.works.length > 0 ? (

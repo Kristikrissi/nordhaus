@@ -1,13 +1,9 @@
-import { QueryClient } from "@tanstack/react-query";
 import { createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 
 export const getRouter = () => {
-  const queryClient = new QueryClient();
-
   const router = createRouter({
     routeTree,
-    context: { queryClient },
     // Позиция прокрутки сохраняется для каждой записи истории (ключ __TSR_key).
     // Возврат из карточки проекта в каталог делается через history.back()
     // (см. src/lib/scroll-return.ts), поэтому позиция и выбранный фильтр

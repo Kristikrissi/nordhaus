@@ -30,6 +30,9 @@ param(
   [string]$Root = "public/images",
   [int[]]$Ladder = @(320, 640, 1280),
   [int]$Quality = 82,
+  # Варианты 320 px нужны только полосам миниатюр и обзору галерей.
+  # В остальных папках они просто занимают место.
+  [string[]]$ThumbFolders = @("home", "otdelka", "rabota"),
   [switch]$DryRun,
   [switch]$Force,
   [switch]$CheckCounts
@@ -222,12 +225,18 @@ foreach ($f in $files) {
 
   $base = [System.IO.Path]::GetFileNameWithoutExtension($f.FullName)
   $dir = $f.DirectoryName
+  # 320 px генерируем только там, где он реально используется.
+  $fileLadder = if ($ThumbFolders -contains $f.Directory.Name) {
+    $Ladder
+  } else {
+    @($Ladder | Where-Object { $_ -ne 320 })
+  }
 
   try {
     $img = [System.Drawing.Image]::FromFile($f.FullName)
     try {
       $beforeBytes += $f.Length
-      foreach ($w in $Ladder) {
+      foreach ($w in $fileLadder) {
         $out = Join-Path $dir "$base@$w.jpg"
         $outInfo = Get-Item $out -ErrorAction SilentlyContinue
         # Вариант актуален, если он новее оригинала.
@@ -254,7 +263,7 @@ foreach ($f in $files) {
     if ($winrtReady) {
       try {
         $beforeBytes += $f.Length
-        foreach ($w in $Ladder) {
+        foreach ($w in $fileLadder) {
           $out = Join-Path $dir "$base@$w.jpg"
           $outInfo = Get-Item $out -ErrorAction SilentlyContinue
           if (-not $Force -and $outInfo -and $outInfo.LastWriteTime -gt $f.LastWriteTime) {
@@ -275,7 +284,7 @@ foreach ($f in $files) {
     }
     if (-not $done) {
       # Последний резерв: копия оригинала, чтобы страница не получила 404.
-      foreach ($w in $Ladder) {
+      foreach ($w in $fileLadder) {
         $out = Join-Path $dir "$base@$w.jpg"
         if (-not (Test-Path $out)) { Copy-Item $f.FullName $out }
       }

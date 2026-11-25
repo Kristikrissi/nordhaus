@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { CallbackForm } from "@/components/callback-form";
 import { ProjectsGallery } from "@/components/projects-gallery";
 import { ProjectsIntro } from "@/components/projects-intro";
+import { webVariant } from "@/components/optimized-img";
 
 function categoryTitleOf(p: Project) {
   return categories.find((c) => p.categories.includes(c.slug))?.title;
@@ -231,7 +232,13 @@ export const Route = createFileRoute("/projects/$slug")({
         { property: "og:description", content: `Габариты ${loaderData.size}, площадь застройки ${loaderData.area} м².${loaderData.floors ? ` Этажей: ${loaderData.floors}.` : ""}` },
         { property: "og:type", content: "article" },
       ],
-      links: [{ rel: "canonical", href: `${site.url}/projects/${loaderData.slug}` }],
+      links: [
+        { rel: "canonical", href: `${site.url}/projects/${loaderData.slug}` },
+        // Первая фотография сетки — LCP-элемент: грузим её до разбора разметки.
+        ...(loaderData.images[0]
+          ? [{ rel: "preload", href: webVariant(loaderData.images[0], 640), as: "image" }]
+          : []),
+      ],
     };
   },
   component: ProjectDetail,

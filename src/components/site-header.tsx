@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { Link } from "@tanstack/react-router";
 import { Paintbrush } from "lucide-react";
 import { site, categories, finishing } from "@/lib/site-data";
-import { CallbackForm } from "@/components/callback-form";
 import { MaxLink } from "@/components/max-link";
+
+const CallbackForm = lazy(() =>
+  import("@/components/callback-form").then((m) => ({ default: m.CallbackForm })),
+);
 
 const companyMenu = [
   { label: "О компании", to: "/company" as const, hash: undefined },
@@ -199,7 +202,11 @@ export function SiteHeader() {
                 </svg>
               </button>
             </div>
-            <CallbackForm compact />
+            <Suspense
+              fallback={<p className="py-6 text-sm text-muted-foreground">Загружаем форму…</p>}
+            >
+              <CallbackForm compact />
+            </Suspense>
           </div>
         </div>
       )}
