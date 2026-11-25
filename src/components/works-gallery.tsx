@@ -101,8 +101,7 @@ export function WorksGallery({ images, title }: { images: string[]; title: strin
 
   return (
     <div className="mt-8">
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <p className="text-sm text-muted-foreground">Всего {images.length} фото</p>
+      <div className="mb-4 flex flex-wrap items-center justify-end gap-3">
         <button type="button" onClick={openAll} className="btn-outline">
           <Maximize2 className="size-4" />
           Смотреть все фото
