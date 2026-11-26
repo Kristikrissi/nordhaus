@@ -60,14 +60,21 @@ function ContactsPage() {
                     Построить маршрут в Яндекс.Карты
                   </a>
                 </div>
-                <div className="min-h-[320px]">
-                  <iframe
-                    title={`Карта офиса NORDHAUS — ${o.address}`}
-                    src={o.mapWidget}
-                    className="h-full w-full"
+                {/* Статическая карта: рекламы нет, клик открывает интерактивную. */}
+                <a
+                  href={o.mapPage}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Открыть карту офиса NORDHAUS — ${o.address}`}
+                  className="block h-full min-h-[320px] w-full overflow-hidden"
+                >
+                  <img
+                    src={o.mapStatic}
+                    alt={`Карта офиса NORDHAUS — ${o.address}`}
+                    className="h-full w-full object-cover"
                     loading="lazy"
                   />
-                </div>
+                </a>
               </div>
             </div>
           ))}

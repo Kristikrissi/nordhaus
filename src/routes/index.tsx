@@ -335,12 +335,21 @@ function Contacts() {
           </div>
           <a href={`mailto:${site.email}`} className="mt-1 block text-sm">{site.email}</a>
         </div>
-        <iframe
-          title="Карта"
-          src={office.mapWidget}
-          className="h-[340px] w-full rounded-[16px] border-0"
-          loading="lazy"
-        />
+        {/* Статическая карта: рекламы нет, клик открывает интерактивную. */}
+        <a
+          href={office.mapPage}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`Открыть карту офиса NORDHAUS — ${office.address}`}
+          className="block h-[340px] w-full overflow-hidden rounded-[16px]"
+        >
+          <img
+            src={office.mapStatic}
+            alt={`Карта офиса NORDHAUS — ${office.address}`}
+            className="h-full w-full object-cover"
+            loading="lazy"
+          />
+        </a>
       </div>
     </section>
   );
