@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { offices, site } from "@/lib/site-data";
 import { socialMeta } from "@/lib/seo";
+import { YandexMap } from "@/components/yandex-map";
 import { CallbackForm } from "@/components/callback-form";
 import { MaxLink } from "@/components/max-link";
 
@@ -60,21 +61,12 @@ function ContactsPage() {
                     Построить маршрут в Яндекс.Карты
                   </a>
                 </div>
-                {/* Статическая карта: рекламы нет, клик открывает интерактивную. */}
-                <a
-                  href={o.mapPage}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={`Открыть карту офиса NORDHAUS — ${o.address}`}
-                  className="block h-full min-h-[320px] w-full overflow-hidden"
-                >
-                  <img
-                    src={o.mapStatic}
-                    alt={`Карта офиса NORDHAUS — ${o.address}`}
-                    className="h-full w-full object-cover"
-                    loading="lazy"
-                  />
-                </a>
+                {/* Интерактивная карта на JS API: без рекламного блока виджета. */}
+                <YandexMap
+                  center={o.coords}
+                  label={o.mapLabel}
+                  className="h-full min-h-[320px] w-full overflow-hidden"
+                />
               </div>
             </div>
           ))}

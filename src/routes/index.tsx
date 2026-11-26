@@ -3,6 +3,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 import { offices, site } from "@/lib/site-data";
 import { socialMeta } from "@/lib/seo";
+import { YandexMap } from "@/components/yandex-map";
 import { CallbackForm } from "@/components/callback-form";
 import { MaxLink } from "@/components/max-link";
 import { OptimizedImg, preloadVariant } from "@/components/optimized-img";
@@ -335,21 +336,12 @@ function Contacts() {
           </div>
           <a href={`mailto:${site.email}`} className="mt-1 block text-sm">{site.email}</a>
         </div>
-        {/* Статическая карта: рекламы нет, клик открывает интерактивную. */}
-        <a
-          href={office.mapPage}
-          target="_blank"
-          rel="noreferrer"
-          aria-label={`Открыть карту офиса NORDHAUS — ${office.address}`}
-          className="block h-[340px] w-full overflow-hidden rounded-[16px]"
-        >
-          <img
-            src={office.mapStatic}
-            alt={`Карта офиса NORDHAUS — ${office.address}`}
-            className="h-full w-full object-cover"
-            loading="lazy"
-          />
-        </a>
+        {/* Интерактивная карта на JS API: без рекламного блока виджета. */}
+        <YandexMap
+          center={office.coords}
+          label={office.mapLabel}
+          className="h-[340px] w-full overflow-hidden rounded-[16px]"
+        />
       </div>
     </section>
   );
