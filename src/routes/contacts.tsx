@@ -63,7 +63,7 @@ function ContactsPage() {
                 <div className="min-h-[320px]">
                   <iframe
                     title={`Карта офиса NORDHAUS — ${o.address}`}
-                    src={`https://yandex.ru/map-widget/v1/?text=${encodeURIComponent(o.address)}&z=15`}
+                    src={o.mapWidget}
                     className="h-full w-full"
                     loading="lazy"
                   />

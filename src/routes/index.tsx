@@ -337,7 +337,7 @@ function Contacts() {
         </div>
         <iframe
           title="Карта"
-          src={`https://yandex.ru/map-widget/v1/?text=${encodeURIComponent(office.address)}&z=12`}
+          src={office.mapWidget}
           className="h-[340px] w-full rounded-[16px] border-0"
           loading="lazy"
         />
