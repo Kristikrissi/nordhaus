@@ -153,9 +153,8 @@ export function WorksGallery({ images, title }: { images: string[]; title: strin
 
       <Dialog open={allOpen} onOpenChange={(o) => (o ? setAllOpen(true) : closeAll())}>
         <DialogContent className={selected === null ? "max-w-6xl" : "max-w-4xl"}>
-          <DialogTitle className="pr-8">
-            {selected === null ? `${title} — все фото` : `${title} — фото ${selected + 1}`}
-          </DialogTitle>
+          {/* В лайтбоксе номер кадра не показываем: только название галереи. */}
+          <DialogTitle className="pr-8">{title}</DialogTitle>
 
           {selected === null ? (
             /* Обзор: вся коллекция сразу, прокручивается внутри диалога. */
@@ -211,7 +210,7 @@ export function WorksGallery({ images, title }: { images: string[]; title: strin
           )}
 
           {selected !== null && (
-            <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center">
               <button
                 type="button"
                 onClick={() => setSelected(null)}
@@ -220,9 +219,6 @@ export function WorksGallery({ images, title }: { images: string[]; title: strin
                 <ChevronLeft className="size-4" />
                 Все фото
               </button>
-              <span className="text-sm tabular-nums text-muted-foreground">
-                {selected + 1} / {images.length}
-              </span>
             </div>
           )}
         </DialogContent>
