@@ -1216,6 +1216,8 @@ const fotoreportaz1 = Array.from({ length: 38 }, (_, i) => `/images/fotoreportaz
 const fotoreportaz2 = Array.from({ length: 19 }, (_, i) => `/images/fotoreportaz-2/${String(i + 1).padStart(2, "0")}.jpg`);
 const fotoreportaz3 = Array.from({ length: 80 }, (_, i) => `/images/fotoreportaz-3/${String(i + 1).padStart(2, "0")}.jpg`);
 const fotoreportaz4 = Array.from({ length: 46 }, (_, i) => `/images/fotoreportaz-4/${String(i + 1).padStart(2, "0")}.jpg`);
+const fotoreportaz5 = Array.from({ length: 9 }, (_, i) => `/images/fotoreportaz-5/${String(i + 1).padStart(2, "0")}.jpg`);
+const fotoreportaz6 = Array.from({ length: 9 }, (_, i) => `/images/fotoreportaz-6/${String(i + 1).padStart(2, "0")}.jpg`);
 
 export const news: NewsItem[] = [
   {
@@ -1272,6 +1274,16 @@ export const news: NewsItem[] = [
     readTime: "12 мин.",
     views: "218 просмотров",
     image: gallery[1]!,
+  },
+  {
+    tag: "новости",
+    date: "22 сентября 2026",
+    title: "Строительство одноэтажного дома из профилированного бруса",
+    excerpt: "Фотоотчёт об этапах строительства одноэтажного дома из профилированного бруса: основание, стены, пол и потолок с теплоизоляцией, стропильная система и кровля.",
+    readTime: "5 мин.",
+    views: "267 просмотров",
+    image: fotoreportaz6[0]!,
+    gallery: fotoreportaz6,
   },
   {
     tag: "статьи",
@@ -1347,6 +1359,16 @@ export const news: NewsItem[] = [
     views: "421 просмотр",
     image: fotoreportaz2[0]!,
     gallery: fotoreportaz2,
+  },
+  {
+    tag: "новости",
+    date: "18 мая 2026",
+    title: "Строительство деревянного дома из профилированного бруса",
+    excerpt: "Фоторепортаж с объекта NORDHAUS: дом с мансардным этажом из профилированного бруса — от свайно-винтового фундамента до кровли и установки окон.",
+    readTime: "5 мин.",
+    views: "486 просмотров",
+    image: fotoreportaz5[0]!,
+    gallery: fotoreportaz5,
   },
 ];
 
