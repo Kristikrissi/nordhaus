@@ -14,6 +14,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ContentGuard } from "@/components/content-guard";
 import { site } from "@/lib/site-data";
+import { jsonLdScript, localBusinessJsonLd, websiteJsonLd } from "@/lib/seo";
 
 function NotFoundComponent() {
   return (
@@ -71,6 +72,8 @@ export const Route = createRootRouteWithContext<{}>()({
       { property: "og:title", content: "NORDHAUS" },
       { property: "og:description", content: "Строительство домов и бань из бруса и бревна по индивидуальным проектам в Москве и области." },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: site.name },
+      { property: "og:locale", content: "ru_RU" },
       { name: "twitter:card", content: "summary_large_image" },
       /*
        * noai/noimageai — сигнал краулерам не использовать текст и картинки
@@ -80,6 +83,7 @@ export const Route = createRootRouteWithContext<{}>()({
        */
       { name: "robots", content: "index, follow, noai, noimageai" },
     ],
+    scripts: [jsonLdScript(localBusinessJsonLd), jsonLdScript(websiteJsonLd)],
     links: [
       // Шрифты локальные: предзагружаем оба подмножества, чтобы текст
       // первого экрана не ждал разбора CSS.

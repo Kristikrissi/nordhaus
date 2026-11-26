@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { companyValues, site } from "@/lib/site-data";
+import { socialMeta } from "@/lib/seo";
 import { CallbackForm } from "@/components/callback-form";
 import { OptimizedImg } from "@/components/optimized-img";
 
@@ -67,6 +68,7 @@ export const Route = createFileRoute("/company")({
       { property: "og:title", content: "О компании | NORDHAUS" },
       { property: "og:description", content: "Мы занимаемся деревянным домостроением на рынке России с 2003 года." },
       { property: "og:type", content: "website" },
+      ...socialMeta("/company"),
     ],
     links: [{ rel: "canonical", href: `${site.url}/company` }],
   }),

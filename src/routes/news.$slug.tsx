@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { news, site } from "@/lib/site-data";
 import { getArticleBySlug } from "@/lib/news-server";
+import { socialMeta, articleJsonLd, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo";
 import { ProjectsGallery } from "@/components/projects-gallery";
 import { OptimizedImg, webVariant } from "@/components/optimized-img";
 
@@ -26,12 +27,32 @@ export const Route = createFileRoute("/news/$slug")({
         { property: "og:title", content: t },
         { property: "og:description", content: loaderData.item.excerpt },
         { property: "og:type", content: "article" },
-        { name: "twitter:card", content: "summary" },
+        { name: "twitter:card", content: "summary_large_image" },
+        // Превью для соцсетей — обложка статьи.
+        ...socialMeta(`/news/${loaderData.article.slug}`, webVariant(loaderData.item.image, 1280)),
       ],
       links: [
         { rel: "canonical", href: `${site.url}/news/${loaderData.article.slug}` },
         // Обложка статьи — LCP-элемент.
         { rel: "preload", href: webVariant(loaderData.item.image, 1280), as: "image" },
+      ],
+      scripts: [
+        jsonLdScript(
+          articleJsonLd({
+            slug: loaderData.article.slug,
+            title: loaderData.title,
+            excerpt: loaderData.item.excerpt,
+            date: loaderData.item.date,
+            image: webVariant(loaderData.item.image, 1280),
+          }),
+        ),
+        jsonLdScript(
+          breadcrumbJsonLd([
+            { name: "Главная", path: "/" },
+            { name: "Новости", path: "/news" },
+            { name: loaderData.title, path: `/news/${loaderData.article.slug}` },
+          ]),
+        ),
       ],
     };
   },

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { offices, site } from "@/lib/site-data";
+import { socialMeta } from "@/lib/seo";
 import { CallbackForm } from "@/components/callback-form";
 import { MaxLink } from "@/components/max-link";
 
@@ -95,6 +96,7 @@ export const Route = createFileRoute("/contacts")({
       { property: "og:title", content: "Контакты | NORDHAUS" },
       { property: "og:description", content: `Офис в Чухломе, Костромская область. Телефон ${site.phone}, email ${site.email}.` },
       { property: "og:type", content: "website" },
+      ...socialMeta("/contacts"),
     ],
     links: [{ rel: "canonical", href: `${site.url}/contacts` }],
   }),

@@ -2,6 +2,7 @@ import { Link, createFileRoute, notFound, useRouter } from "@tanstack/react-rout
 import { ArrowLeft } from "lucide-react";
 import { categories, projects, site, formatPriceValue, brusSectionNote, logSectionNote, type Project } from "@/lib/site-data";
 import { canReturnToCatalog } from "@/lib/scroll-return";
+import { socialMeta, projectJsonLd, jsonLdScript, breadcrumbJsonLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { CallbackForm } from "@/components/callback-form";
 import { ProjectsGallery } from "@/components/projects-gallery";
@@ -230,7 +231,13 @@ export const Route = createFileRoute("/projects/$slug")({
         { name: "description", content: lead },
         { property: "og:title", content: `${loaderData.name} — ${cat} | NORDHAUS` },
         { property: "og:description", content: `Габариты ${loaderData.size}, площадь застройки ${loaderData.area} м².${loaderData.floors ? ` Этажей: ${loaderData.floors}.` : ""}` },
-        { property: "og:type", content: "article" },
+        { property: "og:type", content: "website" },
+        { name: "twitter:card", content: "summary_large_image" },
+        // Превью для соцсетей — первая фотография проекта в полном размере.
+        ...socialMeta(
+          `/projects/${loaderData.slug}`,
+          loaderData.images[0] ? webVariant(loaderData.images[0], 1280) : undefined,
+        ),
       ],
       links: [
         { rel: "canonical", href: `${site.url}/projects/${loaderData.slug}` },
@@ -238,6 +245,16 @@ export const Route = createFileRoute("/projects/$slug")({
         ...(loaderData.images[0]
           ? [{ rel: "preload", href: webVariant(loaderData.images[0], 640), as: "image" }]
           : []),
+      ],
+      scripts: [
+        jsonLdScript(projectJsonLd(loaderData)),
+        jsonLdScript(
+          breadcrumbJsonLd([
+            { name: "Главная", path: "/" },
+            { name: "Проекты", path: "/projects" },
+            { name: loaderData.name, path: `/projects/${loaderData.slug}` },
+          ]),
+        ),
       ],
     };
   },

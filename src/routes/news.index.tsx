@@ -1,7 +1,8 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { getArticleSlugs } from "@/lib/news-server";
 import { news, site, type NewsItem } from "@/lib/site-data";
-import { OptimizedImg } from "@/components/optimized-img";
+import { socialMeta } from "@/lib/seo";
+import { OptimizedImg, webVariant } from "@/components/optimized-img";
 
 type Tag = "все" | NewsItem["tag"];
 const TAGS: readonly Tag[] = ["все", "новости", "статьи"];
@@ -82,6 +83,7 @@ export const Route = createFileRoute("/news/")({
       { property: "og:title", content: "Новости | NORDHAUS" },
       { property: "og:description", content: "Новости, статьи и видео о строительстве домов и бань из бруса и бревна." },
       { property: "og:type", content: "website" },
+      ...socialMeta("/news", news[0]?.image ? webVariant(news[0].image, 1280) : undefined),
     ],
     links: [{ rel: "canonical", href: `${site.url}/news` }],
   }),

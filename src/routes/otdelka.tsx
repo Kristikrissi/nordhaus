@@ -1,6 +1,8 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { ArrowLeft, Camera, Paintbrush } from "lucide-react";
 import { finishing, site } from "@/lib/site-data";
+import { socialMeta } from "@/lib/seo";
+import { webVariant } from "@/components/optimized-img";
 import { Button } from "@/components/ui/button";
 import { CallbackForm } from "@/components/callback-form";
 import { WorksGallery } from "@/components/works-gallery";
@@ -128,6 +130,10 @@ export const Route = createFileRoute("/otdelka")({
       { property: "og:title", content: "Внутренняя и внешняя отделка домов | NORDHAUS" },
       { property: "og:description", content: "Отделка деревянного дома — внутри и снаружи. Цены и расчёт по объекту." },
       { property: "og:type", content: "website" },
+      ...socialMeta(
+        "/otdelka",
+        finishing.works[0] ? webVariant(finishing.works[0], 1280) : undefined,
+      ),
     ],
     links: [{ rel: "canonical", href: `${site.url}/otdelka` }],
   }),

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 import { offices, site } from "@/lib/site-data";
+import { socialMeta } from "@/lib/seo";
 import { CallbackForm } from "@/components/callback-form";
 import { MaxLink } from "@/components/max-link";
 import { OptimizedImg, preloadVariant } from "@/components/optimized-img";
@@ -370,6 +371,7 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: "Дома и бани из бруса и бревна. Индивидуальное проектирование, полный цикл строительства." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      ...socialMeta("/", "/images/home/hero@1280.jpg"),
     ],
     links: [
       { rel: "canonical", href: `${site.url}/` },

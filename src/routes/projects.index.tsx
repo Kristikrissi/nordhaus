@@ -3,8 +3,9 @@ import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ArrowUpRight, Paintbrush } from "lucide-react";
 import { categories, completedHomes, projects, site, finishing, formatPriceValue, type Project } from "@/lib/site-data";
 import { markCatalogEntry } from "@/lib/scroll-return";
+import { socialMeta } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
-import { OptimizedImg } from "@/components/optimized-img";
+import { OptimizedImg, webVariant } from "@/components/optimized-img";
 import { CallbackForm } from "@/components/callback-form";
 import { ProjectsIntro } from "@/components/projects-intro";
 import { WorksGallery } from "@/components/works-gallery";
@@ -166,6 +167,10 @@ export const Route = createFileRoute("/projects/")({
       { property: "og:title", content: "Проекты | NORDHAUS" },
       { property: "og:description", content: "Каталог проектов домов и бань из бруса и бревна в Москве и области." },
       { property: "og:type", content: "website" },
+      ...socialMeta(
+        "/projects",
+        completedHomes.images[0] ? webVariant(completedHomes.images[0], 1280) : undefined,
+      ),
     ],
     links: [{ rel: "canonical", href: `${site.url}/projects` }],
   }),
