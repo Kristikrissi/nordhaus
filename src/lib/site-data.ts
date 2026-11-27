@@ -462,7 +462,7 @@ export function logSections(opts: {
 export const logSectionNote =
   "Диаметр оцилиндрованного бревна подбирается индивидуально, по выбору заказчика. Для бань обычно используются диаметры 180–220 мм, для жилых домов — 200–240 мм и более, в зависимости от проекта и требований к теплоизоляции. Сечения пиломатериалов, высота потолков и конструктивные решения перекрытий и кровли определяются проектной документацией и согласованной комплектацией.";
 
-export const projects: Project[] = [
+const projectCatalog: Project[] = [
   {
     slug: "elnik",
     name: "Ельник",
@@ -1064,8 +1064,74 @@ export const projects: Project[] = [
     ],
     specs: brusSpecs,
   },
-  ];
+];
 
+/**
+ * Порядок проектов на витрине. Первыми идут ключевые проекты, а новые —
+ * вперемешку с ранее опубликованными, чтобы свежие позиции не собирались
+ * одним блоком в конце каталога.
+ */
+const featuredProjectSlugs = ["morena", "cheremukha", "ryabinushka", "metelitsa"];
+
+/** Новые проекты: блок каталога, который начинается с «Черёмухи». */
+const newProjectSlugs = [
+  "cheremukha",
+  "ivolga",
+  "ryabinushka",
+  "kashtan",
+  "svir",
+  "severyanin",
+  "morena",
+  "kupina",
+  "siyanie",
+  "zatishye",
+  "metelitsa",
+];
+
+function orderProjects(catalog: Project[]): Project[] {
+  const featured = new Set(featuredProjectSlugs);
+  const fresh = new Set(newProjectSlugs);
+
+  const ordered = featuredProjectSlugs
+    .map((slug) => catalog.find((project) => project.slug === slug))
+    .filter((project): project is Project => project !== undefined);
+
+  // Витрина выводит проекты блоками по категориям, поэтому новые проекты
+  // перемешиваем с остальными внутри каждой категории.
+  const groups = new Map<string, Project[]>();
+  for (const project of catalog) {
+    if (featured.has(project.slug)) continue;
+    const category = project.categories[0] ?? "";
+    const group = groups.get(category);
+    if (group) group.push(project);
+    else groups.set(category, [project]);
+  }
+
+  for (const group of groups.values()) {
+    const published = group.filter((project) => !fresh.has(project.slug));
+    const added = group.filter((project) => fresh.has(project.slug));
+    let addedIndex = 0;
+    for (let i = 0; i < published.length; i++) {
+      ordered.push(published[i]!);
+      if (addedIndex < added.length) {
+        // Равномерная позиция следующего нового проекта среди опубликованных.
+        const target = Math.round(((addedIndex + 1) * published.length) / (added.length + 1));
+        if (i + 1 >= target) {
+          ordered.push(added[addedIndex]!);
+          addedIndex += 1;
+        }
+      }
+    }
+    while (addedIndex < added.length) {
+      ordered.push(added[addedIndex]!);
+      addedIndex += 1;
+    }
+  }
+
+  return ordered;
+}
+
+export const projects: Project[] = orderProjects(projectCatalog);
 
 // Автоматически генерируем sections для всех брус-проектов, у которых они ещё не заданы.
 // Вступление генерируется из габаритов; highlights добавляются после него отдельными абзацами.
