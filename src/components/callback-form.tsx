@@ -1,4 +1,4 @@
-import { useState, useEffect, type FormEvent } from "react";
+import { useState, useEffect, useId, type FormEvent } from "react";
 import { sendCallback } from "@/lib/callback-server";
 
 /**
@@ -15,6 +15,7 @@ export function CallbackForm({ compact = false }: { compact?: boolean }) {
   const [email, setEmail] = useState("");
   const [consent, setConsent] = useState(false);
   const [hp, setHp] = useState("");
+  const consentId = useId();
 
   useEffect(() => {
     // Бот заполнил honeypot — тихо игнорируем.
@@ -108,10 +109,20 @@ export function CallbackForm({ compact = false }: { compact?: boolean }) {
           </label>
         )}
       </div>
-      <label className="flex cursor-pointer items-start gap-2.5 text-xs text-muted-foreground">
-        <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-0.5 h-4 w-4 accent-[var(--primary)]" />
-        <span>Я согласен на обработку персональных данных</span>
-      </label>
+      <div className="flex items-start gap-2.5 text-xs text-muted-foreground">
+        <input id={consentId} type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-0.5 h-4 w-4 accent-[var(--primary)]" />
+        <div>
+          <label htmlFor={consentId} className="cursor-pointer">Я согласен на обработку персональных данных в соответствии с </label>
+          <a
+            href="/privacy"
+            target="_blank"
+            rel="noreferrer"
+            className="text-primary underline underline-offset-2 hover:text-primary/80"
+          >
+            политикой конфиденциальности
+          </a>
+        </div>
+      </div>
       {error && <p className="text-sm text-destructive">{error}</p>}
       <button
         type="submit"

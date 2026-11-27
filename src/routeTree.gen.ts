@@ -12,7 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CompanyRouteImport } from './routes/company'
 import { Route as ContactsRouteImport } from './routes/contacts'
+import { Route as FeedDotymlRouteImport } from './routes/feed[.]yml'
 import { Route as OtdelkaRouteImport } from './routes/otdelka'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as NewsIndexRouteImport } from './routes/news.index'
 import { Route as NewsSlugRouteImport } from './routes/news.$slug'
@@ -34,9 +36,19 @@ const ContactsRoute = ContactsRouteImport.update({
   path: '/contacts',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FeedDotymlRoute = FeedDotymlRouteImport.update({
+  id: '/feed.yml',
+  path: '/feed.yml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OtdelkaRoute = OtdelkaRouteImport.update({
   id: '/otdelka',
   path: '/otdelka',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -69,7 +81,9 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/company': typeof CompanyRoute
   '/contacts': typeof ContactsRoute
+  '/feed.yml': typeof FeedDotymlRoute
   '/otdelka': typeof OtdelkaRoute
+  '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/news/$slug': typeof NewsSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -80,7 +94,9 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/company': typeof CompanyRoute
   '/contacts': typeof ContactsRoute
+  '/feed.yml': typeof FeedDotymlRoute
   '/otdelka': typeof OtdelkaRoute
+  '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/news/$slug': typeof NewsSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -92,7 +108,9 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/company': typeof CompanyRoute
   '/contacts': typeof ContactsRoute
+  '/feed.yml': typeof FeedDotymlRoute
   '/otdelka': typeof OtdelkaRoute
+  '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/news/$slug': typeof NewsSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -105,7 +123,9 @@ export interface FileRouteTypes {
     | '/'
     | '/company'
     | '/contacts'
+    | '/feed.yml'
     | '/otdelka'
+    | '/privacy'
     | '/sitemap.xml'
     | '/news/$slug'
     | '/projects/$slug'
@@ -116,7 +136,9 @@ export interface FileRouteTypes {
     | '/'
     | '/company'
     | '/contacts'
+    | '/feed.yml'
     | '/otdelka'
+    | '/privacy'
     | '/sitemap.xml'
     | '/news/$slug'
     | '/projects/$slug'
@@ -127,7 +149,9 @@ export interface FileRouteTypes {
     | '/'
     | '/company'
     | '/contacts'
+    | '/feed.yml'
     | '/otdelka'
+    | '/privacy'
     | '/sitemap.xml'
     | '/news/$slug'
     | '/projects/$slug'
@@ -139,7 +163,9 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CompanyRoute: typeof CompanyRoute
   ContactsRoute: typeof ContactsRoute
+  FeedDotymlRoute: typeof FeedDotymlRoute
   OtdelkaRoute: typeof OtdelkaRoute
+  PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   NewsSlugRoute: typeof NewsSlugRoute
   ProjectsSlugRoute: typeof ProjectsSlugRoute
@@ -170,11 +196,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/feed.yml': {
+      id: '/feed.yml'
+      path: '/feed.yml'
+      fullPath: '/feed.yml'
+      preLoaderRoute: typeof FeedDotymlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/otdelka': {
       id: '/otdelka'
       path: '/otdelka'
       fullPath: '/otdelka'
       preLoaderRoute: typeof OtdelkaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -219,7 +259,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CompanyRoute: CompanyRoute,
   ContactsRoute: ContactsRoute,
+  FeedDotymlRoute: FeedDotymlRoute,
   OtdelkaRoute: OtdelkaRoute,
+  PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   NewsSlugRoute: NewsSlugRoute,
   ProjectsSlugRoute: ProjectsSlugRoute,

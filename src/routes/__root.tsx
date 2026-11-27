@@ -12,6 +12,7 @@ import { type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { CookieNotice } from "@/components/cookie-notice";
 import { ContentGuard } from "@/components/content-guard";
 import { site } from "@/lib/site-data";
 import { jsonLdScript, localBusinessJsonLd, websiteJsonLd } from "@/lib/seo";
@@ -121,6 +122,7 @@ function RootComponent() {
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       <SiteFooter />
+      <CookieNotice />
     </>
   );
 }
