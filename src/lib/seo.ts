@@ -34,6 +34,7 @@ export const localBusinessJsonLd = {
   url: site.url,
   telephone: site.phone,
   email: site.email,
+  taxID: site.inn,
   logo: `${site.url}/images/__images/logo_nordhaus.svg`,
   image: `${site.url}/images/home/hero@1280.jpg`,
   address: {

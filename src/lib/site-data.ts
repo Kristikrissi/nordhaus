@@ -17,6 +17,17 @@ export const site = {
   phone: "+7 (950) 246-54-77",
   phoneHref: "tel:+79502465477",
   email: "nordhaus444@gmail.com",
+  /** ИНН оператора (12 цифр — индивидуальный предприниматель). */
+  inn: "442900659621",
+  /**
+   * Коды подтверждения прав на сайт в панелях вебмастеров.
+   * Пустая строка — meta-тег не выводится. Значение — это только content:
+   * Яндекс.Вебмастер («Мета-тег») и Google Search Console («HTML-тег»).
+   */
+  verification: {
+    yandex: "",
+    google: "",
+  },
   logoDark: "/images/__images/logo_nordhaus.svg",
   /** Ссылка на чат компании в мессенджере MAX. */
   maxChat: "https://max.ru/u/f9LHodD0cOLm-OAXYVEw45zIgiIZk4ldFctUsSQeczYuCG6GR4s8-m9c2i8",

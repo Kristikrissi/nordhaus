@@ -56,6 +56,10 @@ function ContactsPage() {
                         </a>
                       </dd>
                     </div>
+                    <div>
+                      <dt className="text-xs uppercase tracking-wide text-muted-foreground">ИНН</dt>
+                      <dd className="mt-1">{site.inn}</dd>
+                    </div>
                   </dl>
                   <a href={o.mapUrl} target="_blank" rel="noreferrer" className="btn-outline mt-8">
                     Построить маршрут в Яндекс.Карты

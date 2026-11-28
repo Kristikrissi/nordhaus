@@ -1,10 +1,13 @@
 import { useState, useEffect, useId, type FormEvent } from "react";
+import { useNavigate } from "@tanstack/react-router";
 import { sendCallback } from "@/lib/callback-server";
 
 /**
  * Форма «Заказать звонок» — отправляет заявку на почту через server function.
  * Состояния: idle / loading / sent / error.
  * Honeypot-поле для защиты от ботов.
+ * Успешная отправка ведёт на /thanks — визит туда настраивается
+ * как цель конверсии в Яндекс.Метрике и Google Analytics.
  */
 export function CallbackForm({ compact = false }: { compact?: boolean }) {
   const [sent, setSent] = useState(false);
@@ -16,6 +19,7 @@ export function CallbackForm({ compact = false }: { compact?: boolean }) {
   const [consent, setConsent] = useState(false);
   const [hp, setHp] = useState("");
   const consentId = useId();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Бот заполнил honeypot — тихо игнорируем.
@@ -48,6 +52,8 @@ export function CallbackForm({ compact = false }: { compact?: boolean }) {
       });
       if (res.ok) {
         setSent(true);
+        // Отдельная страница-цель: её посещение считается конверсией.
+        navigate({ to: "/thanks" });
       } else {
         setError(res.error ?? "Не удалось отправить. Попробуйте позже.");
       }

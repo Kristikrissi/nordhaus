@@ -62,6 +62,10 @@ function PrivacyPage() {
                       {office.address}
                     </li>
                   ))}
+                  <li>
+                    <span className="text-muted-foreground">ИНН: </span>
+                    {site.inn}
+                  </li>
                 </ul>
               )}
             </section>

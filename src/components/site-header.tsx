@@ -1,5 +1,5 @@
 import { useEffect, useState, lazy, Suspense } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { Paintbrush } from "lucide-react";
 import { site, categories, finishing } from "@/lib/site-data";
 import { MaxLink } from "@/components/max-link";
@@ -35,12 +35,18 @@ function FinishingMenuItem({ onClick = () => {} }: { onClick?: () => void }) {
 export function SiteHeader() {
   const [modalOpen, setModalOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = useLocation({ select: (l) => l.pathname });
 
   useEffect(() => {
     const open = () => setModalOpen(true);
     window.addEventListener("open-callback-modal", open);
     return () => window.removeEventListener("open-callback-modal", open);
   }, []);
+
+  // Форма уводит на /thanks — модалка не должна висеть над новой страницей.
+  useEffect(() => {
+    setModalOpen(false);
+  }, [pathname]);
 
   return (
     <>

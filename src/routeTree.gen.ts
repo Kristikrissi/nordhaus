@@ -16,6 +16,7 @@ import { Route as FeedDotymlRouteImport } from './routes/feed[.]yml'
 import { Route as OtdelkaRouteImport } from './routes/otdelka'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ThanksRouteImport } from './routes/thanks'
 import { Route as NewsIndexRouteImport } from './routes/news.index'
 import { Route as NewsSlugRouteImport } from './routes/news.$slug'
 import { Route as ProjectsIndexRouteImport } from './routes/projects.index'
@@ -56,6 +57,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ThanksRoute = ThanksRouteImport.update({
+  id: '/thanks',
+  path: '/thanks',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NewsIndexRoute = NewsIndexRouteImport.update({
   id: '/news/',
   path: '/news/',
@@ -85,6 +91,7 @@ export interface FileRoutesByFullPath {
   '/otdelka': typeof OtdelkaRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/thanks': typeof ThanksRoute
   '/news/$slug': typeof NewsSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/news/': typeof NewsIndexRoute
@@ -98,6 +105,7 @@ export interface FileRoutesByTo {
   '/otdelka': typeof OtdelkaRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/thanks': typeof ThanksRoute
   '/news/$slug': typeof NewsSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/news': typeof NewsIndexRoute
@@ -112,6 +120,7 @@ export interface FileRoutesById {
   '/otdelka': typeof OtdelkaRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/thanks': typeof ThanksRoute
   '/news/$slug': typeof NewsSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/news/': typeof NewsIndexRoute
@@ -127,6 +136,7 @@ export interface FileRouteTypes {
     | '/otdelka'
     | '/privacy'
     | '/sitemap.xml'
+    | '/thanks'
     | '/news/$slug'
     | '/projects/$slug'
     | '/news/'
@@ -140,6 +150,7 @@ export interface FileRouteTypes {
     | '/otdelka'
     | '/privacy'
     | '/sitemap.xml'
+    | '/thanks'
     | '/news/$slug'
     | '/projects/$slug'
     | '/news'
@@ -153,6 +164,7 @@ export interface FileRouteTypes {
     | '/otdelka'
     | '/privacy'
     | '/sitemap.xml'
+    | '/thanks'
     | '/news/$slug'
     | '/projects/$slug'
     | '/news/'
@@ -167,6 +179,7 @@ export interface RootRouteChildren {
   OtdelkaRoute: typeof OtdelkaRoute
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  ThanksRoute: typeof ThanksRoute
   NewsSlugRoute: typeof NewsSlugRoute
   ProjectsSlugRoute: typeof ProjectsSlugRoute
   NewsIndexRoute: typeof NewsIndexRoute
@@ -224,6 +237,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/thanks': {
+      id: '/thanks'
+      path: '/thanks'
+      fullPath: '/thanks'
+      preLoaderRoute: typeof ThanksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/news/': {
       id: '/news/'
       path: '/news'
@@ -263,6 +283,7 @@ const rootRouteChildren: RootRouteChildren = {
   OtdelkaRoute: OtdelkaRoute,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  ThanksRoute: ThanksRoute,
   NewsSlugRoute: NewsSlugRoute,
   ProjectsSlugRoute: ProjectsSlugRoute,
   NewsIndexRoute: NewsIndexRoute,

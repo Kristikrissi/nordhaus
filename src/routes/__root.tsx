@@ -83,6 +83,10 @@ export const Route = createRootRouteWithContext<{}>()({
        * может трактовать строку как «нет разрешённых директив».
        */
       { name: "robots", content: "index, follow, noai, noimageai" },
+      // Подтверждение прав в вебмастерах: тег появляется, когда в
+      // site.verification указан код из панели Яндекс.Вебмастера / Search Console.
+      ...(site.verification.yandex ? [{ name: "yandex-verification", content: site.verification.yandex }] : []),
+      ...(site.verification.google ? [{ name: "google-site-verification", content: site.verification.google }] : []),
     ],
     scripts: [jsonLdScript(localBusinessJsonLd), jsonLdScript(websiteJsonLd)],
     links: [
@@ -92,6 +96,8 @@ export const Route = createRootRouteWithContext<{}>()({
       { rel: "preload", href: "/fonts/montserrat-latin.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: appCss },
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+      { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32.png" },
+      { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
     ],
   }),
   shellComponent: RootShell,
